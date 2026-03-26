@@ -82,11 +82,11 @@ export default function Home() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 flex flex-col gap-3 text-[13px] text-[#A09880]">
-            <Link to="/" className="cursor-pointer text-[#C8953A] transition-colors">Home</Link>
-            <Link to="/projects" className="cursor-pointer hover:text-[#C8953A] transition-colors">Projects</Link>
-            <Link to="/experience" className="cursor-pointer hover:text-[#C8953A] transition-colors">Experience</Link>
-            <Link to="/outside-the-brief" className="cursor-pointer hover:text-[#C8953A] transition-colors">Outside the Brief</Link>
-            <Link to="/contact" className="cursor-pointer hover:text-[#C8953A] transition-colors">Let's Talk</Link>
+            <Link to="/" onClick={() => setIsMenuOpen(false)} className="cursor-pointer text-[#C8953A] transition-colors">Home</Link>
+            <Link to="/projects" onClick={() => setIsMenuOpen(false)} className="cursor-pointer hover:text-[#C8953A] transition-colors">Projects</Link>
+            <Link to="/experience" onClick={() => setIsMenuOpen(false)} className="cursor-pointer hover:text-[#C8953A] transition-colors">Experience</Link>
+            <Link to="/outside-the-brief" onClick={() => setIsMenuOpen(false)} className="cursor-pointer hover:text-[#C8953A] transition-colors">Outside the Brief</Link>
+            <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="cursor-pointer hover:text-[#C8953A] transition-colors">Let's Talk</Link>
           </div>
         )}
       </nav>
@@ -140,9 +140,9 @@ export default function Home() {
           <Link to="/projects" className="bg-[#C8953A] text-[#0F0E0B] text-[14px] px-7 py-3 rounded-full hover:bg-[#C8953A]/90 transition-colors inline-block">
             See My Work →
           </Link>
-          <button className="border border-[#C8953A]/40 text-[#C8953A] text-[14px] px-7 py-3 rounded-full hover:border-[#C8953A]/60 transition-colors">
+          <Link to="/contact" className="border border-[#C8953A]/40 text-[#C8953A] text-[14px] px-7 py-3 rounded-full hover:border-[#C8953A]/60 transition-colors inline-block">
             Let's Talk
-          </button>
+          </Link>
         </div>
 
         <div className="w-full h-14 bg-gradient-to-b from-transparent to-[#0F0E0B]"></div>
