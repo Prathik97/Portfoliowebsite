@@ -51,18 +51,8 @@ export default function Projects() {
       action: 'Rebuilt the app around a North Star engagement metric — gamified cart mechanics tied to same-day subscriptions. Introduced dual CTA flows, 15-day onboarding drip campaigns, and push notification triggers mapped to user behaviour segments.',
       tags: ['Mobile App', 'Product Strategy', 'Engagement', 'Subscription Model', 'UX Redesign'],
       outcome: '+85% Session Engagement',
-      outcomeDetail: 'Daily active users increased · Habit-driven architecture'
-    },
-    {
-      status: 'Delivered',
-      statusType: 'Process Improvement',
-      domain: 'D2C',
-      title: 'Subscription Onboarding Redesign — −63% Conversion Time',
-      problem: 'Average subscription conversion time was 15 days — too long for a time-sensitive product category.',
-      action: 'Redesigned the entire subscription onboarding flow. Simplified information capture, reduced friction at critical decision points, introduced progressive disclosure for plan details, and streamlined the address → delivery slot → plan selection sequence.',
-      tags: ['Subscriptions', 'Onboarding', 'CRO', 'UX', 'Funnel Optimisation'],
-      outcome: '−63% Time to Convert',
-      outcomeDetail: '15 days → 5.5 days · Nearly 3× faster'
+      outcomeDetail: 'Daily active users increased · Habit-driven architecture',
+      caseStudyLink: '/case-study/customer-app'
     },
     {
       status: 'Delivered',
@@ -73,7 +63,8 @@ export default function Projects() {
       action: 'Led Salesforce CRM implementation across 4 teams. Unified customer data, automated case routing, built custom dashboards, and integrated telephony. Result: agents spend less time toggling tools, more time solving problems.',
       tags: ['Salesforce', 'CRM', 'Process Automation', 'Team Productivity', 'Integration'],
       outcome: '2× Agent Productivity',
-      outcomeDetail: 'Unified CRM across 4 operational teams'
+      outcomeDetail: 'Unified CRM across 4 operational teams',
+      caseStudyLink: '/case-study/salesforce-crm'
     },
     {
       status: 'Delivered',
@@ -84,7 +75,8 @@ export default function Projects() {
       action: 'Led geofencing initiative for 9 dark stores across the city, optimizing the cost structure of delivery logistics.',
       tags: ['Geofencing', 'Cost Optimisation', 'Supply Chain', 'Operations'],
       outcome: '₹90L Savings',
-      outcomeDetail: 'Annual cost reduction through optimized delivery routes'
+      outcomeDetail: 'Annual cost reduction through optimized delivery routes',
+      caseStudyLink: '/case-study/supply-chain'
     },
     {
       status: 'Delivered',
@@ -106,7 +98,8 @@ export default function Projects() {
       action: 'Built a Farmer Management System to digitise milk procurement. Tracks milk quality (fat, SNF), automates payment cycles, generates farmer statements. Deployed across 500+ farmers across 4 cities.',
       tags: ['AgriTech', 'Digitisation', 'Farmer Mgmt', 'Supply Chain', 'Quality Control'],
       outcome: '500+ Farmers Onboarded',
-      outcomeDetail: 'Quality tracking · Automated payment cycles'
+      outcomeDetail: 'Quality tracking · Automated payment cycles',
+      caseStudyLink: '/case-study/farmer-management'
     },
     {
       status: 'Delivered',
