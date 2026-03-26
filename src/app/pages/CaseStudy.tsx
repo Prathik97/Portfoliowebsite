@@ -135,15 +135,125 @@ export default function CaseStudy() {
       ],
       delivered: ['10+ Roles Unified', 'Offline-First Mobile App', 'Cattle Health & Antibiotic Tracking', 'Configurable RBAC', 'Nano Dairy Integration']
     },
+    'payment-module': {
+      title: 'Payment Module',
+      subtitle: 'V11 Connect Platform — Financial Transaction Engine',
+      description: 'Design and development of V11 Connect\'s end-to-end Payment system spanning single payments, bulk batch processing, autopay credit card runs, prepayment logic with force rent assessment, configurable surcharge/discount modifiers, and a full payment method configuration layer.',
+      role: 'Product Manager',
+      scope: '7 Versions Shipped',
+      platform: 'V11 Connect (PropTech SaaS) · CodeParva',
+      problem: {
+        text: 'Property management platform needed a comprehensive payment system supporting multiple payment methods, batch processing, complex billing scenarios, and configurable business rules.',
+        issues: ['No Batch Processing', 'Limited Payment Methods', 'No Autopay', 'Manual Surcharge Calculation', 'No Prepayment Logic']
+      },
+      capabilities: [
+        { title: '5 Payment Method Types', desc: 'Cash, Credit Card, ACH, Check, Money Order with independent configuration' },
+        { title: 'Batch Payment Processing', desc: 'Bulk cash/check/money order batch + separate autopay credit card batch run' },
+        { title: 'Autopay Credit Card Runs', desc: 'Automated recurring payment processing for enrolled tenants' },
+        { title: 'Prepayment with Force Rent Assessment', desc: 'Bill-ahead logic with automatic rent generation when threshold exceeded' },
+        { title: 'Configurable Surcharge/Discount Modifiers', desc: '3 calculation modes: Flat, Percent, or Higher of Both' },
+        { title: 'Payment Method Configuration Layer', desc: 'Active/inactive status, modifier logic, export descriptions, payment number behaviour' },
+        { title: 'Tenant Alert Integration', desc: '"Do Not Rent" and "Do Not Accept Checks" enforcement with ignored alert logging' }
+      ],
+      outcomes: [
+        { metric: 'Payment Methods Supported', value: '5 Types' },
+        { metric: 'Batch Payment Modes', value: '2 Modes' },
+        { metric: 'Modifier Calculation Modes', value: '3 Modes' },
+        { metric: 'Versions Shipped', value: '7 Versions' },
+        { metric: 'Payment Workflows', value: 'Single + Batch' }
+      ]
+    },
+    'move-out-module': {
+      title: 'Move Out Module',
+      subtitle: 'V11 Connect Platform — Tenant Exit Workflow',
+      description: 'Comprehensive move-out workflow handling notice period tracking, refund calculations, unit inspections, deposit settlements, and move-out statement generation integrated with billing, tenant alerts, and payment systems.',
+      role: 'Product Manager',
+      scope: 'End-to-end Automation',
+      platform: 'V11 Connect (PropTech SaaS) · CodeParva',
+      problem: {
+        text: 'Manual move-out process creating operational bottlenecks and inconsistent tenant experiences across multiple facilities.',
+        issues: ['Manual Notice Tracking', 'Inconsistent Refund Calculations', 'No Unit Inspection Workflow', 'Deposit Settlement Delays', 'Missing Move-out Statements']
+      },
+      capabilities: [
+        { title: 'Notice Period Tracking', desc: 'Automated tracking of notice period start, duration, and move-out date with configurable periods' },
+        { title: 'Refund Calculation Engine', desc: 'Automated calculation of deposit refunds, prorated rent, and outstanding balances' },
+        { title: 'Unit Inspection Workflow', desc: 'Checklist-driven inspection process with damage tracking and charge assessment' },
+        { title: 'Deposit Settlement', desc: 'Automated deposit application against outstanding charges and refund processing' },
+        { title: 'Move-out Statement Generation', desc: 'Comprehensive statement showing final charges, deposits applied, and refund/balance due' },
+        { title: 'Billing System Integration', desc: 'Prorated billing, final bill generation, and automatic ledger closure' },
+        { title: 'Tenant Alert Integration', desc: 'Alert status updates and notifications throughout move-out process' }
+      ],
+      outcomes: [
+        { metric: 'Process Automation', value: '100%' },
+        { metric: 'Notice Period Tracking', value: 'Automated' },
+        { metric: 'Deposit Settlement', value: 'Automated' },
+        { metric: 'Unit Inspection', value: 'Workflow-driven' }
+      ]
+    },
+    'move-in-module': {
+      title: 'Move In Module',
+      subtitle: 'V11 Connect Platform — Tenant Onboarding System',
+      description: 'Designed move-in module handling reservation conversion, unit assignment, deposit collection, lease generation, prorated billing, and tenant portal activation with configurable workflows adapted to different facility types and rental models.',
+      role: 'Product Manager',
+      scope: 'Streamlined Onboarding',
+      platform: 'V11 Connect (PropTech SaaS) · CodeParva',
+      problem: {
+        text: 'Complex move-in workflows with multiple stakeholders requiring streamlined onboarding and billing setup across different facility types.',
+        issues: ['Manual Reservation Conversion', 'Complex Unit Assignment', 'Inconsistent Deposit Collection', 'Manual Lease Generation', 'Billing Setup Delays']
+      },
+      capabilities: [
+        { title: 'Reservation Conversion', desc: 'Seamless conversion of reservations to move-ins with automatic status updates' },
+        { title: 'Unit Assignment Logic', desc: 'Intelligent unit assignment based on availability, tenant preferences, and facility rules' },
+        { title: 'Deposit Collection', desc: 'Flexible deposit types (security, rental, reservation) with payment method integration' },
+        { title: 'Lease Generation', desc: 'Automated lease document generation with configurable templates and e-signature integration' },
+        { title: 'Prorated Billing Setup', desc: 'Automatic prorated rent calculation and first bill generation based on move-in date' },
+        { title: 'Tenant Portal Activation', desc: 'Automatic tenant portal account creation and access credential delivery' },
+        { title: 'Configurable Workflows', desc: 'Workflow variations for different facility types (climate-controlled, standard, vehicle storage)' }
+      ],
+      outcomes: [
+        { metric: 'Onboarding Automation', value: '100%' },
+        { metric: 'Reservation to Move-in', value: 'Automated' },
+        { metric: 'Billing Setup', value: 'Auto-configured' },
+        { metric: 'Portal Activation', value: 'Instant' }
+      ]
+    },
+    'reports-analytics': {
+      title: 'Reports & Analytics',
+      subtitle: 'V11 Connect Platform — Business Intelligence System',
+      description: 'Built end-to-end reporting and analytics system with 200+ reports across 20 categories including flagship management reports, financial summaries, delinquency tracking, unit activity, and operational metrics with multi-level access control.',
+      role: 'Product Manager',
+      scope: '200+ Reports · 20 Categories',
+      platform: 'V11 Connect (PropTech SaaS) · CodeParva',
+      problem: {
+        text: 'Property managers needed comprehensive operational reporting covering financial, occupancy, delinquency, and unit status metrics across multiple facilities.',
+        issues: ['No Centralized Reporting', 'Limited Financial Visibility', 'Manual Report Generation', 'No Delinquency Tracking', 'Missing Operational Metrics']
+      },
+      capabilities: [
+        { title: 'Super Summary (Flagship Report)', desc: 'Dense multi-column financial and operational snapshot covering Adjustments, Payments, Receipts, Aging, Economic Occupancy across Today/MTD/YTD/5 months/YoY' },
+        { title: 'Income Reports', desc: 'Income Summary, Net Change of Account Details with payment method breakdown and charge category mapping' },
+        { title: 'Delinquency Reports', desc: 'Late Report showing all unpaid AR due with configurable day ranges, sortable by unit/tenant/days late' },
+        { title: 'Unit Activity Reports', desc: 'Move In/Out Activity, Non-Standard Rates, Rate History with transfer tracking and prorate logic' },
+        { title: 'Rent Adjustment Reports', desc: 'Unit-by-unit rent adjustment status covering Pending/Waived/Vacated with full parameter footer' },
+        { title: 'Retail Sale Reports', desc: 'Retail Sale Usage and Purchase Order reports for inventory reconciliation' },
+        { title: 'Unit Access Reports', desc: 'Tenant Access Codes by Code/Tenant with multi-unit mapping and time zone settings' },
+        { title: 'Unit Status Reports', desc: 'Overlocks/Unlocks Pending, Vacant/Rented/Reserved snapshots for Walk Around workflow' }
+      ],
+      outcomes: [
+        { metric: 'Total Reports', value: '200+' },
+        { metric: 'Report Categories', value: '20' },
+        { metric: 'Access Levels', value: 'Multi-tier' },
+        { metric: 'Financial Visibility', value: 'Complete' }
+      ]
+    },
     'hrms': {
       title: 'Enterprise Workforce & Payroll Platform',
       subtitle: 'From Spreadsheets to a Scalable Operations System',
-      description: 'Organisation-wide digital transformation of workforce operations for 500+ part-time and ground staff across four cities.',
+      description: 'Organization-wide digital transformation of workforce operations for 500+ part-time and ground staff across four cities, eliminating spreadsheet dependency and establishing system of record.',
       role: 'Head of Product',
-      scope: '',
+      scope: '500+ Staff · 4 Cities',
       platform: 'ERPNext · Hyderabad · Bengaluru · Pune · Vijayawada',
       problem: {
-        text: '',
+        text: 'Manual workforce operations across spreadsheets with no system of record, causing payroll leakage, unreliable attendance tracking, and asset recovery gaps.',
         issues: ['No System of Record', 'Payroll Leakage', 'Asset Not Recovered', 'Attendance Unreliable', 'Zero Visibility']
       },
       capabilities: [
@@ -163,31 +273,66 @@ export default function CaseStudy() {
       ],
       outcomes: ['500+ Staff Covered', '4 Cities', '0 Spreadsheets', 'Payroll Accuracy Restored', 'Asset Recovery Enforced']
     },
-    'website-revamp': {
-      title: 'Website Revamp & Platform Migration',
-      subtitle: 'Business Enablement, Not a Redesign',
-      description: 'Migrated from WordPress to Shopify and rebuilt the entire experience — two parallel phases to remove operational risk and establish a scalable digital foundation.',
-      role: 'Head of Product',
-      scope: 'Two Parallel Phases',
-      platform: 'Shopify',
+    'retail-sale': {
+      title: 'Retail Sale Module',
+      subtitle: 'V11 Connect Platform — Embedded Commerce System',
+      description: 'Complete end-to-end retail commerce system embedded within V11 Connect self-storage platform — spanning inventory management, barcode-driven point of sale, multi-path returns, vendor lifecycle management, and configurable rules engine.',
+      role: 'Product Manager',
+      scope: '4 Core Layers · 8 Permissions',
+      platform: 'V11 Connect (PropTech SaaS) · CodeParva',
       problem: {
-        text: 'Every text change, banner update, or job posting needed a developer. Plugins caused outages. Three business teams blocked daily.',
-        issues: ['Engineering Dependency', 'Frequent Instability', 'Slow Campaign Turnaround', 'No Scalable Foundation']
+        text: 'Self-storage facilities needed integrated commerce system to manage merchandise sales (padlocks, boxes, packing tape, bubble wrap) with inventory tracking, vendor management, and flexible returns.',
+        issues: ['No Inventory Management', 'Manual Price Tracking', 'No Barcode Support', 'Complex Returns Process', 'No Vendor Lifecycle']
       },
-      phases: [
-        {
-          title: 'Phase 1 — Platform Migration',
-          desc: 'Stability first. Migrate content, eliminate engineering dependency for day-to-day changes. Zero outages post-migration.'
-        },
-        {
-          title: 'Phase 2 — Experience Redesign',
-          desc: 'New IA, design system, high-fidelity screens — landed directly on the stable platform. 3 teams immediately unblocked.'
-        }
+      capabilities: [
+        { title: 'Inventory Management with Barcode Support', desc: 'Product catalogue with manual entry and barcode scanning, 3 price tiers (Retail, Preferred/discounted, Wholesale), reorder automation with configurable reorder points, inventory audit with quantity correction' },
+        { title: 'Point of Sale (POS)', desc: 'Transaction screen for registered tenants and walk-in customers, barcode cart addition, configurable preferred pricing, zero-quantity edge cases, negative inventory selling, on-the-fly product addition' },
+        { title: 'Multi-Path Returns & Refunds', desc: '4 refund pathways: refund to ledger, cash refund, card refund, or no refund. 3 return search methods: by tenant, by purchase order number, or by date range. Return transaction tracking with full audit trail' },
+        { title: 'Vendor Management', desc: 'Supplier records with contact details, active/inactive lifecycle, vendor assignment per product, vendor performance tracking' },
+        { title: 'Three-Tier Pricing System', desc: 'Retail Price (standard), Preferred Price (configurable discount), Wholesale Price (purchase cost for profit calculation). Preferred price can be set as default at POS' },
+        { title: 'Configurable Rules Engine', desc: '8 granular permissions controlling who can sell, return, audit inventory, manage vendors, override pricing, access reports' },
+        { title: 'Purchase Order Generation', desc: 'Configurable purchase order generated post-sale with line items, quantities, pricing, tax calculation, and printing support' }
       ],
       outcomes: [
-        { metric: 'Production crash rate', value: '0%' },
-        { metric: 'Engineering dependency for content', value: '~0' },
-        { metric: 'Teams unblocked (Marketing, HR, Content)', value: '3×' }
+        { metric: 'System Layers', value: '4 Core' },
+        { metric: 'Price Tiers', value: '3 Tiers' },
+        { metric: 'Refund Pathways', value: '4 Pathways' },
+        { metric: 'Granular Permissions', value: '8 Permissions' },
+        { metric: 'Return Search Methods', value: '3 Methods' }
+      ]
+    },
+    'sd-migration': {
+      title: 'S&D Platform Migration',
+      subtitle: 'Incitesol → Bizom · ₹12.6L Annual Savings',
+      description: 'Led end-to-end evaluation, documentation, and migration of Sid\'s Farm\'s field sales and distribution operations from Incitesol to Bizom — achieving ₹1,05,000/month cost savings while unlocking route optimization, target tracking, and delivery management capabilities.',
+      role: 'Product Manager',
+      scope: '1,000+ Stores · 50+ Field Users',
+      platform: 'Bizom (Mobisy Technologies) · Sid\'s Farm · FMCG',
+      problem: {
+        text: 'Sid\'s Farm\'s sales force automation platform (Incitesol) running at expensive store-limit pricing model with missing capabilities like route optimization, target-vs-achievement dashboards, digital signatures for POD, and asset management.',
+        issues: ['High Platform Costs', 'No Route Optimization', 'Missing Target Tracking', 'No Digital POD', 'No Asset Management']
+      },
+      process: [
+        { title: 'Operational Audit & Documentation', desc: 'Documented full T+1 order-to-delivery cycle covering store onboarding, order placement, invoicing & fulfillment, delivery & returns, payment & reconciliation as formal SOW with 5 modules and 15+ operational steps' },
+        { title: 'Platform Evaluation', desc: 'Evaluated Bizom against documented requirements — route optimization, target management, immutable ledger tracking, digital POD, e-invoicing for GST, warehouse stock management' },
+        { title: 'Migration Planning', desc: 'Designed migration approach maintaining operational continuity — data migration for 1,000+ stores, 50+ field user training, parallel run period, cutover strategy' },
+        { title: 'Go-Live & Monitoring', desc: 'Executed migration with zero operational disruption — monitored daily order flow, delivery completion rates, payment reconciliation, issue resolution' }
+      ],
+      capabilities: [
+        { title: 'Store Onboarding & Management', desc: 'Field exec creates store via app with GPS, route assignment, warehouse linking. S&D assigns margin template and credit limit' },
+        { title: 'Order Placement (T−1)', desc: 'Sales team or retailer places order for next-day delivery. Draft orders auto-confirm at cutoff. Amendment workflow with approval routing' },
+        { title: 'Invoicing & Fulfillment (T)', desc: 'Stock logged in at warehouse. E-invoices generated for GST-registered stores. Route optimization with store sequences. Stock-out logging per driver' },
+        { title: 'Delivery & Returns (T)', desc: 'Driver delivers with POD and GRN logging. PRNs (Product Return Notes) and replacements recorded real-time. Post-delivery returns cross-validated at warehouse' },
+        { title: 'Payment & Reconciliation (T+1)', desc: 'Cash and online payments logged, verified, approved. Each payment credited to store ledger against invoice debits. Group payment support for 7/15-day cycles' },
+        { title: 'Immutable Ledger Model', desc: 'Double-entry ledger: orders = debits, payments = credits, PRNs = credits, replacements = inventory movements. Every entry time-stamped, user-tagged, immutable' },
+        { title: 'Route Optimization', desc: 'Optimized store sequences per route reducing travel time and distance. Dynamic route adjustment based on order density' }
+      ],
+      outcomes: [
+        { metric: 'Annual Savings', value: '₹12.6L' },
+        { metric: 'Monthly Savings', value: '₹1.05L' },
+        { metric: 'Stores Migrated', value: '1,000+' },
+        { metric: 'Field Users', value: '50+' },
+        { metric: 'Process Modules', value: '5 Modules' }
       ]
     }
   };

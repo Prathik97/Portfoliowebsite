@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Retail Sale Module – CodeParva | Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,500;1,6..72,300;1,6..72,500&family=Inconsolata:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:      #f4f1ea;
+    --ink:     #141210;
+    --accent:  #d4500a;
+    --accent2: #1a4fd4;
+    --muted:   #6a6158;
+    --rule:    #ddd8ce;
+    --surface: #faf8f4;
+    --s2:      #edeae2;
+    --tag:     #e4dfd5;
+    --green:   #157a3c;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'Newsreader',serif;
+    font-size:17px;line-height:1.7;
+  }
+
+  /* ── NAV ─────────────────── */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(244,241,234,.94);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--rule);
+    padding:14px 56px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .nav-logo{font-family:'Inconsolata',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+  .nav-links{display:flex;gap:32px;}
+  .nav-links a{font-family:'Inconsolata',monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--muted);transition:color .2s;}
+  .nav-links a:hover{color:var(--accent);}
+
+  /* ── HERO ─────────────────── */
+  .hero{
+    min-height:100vh;
+    display:grid;grid-template-columns:1fr 1fr;
+    align-items:end;
+    padding:130px 56px 80px;
+    position:relative;overflow:hidden;
+    gap:0;
+  }
+  .hero-left{padding-right:56px;}
+  .hero-right{
+    background:var(--ink);
+    margin:-130px -56px -80px 0;
+    padding:130px 56px 80px 64px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    position:relative;
+  }
+  .hero-right::before{
+    content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+    background-image:radial-gradient(rgba(212,80,10,.12) 1px,transparent 1px);
+    background-size:28px 28px;
+    pointer-events:none;
+  }
+
+  .hero-tag{
+    font-family:'Inconsolata',monospace;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:24px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .hero-tag::before{content:'';width:24px;height:1px;background:var(--accent);}
+
+  h1{
+    font-family:'Unbounded',sans-serif;
+    font-size:clamp(36px,5.5vw,72px);
+    font-weight:700;line-height:1.0;letter-spacing:-.02em;
+  }
+  h1 .thin{font-weight:300;}
+  h1 .orange{color:var(--accent);}
+
+  .hero-sub{
+    margin-top:28px;font-size:16px;
+    color:var(--muted);line-height:1.8;
+    font-family:'Newsreader',serif;
+    font-style:italic;max-width:480px;
+  }
+
+  /* right side: architecture diagram */
+  .arch-title{
+    font-family:'Inconsolata',monospace;
+    font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+    color:rgba(244,241,234,.3);margin-bottom:20px;
+  }
+  .arch-flow{display:flex;flex-direction:column;gap:2px;position:relative;z-index:2;}
+  .arch-node{
+    background:rgba(244,241,234,.06);
+    border:1px solid rgba(244,241,234,.12);
+    border-radius:6px;padding:16px 20px;
+    transition:background .2s;
+  }
+  .arch-node:hover{background:rgba(244,241,234,.1);}
+  .arch-node-label{
+    font-family:'Inconsolata',monospace;
+    font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:4px;display:block;
+  }
+  .arch-node-name{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:600;color:rgba(244,241,234,.9);}
+  .arch-node-desc{font-family:'Newsreader',serif;font-size:12px;color:rgba(244,241,234,.4);margin-top:2px;font-style:italic;}
+  .arch-arrow{
+    text-align:center;
+    font-family:'Inconsolata',monospace;
+    font-size:16px;color:rgba(244,241,234,.2);
+    line-height:1.4;
+  }
+
+  .hero-meta-left{
+    margin-top:40px;padding-top:28px;
+    border-top:1px solid var(--rule);
+    display:flex;gap:36px;flex-wrap:wrap;
+  }
+  .hm label{
+    display:block;font-family:'Inconsolata',monospace;
+    font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:4px;
+  }
+  .hm span{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:600;}
+
+  /* ── SHARED ─────────────────── */
+  section{padding:96px 56px;}
+  .sec-label{
+    font-family:'Inconsolata',monospace;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:44px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .sec-label .bar{width:32px;height:2px;background:var(--accent);}
+  h2{
+    font-family:'Unbounded',sans-serif;
+    font-size:clamp(24px,3.5vw,44px);
+    font-weight:700;line-height:1.05;margin-bottom:18px;letter-spacing:-.01em;
+  }
+  h2 em{font-family:'Newsreader',serif;font-style:italic;font-weight:300;color:var(--accent);}
+  p.lead{color:var(--muted);max-width:700px;font-size:16px;line-height:1.8;font-family:'Newsreader',serif;}
+  hr.rule{border:none;border-top:1px solid var(--rule);margin:0 56px;}
+
+  /* ── OVERVIEW ─────────────────── */
+  .ov-sec{background:var(--s2);}
+  .stat-band{
+    display:flex;gap:1px;background:var(--rule);
+    border:1px solid var(--rule);margin-top:56px;
+  }
+  .sbox{
+    flex:1;background:var(--s2);padding:36px 28px;
+    cursor:default;transition:background .2s;position:relative;overflow:hidden;
+  }
+  .sbox:hover{background:var(--surface);}
+  .sbox::after{
+    content:'';position:absolute;left:0;bottom:0;width:100%;height:3px;
+    background:var(--accent);transform:scaleX(0);transform-origin:left;
+    transition:transform .4s;
+  }
+  .sbox:hover::after{transform:scaleX(1);}
+  .sbox-n{font-family:'Unbounded',sans-serif;font-size:48px;font-weight:700;line-height:1;color:var(--accent);margin-bottom:6px;}
+  .sbox-l{font-family:'Inconsolata',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+
+  /* ── PILLARS ─────────────────── */
+  .pillars-sec{background:var(--bg);}
+  .pillars-grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:1px;background:var(--rule);border:1px solid var(--rule);
+    margin-top:56px;
+  }
+  .pillar{background:var(--bg);padding:48px 44px;transition:background .25s;cursor:default;}
+  .pillar:hover{background:var(--surface);}
+  .pillar-num{
+    font-family:'Unbounded',sans-serif;
+    font-size:64px;font-weight:900;line-height:1;
+    color:var(--rule);margin-bottom:20px;
+    transition:color .3s;
+  }
+  .pillar:hover .pillar-num{color:#ddd5c5;}
+  .pillar h3{font-family:'Unbounded',sans-serif;font-size:18px;font-weight:700;margin-bottom:14px;color:var(--ink);}
+  .pillar p{font-size:14px;color:var(--muted);line-height:1.75;font-family:'Newsreader',serif;}
+
+  /* ── INVENTORY MANAGEMENT ─────── */
+  .inv-sec{background:var(--s2);}
+  .inv-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:16px;margin-top:56px;
+  }
+  @media(max-width:900px){.inv-grid{grid-template-columns:1fr 1fr;}}
+  .inv-card{
+    background:var(--surface);border:1px solid var(--rule);
+    border-radius:10px;padding:28px 24px;
+    transition:border-color .25s,transform .25s;cursor:default;
+  }
+  .inv-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .inv-icon{font-size:26px;margin-bottom:14px;display:block;}
+  .inv-card h3{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;margin-bottom:10px;color:var(--ink);}
+  .inv-card p{font-size:13px;color:var(--muted);line-height:1.65;font-family:'Newsreader',serif;}
+
+  /* fields table */
+  .fields-table{
+    margin-top:56px;border:1px solid var(--rule);overflow:hidden;
+  }
+  .ft-row{
+    display:grid;grid-template-columns:180px 1fr 140px;
+    border-bottom:1px solid var(--rule);transition:background .2s;
+  }
+  .ft-row:last-child{border-bottom:none;}
+  .ft-row:hover{background:rgba(212,80,10,.03);}
+  .ft-row.ft-hdr{background:var(--ink);}
+  .ft-cell{padding:14px 20px;font-size:13px;color:var(--muted);font-family:'Newsreader',serif;}
+  .ft-hdr .ft-cell{
+    font-family:'Inconsolata',monospace;font-size:9px;
+    letter-spacing:.16em;text-transform:uppercase;color:rgba(244,241,234,.4);
+  }
+  .ft-row:not(.ft-hdr) .ft-cell:first-child{
+    font-family:'Inconsolata',monospace;font-size:12px;
+    font-weight:600;color:var(--ink);letter-spacing:.02em;
+  }
+  .req-badge{
+    font-family:'Inconsolata',monospace;font-size:9px;letter-spacing:.08em;
+    text-transform:uppercase;padding:2px 8px;border-radius:3px;
+    display:inline-block;
+  }
+  .req-m{background:rgba(212,80,10,.1);color:var(--accent);}
+  .req-o{background:var(--tag);color:var(--muted);}
+  .req-p{background:rgba(21,122,60,.1);color:var(--green);}
+  @media(max-width:700px){.ft-row{grid-template-columns:1fr;}.ft-row.ft-hdr{display:none;}}
+
+  /* ── POS ─────────────────────── */
+  .pos-sec{background:var(--bg);}
+  .pos-flow{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    gap:1px;background:var(--rule);border:1px solid var(--rule);
+    margin-top:56px;
+  }
+  @media(max-width:780px){.pos-flow{grid-template-columns:1fr 1fr;}}
+  .pf-step{background:var(--bg);padding:40px 32px;transition:background .25s;cursor:default;}
+  .pf-step:hover{background:var(--surface);}
+  .pf-num{
+    font-family:'Unbounded',sans-serif;font-size:48px;font-weight:900;
+    line-height:1;color:var(--rule);margin-bottom:16px;
+    transition:color .3s;
+  }
+  .pf-step:hover .pf-num{color:#d5cfc3;}
+  .pf-step h3{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:10px;}
+  .pf-step ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .pf-step ul li{font-size:12px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:12px;position:relative;}
+  .pf-step ul li::before{content:'–';position:absolute;left:0;color:var(--accent);}
+
+  /* special notes */
+  .pos-notes{
+    display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px;
+  }
+  @media(max-width:700px){.pos-notes{grid-template-columns:1fr;}}
+  .note-card{
+    background:var(--surface);border:1px solid var(--rule);
+    border-radius:10px;padding:24px 22px;
+    border-left:3px solid var(--accent);
+  }
+  .note-card h4{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+  .note-card p{font-size:13px;color:var(--muted);line-height:1.7;font-family:'Newsreader',serif;font-style:italic;}
+
+  /* ── RETURNS ─────────────────── */
+  .returns-sec{background:var(--s2);}
+  .returns-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:1px;background:var(--rule);border:1px solid var(--rule);
+    margin-top:56px;
+  }
+  @media(max-width:780px){.returns-grid{grid-template-columns:1fr;}}
+  .ret-card{background:var(--s2);padding:36px 30px;transition:background .25s;cursor:default;}
+  .ret-card:hover{background:var(--surface);}
+  .ret-label{
+    font-family:'Inconsolata',monospace;font-size:9px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block;
+  }
+  .ret-card h3{font-family:'Unbounded',sans-serif;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:12px;}
+  .ret-card ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .ret-card ul li{font-size:13px;color:var(--muted);font-family:'Newsreader',serif;padding-left:14px;position:relative;}
+  .ret-card ul li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:11px;margin-top:2px;}
+
+  /* edge cases */
+  .edge-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px;
+  }
+  @media(max-width:700px){.edge-grid{grid-template-columns:1fr;}}
+  .edge-card{
+    background:var(--surface);border:1px solid var(--rule);
+    border-radius:8px;padding:22px 20px;
+  }
+  .edge-card h4{font-family:'Inconsolata',monospace;font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;letter-spacing:.06em;}
+  .edge-card p{font-size:13px;color:var(--muted);line-height:1.65;font-family:'Newsreader',serif;font-style:italic;}
+
+  /* ── VENDOR ─────────────────── */
+  .vendor-sec{background:var(--bg);}
+  .vendor-layout{
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:56px;
+    align-items:start;
+  }
+  @media(max-width:780px){.vendor-layout{grid-template-columns:1fr;}}
+  .vendor-fields{
+    border:1px solid var(--rule);overflow:hidden;
+  }
+  .vf-row{
+    display:grid;grid-template-columns:150px 1fr;
+    border-bottom:1px solid var(--rule);
+  }
+  .vf-row:last-child{border-bottom:none;}
+  .vf-row:hover{background:rgba(212,80,10,.03);}
+  .vf-key{
+    padding:14px 18px;font-family:'Inconsolata',monospace;
+    font-size:12px;font-weight:600;color:var(--ink);
+    border-right:1px solid var(--rule);background:var(--s2);
+  }
+  .vf-val{padding:14px 18px;font-size:13px;color:var(--muted);font-family:'Newsreader',serif;}
+  .deact-decisions{display:flex;flex-direction:column;gap:16px;}
+  .dd-item{
+    background:var(--surface);border:1px solid var(--rule);
+    border-radius:8px;padding:20px 18px;
+  }
+  .dd-item-q{
+    font-family:'Inconsolata',monospace;font-size:11px;
+    font-weight:600;color:var(--accent);margin-bottom:6px;letter-spacing:.04em;
+  }
+  .dd-item-a{font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;line-height:1.65;}
+
+  /* ── CONFIG ─────────────────── */
+  .config-sec{background:var(--s2);}
+  .config-table{
+    border:1px solid var(--rule);overflow:hidden;margin-top:56px;
+  }
+  .cfg-row{
+    display:grid;grid-template-columns:220px 1fr 120px;
+    border-bottom:1px solid var(--rule);transition:background .2s;
+  }
+  .cfg-row:last-child{border-bottom:none;}
+  .cfg-row:hover{background:rgba(212,80,10,.03);}
+  .cfg-row.cfg-hdr{background:var(--ink);}
+  .cfg-cell{padding:15px 22px;font-size:13px;color:var(--muted);font-family:'Newsreader',serif;}
+  .cfg-hdr .cfg-cell{
+    font-family:'Inconsolata',monospace;font-size:9px;
+    letter-spacing:.16em;text-transform:uppercase;
+    color:rgba(244,241,234,.4);
+  }
+  .cfg-row:not(.cfg-hdr) .cfg-cell:first-child{font-family:'Inconsolata',monospace;font-size:12px;font-weight:600;color:var(--ink);}
+  .def-val{
+    font-family:'Inconsolata',monospace;font-size:10px;
+    background:var(--tag);color:var(--muted);
+    padding:2px 8px;border-radius:3px;display:inline-block;
+  }
+  @media(max-width:700px){.cfg-row{grid-template-columns:1fr;}.cfg-row.cfg-hdr{display:none;}}
+
+  /* ── PERMISSIONS ─────────────── */
+  .perms-sec{background:var(--bg);}
+  .perms-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:16px;margin-top:56px;
+  }
+  @media(max-width:780px){.perms-grid{grid-template-columns:1fr 1fr;}}
+  .perm-card{
+    background:var(--surface);border:1px solid var(--rule);
+    border-radius:10px;padding:26px 22px;
+    transition:border-color .25s;cursor:default;
+  }
+  .perm-card:hover{border-color:var(--accent);}
+  .perm-key{
+    font-family:'Inconsolata',monospace;font-size:11px;
+    letter-spacing:.04em;color:var(--accent);
+    margin-bottom:10px;display:block;font-weight:600;
+  }
+  .perm-card p{font-size:13px;color:var(--muted);line-height:1.65;font-family:'Newsreader',serif;}
+
+  /* ── IMPACT ─────────────────── */
+  .impact-sec{
+    background:var(--ink);color:#f4f1ea;
+    position:relative;overflow:hidden;
+  }
+  .impact-sec::before{
+    content:'POS';
+    position:absolute;right:-40px;top:50%;transform:translateY(-50%);
+    font-family:'Unbounded',sans-serif;
+    font-size:clamp(120px,20vw,280px);font-weight:900;line-height:1;
+    color:transparent;-webkit-text-stroke:1px rgba(244,241,234,.04);
+    pointer-events:none;user-select:none;
+  }
+  .impact-sec .sec-label{color:rgba(244,241,234,.3);}
+  .impact-sec .sec-label .bar{background:var(--accent);}
+  .impact-sec h2{color:#f4f1ea;}
+  .impact-sec p.lead{color:rgba(244,241,234,.55);}
+  .impact-list{margin-top:56px;display:flex;flex-direction:column;gap:0;}
+  .ir{
+    display:grid;grid-template-columns:72px 1fr;
+    gap:24px;padding:28px 0;
+    border-bottom:1px solid rgba(244,241,234,.08);align-items:start;
+  }
+  .ir:first-child{padding-top:0;}
+  .ir:last-child{border-bottom:none;}
+  .ir-n{
+    font-family:'Unbounded',sans-serif;font-size:38px;font-weight:900;
+    line-height:1;color:rgba(212,80,10,.3);text-align:right;
+  }
+  .ir h3{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;color:#f4f1ea;margin-bottom:8px;}
+  .ir p{font-size:13px;color:rgba(244,241,234,.5);line-height:1.75;font-family:'Newsreader',serif;font-style:italic;max-width:740px;}
+
+  /* ── SKILLS ─────────────────── */
+  .skills-sec{background:var(--bg);}
+  .skill-cloud{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px;}
+  .skill{
+    font-family:'Inconsolata',monospace;font-size:11px;letter-spacing:.04em;
+    padding:9px 18px;border-radius:4px;
+    border:1px solid var(--rule);background:var(--surface);color:var(--ink);
+    cursor:default;transition:all .2s;
+  }
+  .skill:hover{background:var(--ink);color:#f4f1ea;border-color:var(--ink);}
+
+  /* ── FOOTER ─────────────────── */
+  footer{
+    padding:36px 56px;border-top:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  }
+  footer p{font-family:'Inconsolata',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;}
+  footer a{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--accent);text-decoration:none;}
+
+  /* responsive */
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;min-height:auto;}
+    .hero-right{margin:-100px -24px -80px -24px;padding:60px 24px;}
+    section{padding:72px 24px;}
+    nav{padding:14px 24px;}
+    hr.rule{margin:0 24px;}
+    .pillars-grid{grid-template-columns:1fr;}
+    .pos-flow{grid-template-columns:1fr 1fr;}
+    .returns-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:600px){
+    h1{font-size:36px;}
+    .stat-band{flex-direction:column;}
+    .inv-grid{grid-template-columns:1fr;}
+    .perms-grid{grid-template-columns:1fr;}
+  }
+
+  /* animations */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+  .hero-left>*{animation:fadeUp .6s ease both;}
+  .hero-tag{animation-delay:.1s;}
+  h1{animation-delay:.2s;}
+  .hero-sub{animation-delay:.3s;}
+  .hero-meta-left{animation-delay:.4s;}
+  .hero-right{animation:fadeUp .65s .2s ease both;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Portfolio · Case Study</span>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#inventory">Inventory</a>
+    <a href="#pos">POS</a>
+    <a href="#returns">Returns</a>
+    <a href="#vendor">Vendor</a>
+    <a href="#impact">Impact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">CodeParva Technologies · TFW Platform</div>
+    <h1>
+      <span class="thin">Retail</span><br/>
+      <span class="orange">Sale</span><br/>
+      Module
+    </h1>
+    <p class="hero-sub">
+      A complete end-to-end retail commerce system embedded within a self-storage
+      management platform — spanning inventory management, barcode-driven point of sale,
+      multi-path returns, vendor lifecycle management, and a configurable rules engine
+      governing how facilities sell, audit, and account for physical merchandise.
+    </p>
+    <div class="hero-meta-left">
+      <div class="hm"><label>Company</label><span>CodeParva</span></div>
+      <div class="hm"><label>Product</label><span>TFW v11</span></div>
+      <div class="hm"><label>Category</label><span>Retail Sale</span></div>
+      <div class="hm"><label>Permissions</label><span>8 Granular</span></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="arch-title">System Architecture</div>
+    <div class="arch-flow">
+      <div class="arch-node">
+        <span class="arch-node-label">Layer 01</span>
+        <div class="arch-node-name">Vendor Management</div>
+        <div class="arch-node-desc">Supplier records, contact details, active/inactive lifecycle</div>
+      </div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-node">
+        <span class="arch-node-label">Layer 02</span>
+        <div class="arch-node-name">Inventory Management</div>
+        <div class="arch-node-desc">Products, pricing tiers, reorder logic, audit controls</div>
+      </div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-node">
+        <span class="arch-node-label">Layer 03</span>
+        <div class="arch-node-name">Point of Sale (POS)</div>
+        <div class="arch-node-desc">Cart, barcode scanning, payment, walk-in sale, purchase order</div>
+      </div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-node">
+        <span class="arch-node-label">Layer 04</span>
+        <div class="arch-node-name">Returns & Refunds</div>
+        <div class="arch-node-desc">Multi-search return flows, refund to ledger, cash/card refund</div>
+      </div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-node">
+        <span class="arch-node-label">Layer 05</span>
+        <div class="arch-node-name">Reporting</div>
+        <div class="arch-node-desc">Purchase orders, inventory usage, item list, retail sale reports</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- OVERVIEW -->
+<section class="ov-sec" id="overview">
+  <div class="sec-label"><div class="bar"></div>01 · Background</div>
+  <h2>What is the <em>Retail Sale Module?</em></h2>
+  <p class="lead">
+    Every self-storage facility sells merchandise to tenants — padlocks, boxes, packing tape, bubble wrap.
+    The Retail Sale Module in TFW is a fully integrated commerce system that handles the complete
+    merchandise lifecycle: suppliers are tracked as Vendors, items are catalogued in Inventory with three
+    price tiers and barcode support, sold via a Point of Sale system that works for both tenants and
+    walk-in customers, and returned through a flexible multi-search Returns flow with four refund
+    pathways. A configuration layer and eight granular permissions give each facility control
+    over exactly how buying, selling, and auditing works at their location.
+  </p>
+  <div class="stat-band">
+    <div class="sbox"><div class="sbox-n">4</div><div class="sbox-l">Core System Layers</div></div>
+    <div class="sbox"><div class="sbox-n">3</div><div class="sbox-l">Price Tiers per Item</div></div>
+    <div class="sbox"><div class="sbox-n">8</div><div class="sbox-l">Granular Permissions</div></div>
+    <div class="sbox"><div class="sbox-n">4</div><div class="sbox-l">Refund Pathways</div></div>
+    <div class="sbox"><div class="sbox-n">3</div><div class="sbox-l">Return Search Methods</div></div>
+    <div class="sbox"><div class="sbox-n">5</div><div class="sbox-l">Config Controls</div></div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- TWO PILLARS -->
+<section class="pillars-sec" id="pillars">
+  <div class="sec-label"><div class="bar"></div>02 · Two Core Pillars</div>
+  <h2>Inventory Management <em>&amp; Point of Sale</em></h2>
+  <p class="lead">The module is built on two interdependent systems — an Inventory Management layer that governs what exists and at what price, and a Point of Sale layer that handles the moment of transaction.</p>
+
+  <div class="pillars-grid">
+    <div class="pillar">
+      <div class="pillar-num">01</div>
+      <h3>Inventory Management</h3>
+      <p>A complete product catalogue supporting manual entry and barcode scanning for product ID capture. Each item carries three price tiers (Retail, Preferred/discounted, Wholesale for profit tracking), a linked vendor, a charge category, and reorder automation — including a configurable reorder point and preferred reorder quantity. Inventory Audit allows quantity correction with optional negative inventory support for edge cases where physical stock exists but isn't reflected in the system.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">02</div>
+      <h3>Point of Sale (POS)</h3>
+      <p>A transaction screen supporting both registered tenants and walk-in customers. Items are added to cart manually or via barcode scanner, with default quantity of 1 and the option to use preferred (discounted) pricing. The system handles zero-quantity edge cases, negative inventory selling, and on-the-fly product addition. Payment is processed through all facility-configured payment methods. Post-sale, a configurable purchase order is generated and printed.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- INVENTORY FIELDS + FEATURES -->
+<section class="inv-sec" id="inventory">
+  <div class="sec-label"><div class="bar"></div>03 · Inventory Management</div>
+  <h2>Product catalogue, <em>reorder &amp; audit</em></h2>
+  <p class="lead">Inventory Management is the source of truth for all sellable products — capturing physical, financial, and logistical data per item, with controlled edit permissions and a dedicated audit workflow for quantity correction.</p>
+
+  <!-- feature cards -->
+  <div class="inv-grid">
+    <div class="inv-card">
+      <span class="inv-icon">🔍</span>
+      <h3>Barcode Scanner Support</h3>
+      <p>Product ID and UPC can be captured via barcode scanner — automatically populating fields at both the Inventory creation screen and the POS cart. Manual entry is also supported as a fallback.</p>
+    </div>
+    <div class="inv-card">
+      <span class="inv-icon">💲</span>
+      <h3>Three-Tier Pricing</h3>
+      <p>Each product carries Retail Price (standard sell price), Preferred Price (configurable discount), and Wholesale Price (purchase cost used for profit calculation). Preferred price can be set as default at POS via configuration.</p>
+    </div>
+    <div class="inv-card">
+      <span class="inv-icon">🔄</span>
+      <h3>Reorder Automation</h3>
+      <p>Each product has a Reorder Point (quantity threshold that triggers a restock alert) and a Preferred Reorder Quantity (pre-filled default when restocking). The restock screen lists all items below their reorder point with editable quantities.</p>
+    </div>
+    <div class="inv-card">
+      <span class="inv-icon">📋</span>
+      <h3>Inventory Audit</h3>
+      <p>A dedicated quantity-correction flow separate from standard editing. Supports both additive adjustments (add/remove X units from current stock) and absolute updates (set total to Y). Negative inventory supported with config flag and mandatory comment enforcement.</p>
+    </div>
+    <div class="inv-card">
+      <span class="inv-icon">🏪</span>
+      <h3>Kiosk Visibility</h3>
+      <p>Each inventory item has a "Show at Kiosk" toggle controlling whether it appears on the tenant-facing kiosk or self-service portal. Allows facilities to restrict which products are available for self-checkout vs. staff-assisted purchase.</p>
+    </div>
+    <div class="inv-card">
+      <span class="inv-icon">⚙️</span>
+      <h3>Permission-Gated Editing</h3>
+      <p>Product ID is locked from editing post-creation. All other fields (description, vendor, prices, charge category, reorder values, status) require the <code>edit_inventory</code> permission. Available Quantity is read-only — changeable only via the Inventory Audit access point.</p>
+    </div>
+  </div>
+
+  <!-- inventory fields table -->
+  <div class="fields-table">
+    <div class="ft-row ft-hdr">
+      <div class="ft-cell">Field</div>
+      <div class="ft-cell">Description</div>
+      <div class="ft-cell">Required</div>
+    </div>
+    <div class="ft-row">
+      <div class="ft-cell">Product ID</div>
+      <div class="ft-cell">Manual entry or barcode scan. Locked post-creation — cannot be edited.</div>
+      <div class="ft-cell"><span class="req-badge req-m">Mandatory</span></div>
+    </div>
+    <div class="ft-row">
+      <div class="ft-cell">UPC</div>
+      <div class="ft-cell">Universal Product Code retrieved from barcode scanner.</div>
+      <div class="ft-cell"><span class="req-badge req-o">Optional</span></div>
+    </div>
+    <div class="ft-row">
+      <div class="ft-cell">Product Description</div>
+      <div class="ft-cell">Human-readable item name (e.g. Medium Box, Padlock). Used in POS and reports.</div>
+      <div class="ft-cell"><span class="req-badge req-m">Mandatory</span></div>
+    </div>
+    <div class="ft-row">
+      <div class="ft-cell">Vendor</div>
+      <div class="ft-cell">Linked to an active vendor record. Selection only from existing vendors.</div>
+      <div class="ft-cell"><span class="req-badge req-m">Mandatory</span></div>
+    </div>
+    <div class="ft-row">
+      <div class="ft-cell">Retail Price</div>
+      <div class="ft-cell">Standard selling price shown at POS. Used in purchase order totals.</div>
+      <div class="ft-cell"><span class="req-badge req-m">Mandatory</span></div>
+    </div>
+    <div class="ft-row">
+      <div class="ft-cell">Preferred Price</div>
+      <div class="ft-cell">Discounted price shown at POS when "Default to preferred price" config is on. Mandatory if that config is true.</div>
+      <div class="ft-cell"><span class="req-badge req-p">Conditional</span></div>
+    </div>
+    <div class="ft-row">
+      <div class="ft-cell">Wholesale Price</div>
+      <div class="ft-cell">Purchase cost used to compute profit margins in reporting. Not shown to customers.</div>
+      <div class="ft-cell"><span class="req-badge req-o">Optional</span></div>
+    </div>
+    <div class="ft-row">
+      <div class="ft-cell">Charge Category</div>
+      <div class="ft-cell">The accounting category under which sales revenue is recorded in the ledger.</div>
+      <div class="ft-cell"><span class="req-badge req-m">Mandatory</span></div>
+    </div>
+    <div class="ft-row">
+      <div class="ft-cell">Available Quantity</div>
+      <div class="ft-cell">Read-only on edit form. Modified only via Inventory Audit. Source of truth for stock levels.</div>
+      <div class="ft-cell"><span class="req-badge req-m">Mandatory</span></div>
+    </div>
+    <div class="ft-row">
+      <div class="ft-cell">Reorder Point</div>
+      <div class="ft-cell">Quantity threshold that surfaces this item on the restock list when stock falls below it.</div>
+      <div class="ft-cell"><span class="req-badge req-m">Mandatory</span></div>
+    </div>
+    <div class="ft-row">
+      <div class="ft-cell">Preferred Reorder Qty</div>
+      <div class="ft-cell">Pre-filled quantity on the restock form. Can be defaulted to match the reorder point.</div>
+      <div class="ft-cell"><span class="req-badge req-m">Mandatory</span></div>
+    </div>
+    <div class="ft-row">
+      <div class="ft-cell">Show at Kiosk</div>
+      <div class="ft-cell">Controls visibility of this product on the tenant-facing self-service kiosk.</div>
+      <div class="ft-cell"><span class="req-badge req-o">Optional</span></div>
+    </div>
+    <div class="ft-row">
+      <div class="ft-cell">Status</div>
+      <div class="ft-cell">Active / Inactive. Inactive products are hidden from POS and returns but preserved in history.</div>
+      <div class="ft-cell"><span class="req-badge req-m">Mandatory</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- POS -->
+<section class="pos-sec" id="pos">
+  <div class="sec-label"><div class="bar"></div>04 · Point of Sale</div>
+  <h2>The transaction <em>experience</em></h2>
+  <p class="lead">The POS system is the front-facing transaction layer — designed to serve both facility tenants and walk-in customers, with barcode scanner integration, preferred pricing, real-time stock awareness, and a configurable purchase order output.</p>
+
+  <div class="pos-flow">
+    <div class="pf-step">
+      <div class="pf-num">01</div>
+      <h3>Customer Selection</h3>
+      <ul>
+        <li>Link sale to an existing tenant by name or ledger</li>
+        <li>Process as a Walk-In Sale for non-tenant customers</li>
+        <li>Tax-exempt walk-ins require tenant record creation to capture tax ID</li>
+        <li>Walk-In Review screen tracks all walk-in transactions</li>
+      </ul>
+    </div>
+    <div class="pf-step">
+      <div class="pf-num">02</div>
+      <h3>Build the Cart</h3>
+      <ul>
+        <li>Add items by product ID / description (manual) or barcode scan</li>
+        <li>Barcode auto-populates product ID and sets quantity to 1</li>
+        <li>Change quantity per item as needed</li>
+        <li>Apply preferred (discounted) price on a per-item basis</li>
+        <li>Remove items from cart at any time</li>
+      </ul>
+    </div>
+    <div class="pf-step">
+      <div class="pf-num">03</div>
+      <h3>Stock Edge Cases</h3>
+      <ul>
+        <li>Zero-quantity item: prompt to add to inventory or sell into negative stock</li>
+        <li>Negative inventory selling allowed only if config flag is enabled</li>
+        <li>Log User ID, Product ID, and date for all negative-inventory sales</li>
+        <li>New products not yet in system: add to inventory on the fly and add to cart</li>
+      </ul>
+    </div>
+    <div class="pf-step">
+      <div class="pf-num">04</div>
+      <h3>Payment & Receipt</h3>
+      <ul>
+        <li>Total shown; payment accepted via all facility-configured methods</li>
+        <li>Sales tax applied per charge category configuration</li>
+        <li>Purchase order generated post-sale</li>
+        <li>Configurable number of copies printed automatically</li>
+        <li>Walk-In Review captures all transaction details for audit</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pos-notes">
+    <div class="note-card">
+      <h4>Walk-In Sale Tenant</h4>
+      <p>When the customer is not a registered tenant, all sales are tracked through a system Walk-In Sale tenant record — preserving transaction history for returns, refunds, and reporting without requiring a full tenant account to be created for every anonymous purchase.</p>
+    </div>
+    <div class="note-card">
+      <h4>Preferred Price Logic</h4>
+      <p>The facility can configure POS to always default to the discounted preferred price — in which case the POS shows the item at the preferred rate and displays the total savings to the user. This can also be applied selectively per line item regardless of the global configuration.</p>
+    </div>
+    <div class="note-card">
+      <h4>Negative Inventory Tracking</h4>
+      <p>When a sale pushes inventory below zero, the system logs User ID, Product ID, and sale date — creating an audit trail for each negative-inventory transaction. This supports stock reconciliation without blocking sales of physically available products.</p>
+    </div>
+    <div class="note-card">
+      <h4>Walk-In Review Screen</h4>
+      <p>A dedicated screen surfaces all walk-in sale transactions with Transaction Number, Created Date, Purchase Order ID, Product Description, Amount Charged, Amount Paid, and Date — with Reverse and Delete actions, plus the ability to add manual charges or take payments directly from this view.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- RETURNS -->
+<section class="returns-sec" id="returns">
+  <div class="sec-label"><div class="bar"></div>05 · Returns &amp; Refunds</div>
+  <h2>Multi-path returns <em>with full refund logic</em></h2>
+  <p class="lead">The Returns system lets facility staff process item returns initiated by tenants moving in or out — or by walk-in customers. Three search methods locate the original purchase, with quantity validation, refund-amount locking, and four distinct refund pathways.</p>
+
+  <div class="returns-grid">
+    <div class="ret-card">
+      <span class="ret-label">Search Method 01</span>
+      <h3>By Purchase Order</h3>
+      <ul>
+        <li>Enter Purchase Order ID to retrieve all items in that order</li>
+        <li>Can also scan the receipt ID to pull up matching items</li>
+        <li>All items shown by default; user selects which to return</li>
+        <li>Cannot process returns across two different purchase orders in one transaction</li>
+      </ul>
+    </div>
+    <div class="ret-card">
+      <span class="ret-label">Search Method 02</span>
+      <h3>By Purchase Date</h3>
+      <ul>
+        <li>Select a date to list all purchase orders from that day</li>
+        <li>Latest purchase order surfaced at the top and pre-selected</li>
+        <li>User can then select specific items across the day's orders</li>
+        <li>Useful for same-day returns without knowing the order number</li>
+      </ul>
+    </div>
+    <div class="ret-card">
+      <span class="ret-label">Search Method 03</span>
+      <h3>By Customer Name</h3>
+      <ul>
+        <li>Search by tenant name or walk-in customer record</li>
+        <li>Displays all historical purchases for that customer</li>
+        <li>Latest purchase shown at top and pre-selected by default</li>
+        <li>User selects items to return from the full purchase history</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- item selection + refund -->
+  <div style="margin-top:48px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div style="background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:28px 24px;">
+        <div style="font-family:'Inconsolata',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;">Item Selection Rules</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>Items sorted alphabetically ascending within an order</li>
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>Selecting an item defaults quantity to 1</li>
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>Min quantity = 0, max = original purchased quantity</li>
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>+ / – buttons disabled at quantity limits</li>
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>Over-limit entry triggers error message</li>
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>Return amount locked — matches original billed price</li>
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>Inventory updated automatically on successful return</li>
+        </ul>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:28px 24px;">
+        <div style="font-family:'Inconsolata',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;">Refund Pathways</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span><strong>Refund to Tenant Balance</strong> — credit added to tenant ledger</li>
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span><strong>Return & Refund (Cash)</strong> — cash returned to customer</li>
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span><strong>Return & Refund (Credit Card)</strong> — reversal to original card</li>
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span><strong>Return & Refund (Check/MO)</strong> — check or money order issued</li>
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>Refund to balance hidden if facility disallows prepay AND tenant has no unit</li>
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>On success: form clears, success snackbar shown</li>
+          <li style="font-size:13px;color:var(--muted);font-family:'Newsreader',serif;font-style:italic;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>On failure: form preserved, error snackbar shown</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- edge cases -->
+  <div style="margin-top:24px;font-family:'Inconsolata',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Edge Case Handling</div>
+  <div class="edge-grid">
+    <div class="edge-card">
+      <h4>Deactivated Tenant</h4>
+      <p>If the associated tenant is inactive, the system provides an in-context "Activate" action — directly reactivating the tenant and ledger without losing return flow context. The user isn't navigated away to View Tenant.</p>
+    </div>
+    <div class="edge-card">
+      <h4>Deactivated Ledger</h4>
+      <p>Same activation pattern as deactivated tenant — the user is prompted to activate the specific ledger. Once reactivated, the return is processed against the same ledger. Cross-ledger calculations are deferred to future scope.</p>
+    </div>
+    <div class="edge-card">
+      <h4>Deactivated Vendor</h4>
+      <p>Returns for items from a deactivated vendor are blocked — the return option is disabled for those line items. Facilitates clean vendor offboarding while preventing unexpected financial entries against inactive suppliers.</p>
+    </div>
+    <div class="edge-card">
+      <h4>Deactivated Inventory Item</h4>
+      <p>Similarly, returns for items where the inventory record has been deactivated are disabled. Historical purchase records are preserved for audit purposes, but the active return flow is locked.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- VENDOR MANAGEMENT -->
+<section class="vendor-sec" id="vendor">
+  <div class="sec-label"><div class="bar"></div>06 · Vendor Management &amp; Deactivation</div>
+  <h2>Supplier records <em>&amp; lifecycle decisions</em></h2>
+  <p class="lead">Vendors are the upstream supply layer — each inventory item is linked to a vendor record, creating a dependency chain that must be carefully managed when a vendor relationship ends. The Vendor Deactivation feature required deliberate product decisions about how to handle in-flight inventory and outstanding returns.</p>
+
+  <div class="vendor-layout">
+    <div>
+      <div style="font-family:'Inconsolata',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Vendor Fields</div>
+      <div class="vendor-fields">
+        <div class="vf-row">
+          <div class="vf-key">Vendor Name</div>
+          <div class="vf-val">Company name. Editable post-creation to accommodate business name changes.</div>
+        </div>
+        <div class="vf-row">
+          <div class="vf-key">Contact Name</div>
+          <div class="vf-val">Primary contact person at the vendor company.</div>
+        </div>
+        <div class="vf-row">
+          <div class="vf-key">Address</div>
+          <div class="vf-val">Full vendor address for correspondence and records.</div>
+        </div>
+        <div class="vf-row">
+          <div class="vf-key">Email</div>
+          <div class="vf-val">Contact email — optional but recommended for reorder communications.</div>
+        </div>
+        <div class="vf-row">
+          <div class="vf-key">Phone</div>
+          <div class="vf-val">Primary phone number. Mandatory contact field.</div>
+        </div>
+        <div class="vf-row">
+          <div class="vf-key">Fax</div>
+          <div class="vf-val">Optional fax number for legacy ordering workflows.</div>
+        </div>
+        <div class="vf-row">
+          <div class="vf-key">Status</div>
+          <div class="vf-val">Active / Inactive. Governs whether new inventory can be tagged to this vendor and whether returns are permitted.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-family:'Inconsolata',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Deactivation Design Decisions</div>
+      <div class="deact-decisions">
+        <div class="dd-item">
+          <div class="dd-item-q">Q: When should vendor deactivation be allowed?</div>
+          <div class="dd-item-a">When no items remain tagged to that vendor, or the facility is no longer sourcing from them. No new items can be created or linked to a deactivated vendor. Existing items can still be audited but not refilled via restock.</div>
+        </div>
+        <div class="dd-item">
+          <div class="dd-item-q">Q: What about items still physically in the facility?</div>
+          <div class="dd-item-a">Deactivating a vendor with existing inventory requires the user to first clear or reclassify those items. The user is informed to remove items or mark them as no longer in use before deactivation proceeds.</div>
+        </div>
+        <div class="dd-item">
+          <div class="dd-item-q">Q: Can returns be processed for deactivated vendor items?</div>
+          <div class="dd-item-a">Returns for items linked to a deactivated vendor are disabled in the Returns flow. The facility handles any exceptional cases outside the software — preserving data integrity without blocking the deactivation.</div>
+        </div>
+        <div class="dd-item">
+          <div class="dd-item-q">Q: Chain impact: Vendor → Inventory → POS → Returns</div>
+          <div class="dd-item-a">Vendor status cascades downstream: deactivated vendors block new inventory creation, prevent restock, disable returns for their items, and surface inventory items as "no more in use" — giving a clear operational handoff status without data loss.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- CONFIGURATION -->
+<section class="config-sec" id="config">
+  <div class="sec-label"><div class="bar"></div>07 · Configuration Layer</div>
+  <h2>How facilities <em>customise behaviour</em></h2>
+  <p class="lead">Five configuration controls give each facility precise control over POS pricing defaults, inventory integrity rules, and purchase order output — without requiring any code changes across the platform.</p>
+
+  <div class="config-table">
+    <div class="cfg-row cfg-hdr">
+      <div class="cfg-cell">Configuration</div>
+      <div class="cfg-cell">Description &amp; Logic</div>
+      <div class="cfg-cell">Default</div>
+    </div>
+    <div class="cfg-row">
+      <div class="cfg-cell">Default to Preferred Price</div>
+      <div class="cfg-cell">When enabled, the POS populates the price column with the discounted Preferred Price by default and shows the customer their total savings. Requires Preferred Price to be filled on each product (enforced at inventory level when this config is true).</div>
+      <div class="cfg-cell"><span class="def-val">False</span></div>
+    </div>
+    <div class="cfg-row">
+      <div class="cfg-cell">Allow Negative Inventory</div>
+      <div class="cfg-cell">Permits inventory to fall below zero — both at POS (selling when stock shows 0) and during Inventory Audit (manually entering negative quantities). When disabled, neither POS nor Audit can push quantities below zero.</div>
+      <div class="cfg-cell"><span class="def-val">False</span></div>
+    </div>
+    <div class="cfg-row">
+      <div class="cfg-cell">Mandate Comments</div>
+      <div class="cfg-cell">Forces a comment when inventory is manually edited to a negative value during Inventory Audit. Can only be enabled if Allow Negative Inventory is true. Provides an audit trail explaining why stock was manually reduced below zero.</div>
+      <div class="cfg-cell"><span class="def-val">True</span></div>
+    </div>
+    <div class="cfg-row">
+      <div class="cfg-cell">Print Purchase Order</div>
+      <div class="cfg-cell">Controls whether a purchase order document is automatically printed at the conclusion of each POS sale. When disabled, purchase orders can still be manually reprinted on request.</div>
+      <div class="cfg-cell"><span class="def-val">True</span></div>
+    </div>
+    <div class="cfg-row">
+      <div class="cfg-cell">Number of Copies</div>
+      <div class="cfg-cell">Sets how many copies of the purchase order are printed per sale. Only editable when Print Purchase Order is enabled. Must be a non-negative integer — facilities with physical receipt requirements often set this to 2 (customer + file copy).</div>
+      <div class="cfg-cell"><span class="def-val">1</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- PERMISSIONS -->
+<section class="perms-sec" id="permissions">
+  <div class="sec-label"><div class="bar"></div>08 · Permission Model</div>
+  <h2>Eight granular <em>access controls</em></h2>
+  <p class="lead">Retail Sale uses a granular permission model — separating concerns so that a staff member authorised to sell can do so without being able to modify the underlying inventory catalogue, and an auditor can adjust stock without being able to process sales.</p>
+
+  <div class="perms-grid">
+    <div class="perm-card">
+      <span class="perm-key">sell_inventory</span>
+      <p>Users can sell items through the POS. The base permission for all transaction-taking staff. Without this, the POS screen is inaccessible.</p>
+    </div>
+    <div class="perm-card">
+      <span class="perm-key">negative_inventory</span>
+      <p>Users can sell items when stock shows zero or below — only visible and usable when the "Allow Negative Inventory" facility configuration is enabled.</p>
+    </div>
+    <div class="perm-card">
+      <span class="perm-key">add_new_inventory</span>
+      <p>Users can add a new inventory item directly from the POS if the product isn't yet in the system. Deliberately independent of edit_inventory — selling staff shouldn't be blocked by catalogue gaps.</p>
+    </div>
+    <div class="perm-card">
+      <span class="perm-key">edit_inventory</span>
+      <p>Users can add and modify products in Inventory Management — descriptions, vendors, prices, charge categories, reorder values, and status. The primary inventory catalogue management permission.</p>
+    </div>
+    <div class="perm-card">
+      <span class="perm-key">restock</span>
+      <p>Users can restock items through the Inventory Management restock workflow — adding quantities to products that have fallen below their reorder point.</p>
+    </div>
+    <div class="perm-card">
+      <span class="perm-key">return_inventory</span>
+      <p>Users can process item returns through the Returns flow — initiating refunds to ledger, cash, card, or check from previous purchase orders.</p>
+    </div>
+    <div class="perm-card">
+      <span class="perm-key">inventory_audit</span>
+      <p>Users can edit the available quantity of inventory items through the dedicated Inventory Audit screen — both additive adjustments and absolute quantity updates.</p>
+    </div>
+    <div class="perm-card">
+      <span class="perm-key">negative_inventory_audit</span>
+      <p>Users can set inventory quantities to negative values during Inventory Audit. Only visible when "Allow Negative Inventory" config is true. Separate from the POS negative-sale permission.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- IMPACT -->
+<section class="impact-sec" id="impact">
+  <div class="sec-label"><div class="bar"></div>09 · Outcomes</div>
+  <h2>Key outcomes <em>&amp; contributions</em></h2>
+  <p class="lead">The Retail Sale Module required building a complete mini-commerce system inside a facility management platform — touching financial logic, stock management, supplier lifecycle, UX edge cases, and permission architecture simultaneously.</p>
+
+  <div class="impact-list">
+    <div class="ir">
+      <div class="ir-n">01</div>
+      <div>
+        <h3>Complete 4-layer commerce system embedded in a non-commerce platform</h3>
+        <p>Designed and built an end-to-end retail system — Vendor → Inventory → POS → Returns — that integrates seamlessly with the existing tenant ledger, payment method configuration, charge category system, and reporting infrastructure, without requiring a standalone retail application.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-n">02</div>
+      <div>
+        <h3>Three-tier pricing with configurable preferred price defaulting</h3>
+        <p>Implemented a per-product pricing model with Retail, Preferred (discounted), and Wholesale tiers — wired to a facility configuration that can set the POS to always default to the preferred price with live savings display, enabling facilities to run loyalty or tenant discount schemes without manual intervention per sale.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-n">03</div>
+      <div>
+        <h3>Negative inventory system with full audit trail and granular permission separation</h3>
+        <p>Built a negative inventory system that handles both POS sales and Inventory Audit quantity edits — with a configuration gate, a separate audit-specific permission, mandatory comment enforcement, and per-transaction logging (User ID, Product ID, date) — creating a complete audit trail for stock discrepancies.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-n">04</div>
+      <div>
+        <h3>Multi-path return system with four refund pathways and edge case handling</h3>
+        <p>Designed a returns UX supporting three search methods (Purchase Order, Date, Customer Name), strict quantity validation with bounded min/max and disabled buttons at limits, a locked return amount matching original billing, and four refund pathways — including the conditional "refund to balance" that respects the facility's prepayment configuration.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-n">05</div>
+      <div>
+        <h3>Vendor deactivation cascade with downstream dependency design</h3>
+        <p>Worked through a complex multi-question vendor deactivation design — defining how deactivation cascades from Vendor → Inventory → POS → Returns, deciding what happens to existing items when a vendor is deactivated, and deliberately blocking returns for deactivated-vendor items rather than silently failing — ensuring clean data integrity across the full dependency chain.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-n">06</div>
+      <div>
+        <h3>Eight independently scoped permissions preventing over-restriction and under-control</h3>
+        <p>Designed a permission model where selling, inventory editing, auditing, restocking, and negative-quantity access are fully independent — so facilities can authorise POS-only staff to add new products at point-of-sale without granting full inventory management rights, and can separate negative POS selling from negative audit access.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- SKILLS -->
+<section class="skills-sec">
+  <div class="sec-label"><div class="bar"></div>10 · Skills Demonstrated</div>
+  <h2>Technical <em>&amp; product scope</em></h2>
+  <p class="lead">Retail Sale crossed multiple disciplines — product design, financial system integration, UX edge case reasoning, dependency chain architecture, and granular permission modelling.</p>
+
+  <div class="skill-cloud">
+    <span class="skill">Product Requirements</span>
+    <span class="skill">Commerce System Design</span>
+    <span class="skill">Inventory Management</span>
+    <span class="skill">Three-Tier Pricing</span>
+    <span class="skill">Barcode Scanner Integration</span>
+    <span class="skill">Reorder Automation</span>
+    <span class="skill">Inventory Audit Flow</span>
+    <span class="skill">Negative Inventory Logic</span>
+    <span class="skill">Point of Sale UX</span>
+    <span class="skill">Walk-In Sale System</span>
+    <span class="skill">Cart Management</span>
+    <span class="skill">Purchase Order Generation</span>
+    <span class="skill">Returns System Design</span>
+    <span class="skill">Multi-path Search (3 methods)</span>
+    <span class="skill">Quantity Validation Logic</span>
+    <span class="skill">4-pathway Refund Logic</span>
+    <span class="skill">Ledger Credit Integration</span>
+    <span class="skill">Vendor Lifecycle Management</span>
+    <span class="skill">Deactivation Cascade Design</span>
+    <span class="skill">Dependency Chain Architecture</span>
+    <span class="skill">Configuration System (5 controls)</span>
+    <span class="skill">Permission Architecture (8 scopes)</span>
+    <span class="skill">Edge Case UX Design</span>
+    <span class="skill">Deactivated Tenant / Ledger Handling</span>
+    <span class="skill">Retail Reporting</span>
+    <span class="skill">v10 → v11 Data Migration</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>CodeParva Technologies · Retail Sale Module · Portfolio Case Study</p>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Back to top</a>
+</footer>
+
+</body>
+</html>

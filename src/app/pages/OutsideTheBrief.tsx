@@ -73,6 +73,7 @@ export default function OutsideTheBrief() {
           
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-7 text-[13px] text-[#A09880]">
+            <Link to="/" className="cursor-pointer hover:text-[#C8953A] transition-colors">Home</Link>
             <Link to="/projects" className="cursor-pointer hover:text-[#C8953A] transition-colors">Projects</Link>
             <Link to="/experience" className="cursor-pointer hover:text-[#C8953A] transition-colors">Experience</Link>
             <Link to="/outside-the-brief" className="cursor-pointer text-[#C8953A] transition-colors">Outside the Brief</Link>
@@ -97,6 +98,7 @@ export default function OutsideTheBrief() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 flex flex-col gap-3 text-[13px] text-[#A09880]">
+            <Link to="/" className="cursor-pointer hover:text-[#C8953A] transition-colors">Home</Link>
             <Link to="/projects" className="cursor-pointer hover:text-[#C8953A] transition-colors">Projects</Link>
             <Link to="/experience" className="cursor-pointer hover:text-[#C8953A] transition-colors">Experience</Link>
             <Link to="/outside-the-brief" className="cursor-pointer text-[#C8953A] transition-colors">Outside the Brief</Link>
@@ -129,14 +131,10 @@ export default function OutsideTheBrief() {
             </p>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 mb-10">
+            <div className="grid grid-cols-2 gap-6 mb-10">
               <div className="text-center">
                 <div className="text-3xl md:text-4xl text-[#C8953A] leading-tight mb-2 font-medium">4+ Years</div>
                 <div className="text-[12px] text-[#A09880]">Actively investing</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl text-[#C8953A] leading-tight mb-2 font-medium">₹70L</div>
-                <div className="text-[12px] text-[#A09880]">Portfolio value</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl md:text-4xl text-[#C8953A] leading-tight mb-2 font-medium">↑</div>

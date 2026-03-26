@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sid's Farm · S&D Digital Transformation | Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:      #f8f6f0;
+    --ink:     #141210;
+    --accent:  #1a6b3a;
+    --accent2: #e8a020;
+    --danger:  #c8300a;
+    --muted:   #6b6456;
+    --rule:    #ddd8ce;
+    --surface: #ffffff;
+    --s2:      #f0ece4;
+    --tag:     #e6e0d6;
+    --blue:    #1a4fd4;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'Manrope',sans-serif;
+    font-size:16px;line-height:1.65;
+  }
+
+  /* ── NAV ─────────────────────── */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(248,246,240,.94);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--rule);
+    padding:14px 56px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .nav-logo{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+  .nav-links{display:flex;gap:32px;}
+  .nav-links a{font-size:12px;font-weight:700;letter-spacing:.04em;text-decoration:none;color:var(--muted);transition:color .2s;}
+  .nav-links a:hover{color:var(--accent);}
+
+  /* ── HERO ─────────────────────── */
+  .hero{
+    min-height:100vh;
+    background:var(--ink);
+    color:#f8f6f0;
+    padding:130px 56px 0;
+    display:grid;
+    grid-template-rows:1fr auto;
+    position:relative;overflow:hidden;
+  }
+  /* grain overlay */
+  .hero::before{
+    content:'';position:absolute;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+    pointer-events:none;opacity:.5;
+  }
+  .hero-inner{position:relative;z-index:2;}
+  .hero-tag{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--accent2);margin-bottom:28px;
+  }
+  .hero-tag .dot{width:6px;height:6px;border-radius:50%;background:var(--accent2);flex-shrink:0;animation:blink 2s infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+  h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(44px,6.5vw,92px);
+    font-weight:700;line-height:.93;letter-spacing:-.02em;
+    max-width:900px;
+  }
+  h1 em{font-style:italic;color:var(--accent2);}
+  h1 .light{font-weight:400;}
+
+  .hero-desc{
+    margin-top:32px;font-size:16px;
+    color:rgba(248,246,240,.55);line-height:1.8;max-width:620px;
+  }
+  .hero-desc strong{color:rgba(248,246,240,.85);}
+
+  /* context strip */
+  .ctx-strip{
+    display:flex;gap:0;margin-top:56px;
+    border-top:1px solid rgba(248,246,240,.1);
+    padding-top:32px;padding-bottom:48px;
+    flex-wrap:wrap;
+    position:relative;z-index:2;
+  }
+  .ctx-item{
+    flex:1;min-width:160px;
+    padding-right:40px;
+    border-right:1px solid rgba(248,246,240,.08);
+    margin-right:40px;
+  }
+  .ctx-item:last-child{border-right:none;}
+  .ctx-item label{
+    display:block;font-family:'JetBrains Mono',monospace;
+    font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+    color:rgba(248,246,240,.3);margin-bottom:5px;
+  }
+  .ctx-item span{font-size:14px;font-weight:700;color:#f8f6f0;}
+
+  /* ── SHARED ─────────────────────── */
+  section{padding:96px 56px;}
+  .sec-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:44px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .sec-label .n{
+    font-size:10px;font-weight:700;
+    background:var(--accent);color:#fff;
+    width:22px;height:22px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(26px,3.8vw,48px);
+    font-weight:700;line-height:1.05;margin-bottom:18px;
+  }
+  h2 em{font-style:italic;font-weight:400;color:var(--accent);}
+  p.lead{color:var(--muted);max-width:700px;font-size:16px;line-height:1.8;}
+  hr.rule{border:none;border-top:1px solid var(--rule);margin:0 56px;}
+
+  /* ── OVERVIEW STATS ─────────────── */
+  .ov-sec{background:var(--s2);}
+  .stat-row{
+    display:flex;gap:1px;background:var(--rule);
+    border:1px solid var(--rule);margin-top:56px;
+  }
+  .sbox{
+    flex:1;background:var(--s2);padding:36px 28px;
+    cursor:default;transition:background .2s;position:relative;overflow:hidden;
+  }
+  .sbox:hover{background:var(--surface);}
+  .sbox::after{
+    content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+    background:var(--accent);transform:scaleX(0);transform-origin:left;
+    transition:transform .4s;
+  }
+  .sbox:hover::after{transform:scaleX(1);}
+  .sbox-n{font-family:'Playfair Display',serif;font-size:48px;font-weight:700;line-height:1;color:var(--accent);margin-bottom:6px;}
+  .sbox-l{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+
+  /* ── PROCESS ─────────────────────── */
+  .process-sec{background:var(--bg);}
+  .process-track{
+    display:flex;gap:0;margin-top:56px;position:relative;
+  }
+  .process-track::before{
+    content:'';position:absolute;top:28px;left:28px;right:28px;
+    height:2px;background:var(--rule);z-index:0;
+  }
+  .proc-step{
+    flex:1;display:flex;flex-direction:column;align-items:center;
+    text-align:center;padding:0 12px;
+    position:relative;z-index:1;
+  }
+  .proc-circle{
+    width:56px;height:56px;border-radius:50%;
+    border:2px solid var(--rule);background:var(--surface);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;
+    color:var(--accent);margin-bottom:16px;flex-shrink:0;
+    transition:background .2s,border-color .2s;
+  }
+  .proc-step:hover .proc-circle{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .proc-day{
+    font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent2);margin-bottom:6px;display:block;
+  }
+  .proc-title{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:6px;}
+  .proc-desc{font-size:11px;color:var(--muted);line-height:1.5;}
+
+  /* ── INCITESOL SCREENS ─────────────── */
+  .screens-sec{background:var(--s2);}
+  .screens-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:1px;background:var(--rule);border:1px solid var(--rule);
+    margin-top:56px;
+  }
+  @media(max-width:780px){.screens-grid{grid-template-columns:1fr 1fr;}}
+  .screen-card{background:var(--s2);padding:32px 26px;transition:background .25s;cursor:default;}
+  .screen-card:hover{background:var(--surface);}
+  .screen-num{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;
+    color:var(--accent);margin-bottom:14px;display:block;
+  }
+  .screen-card h3{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:8px;}
+  .screen-card p{font-size:12px;color:var(--muted);line-height:1.65;}
+
+  /* ── MIGRATION DECISION ─────────────── */
+  .decision-sec{background:var(--bg);}
+  .before-after{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:24px;margin-top:56px;
+  }
+  @media(max-width:700px){.before-after{grid-template-columns:1fr;}}
+  .ba-card{border-radius:12px;padding:36px 32px;}
+  .ba-before{background:#fff5f0;border:2px solid #f4b89a;}
+  .ba-after{background:#f0f8f2;border:2px solid #9ecfad;}
+  .ba-label{
+    font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;
+    text-transform:uppercase;margin-bottom:16px;display:block;font-weight:700;
+  }
+  .ba-before .ba-label{color:var(--danger);}
+  .ba-after .ba-label{color:var(--accent);}
+  .ba-card h3{font-size:18px;font-weight:800;margin-bottom:16px;color:var(--ink);}
+  .ba-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .ba-list li{font-size:13px;color:var(--muted);padding-left:18px;position:relative;line-height:1.6;}
+  .ba-before .ba-list li::before{content:'✗';position:absolute;left:0;color:var(--danger);font-size:11px;margin-top:2px;}
+  .ba-after .ba-list li::before{content:'✓';position:absolute;left:0;color:var(--accent);font-size:11px;margin-top:2px;}
+
+  /* ── COMPARISON TABLE ─────────────── */
+  .compare-sec{background:var(--s2);}
+
+  .compare-note{
+    background:var(--surface);border:1px solid var(--rule);
+    border-radius:10px;padding:20px 24px;margin-bottom:32px;
+    display:flex;align-items:center;gap:14px;margin-top:40px;
+  }
+  .compare-note .cn-icon{font-size:20px;flex-shrink:0;}
+  .compare-note p{font-size:13px;color:var(--muted);line-height:1.6;}
+  .compare-note strong{color:var(--ink);}
+
+  .comp-table{
+    border:1px solid var(--rule);overflow:hidden;
+    margin-top:0;
+  }
+  .ct-row{
+    display:grid;grid-template-columns:2fr 1fr 1fr;
+    border-bottom:1px solid var(--rule);
+    transition:background .15s;
+  }
+  .ct-row:last-child{border-bottom:none;}
+  .ct-row:hover:not(.ct-hdr):not(.ct-cat){background:rgba(26,107,58,.03);}
+  .ct-row.ct-hdr{background:var(--ink);}
+  .ct-row.ct-cat{
+    background:var(--s2);
+    grid-template-columns:1fr;
+  }
+  .ct-cell{padding:13px 20px;font-size:13px;color:var(--muted);}
+  .ct-hdr .ct-cell{
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+    letter-spacing:.14em;text-transform:uppercase;color:rgba(248,246,240,.4);
+  }
+  .ct-cat .ct-cell{
+    font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);padding:10px 20px;
+  }
+  .ct-row:not(.ct-hdr):not(.ct-cat) .ct-cell:first-child{font-weight:600;color:var(--ink);font-size:13px;}
+  .avail{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    padding:2px 10px;border-radius:3px;display:inline-block;
+  }
+  .av-yes{background:rgba(26,107,58,.1);color:var(--accent);}
+  .av-no{background:rgba(200,48,10,.1);color:var(--danger);}
+  .av-dev{background:rgba(26,79,212,.1);color:var(--blue);}
+  @media(max-width:700px){
+    .ct-row{grid-template-columns:1fr 1fr;}
+    .ct-row .ct-cell:first-child{grid-column:1/-1;border-bottom:1px solid var(--rule);}
+  }
+
+  /* ── SAVINGS SECTION ─────────────── */
+  .savings-sec{
+    background:var(--ink);color:#f8f6f0;
+    position:relative;overflow:hidden;
+  }
+  .savings-sec::before{
+    content:'₹';
+    position:absolute;right:-30px;top:50%;transform:translateY(-50%);
+    font-family:'Playfair Display',serif;
+    font-size:clamp(150px,22vw,320px);font-weight:700;line-height:1;
+    color:transparent;-webkit-text-stroke:1px rgba(248,246,240,.04);
+    pointer-events:none;user-select:none;
+  }
+  .savings-sec .sec-label{color:rgba(248,246,240,.3);}
+  .savings-sec .sec-label .n{background:var(--accent2);}
+  .savings-sec h2{color:#f8f6f0;}
+  .savings-sec p.lead{color:rgba(248,246,240,.55);}
+
+  .savings-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    gap:1px;background:rgba(248,246,240,.08);
+    border:1px solid rgba(248,246,240,.08);
+    margin-top:56px;
+  }
+  @media(max-width:780px){.savings-grid{grid-template-columns:1fr 1fr;}}
+  .sg-box{
+    background:var(--ink);padding:36px 28px;
+    transition:background .2s;cursor:default;position:relative;overflow:hidden;
+  }
+  .sg-box:hover{background:#1e1c18;}
+  .sg-box::after{
+    content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+    background:var(--accent2);transform:scaleX(0);transform-origin:left;
+    transition:transform .4s;
+  }
+  .sg-box:hover::after{transform:scaleX(1);}
+  .sg-n{
+    font-family:'Playfair Display',serif;font-size:44px;font-weight:700;
+    line-height:1;color:var(--accent2);margin-bottom:8px;
+  }
+  .sg-l{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(248,246,240,.3);}
+  .sg-note{font-size:11px;color:rgba(248,246,240,.35);margin-top:6px;}
+
+  /* cost breakdown */
+  .cost-breakdown{
+    display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;
+  }
+  @media(max-width:700px){.cost-breakdown{grid-template-columns:1fr;}}
+  .cost-card{
+    border-radius:12px;padding:28px 28px;
+    position:relative;overflow:hidden;
+  }
+  .cost-before{background:rgba(200,48,10,.08);border:1px solid rgba(200,48,10,.2);}
+  .cost-after{background:rgba(26,107,58,.08);border:1px solid rgba(26,107,58,.2);}
+  .cost-card .cost-tag{
+    font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;
+    text-transform:uppercase;margin-bottom:12px;display:block;font-weight:700;
+  }
+  .cost-before .cost-tag{color:var(--danger);}
+  .cost-after .cost-tag{color:var(--accent);}
+  .cost-card .cost-main{
+    font-family:'Playfair Display',serif;
+    font-size:38px;font-weight:700;line-height:1;margin-bottom:6px;
+  }
+  .cost-before .cost-main{color:rgba(200,48,10,.7);}
+  .cost-after .cost-main{color:rgba(26,107,58,.8);}
+  .cost-card .cost-period{font-size:12px;color:rgba(248,246,240,.4);}
+  .cost-card .cost-items{
+    margin-top:16px;list-style:none;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .cost-card .cost-items li{font-size:12px;color:rgba(248,246,240,.45);}
+
+  /* ── FEATURE GAPS ─────────────────── */
+  .gaps-sec{background:var(--bg);}
+  .gaps-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:16px;margin-top:56px;
+  }
+  @media(max-width:780px){.gaps-grid{grid-template-columns:1fr 1fr;}}
+  .gap-card{
+    background:var(--surface);border:1px solid var(--rule);
+    border-radius:10px;padding:26px 22px;
+    transition:border-color .25s,transform .25s;cursor:default;
+    border-top:3px solid var(--accent);
+  }
+  .gap-card:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(26,107,58,.08);}
+  .gap-icon{font-size:24px;margin-bottom:12px;display:block;}
+  .gap-card h3{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:8px;}
+  .gap-card p{font-size:12px;color:var(--muted);line-height:1.65;}
+  .gap-tag{
+    display:inline-block;margin-top:10px;
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+    letter-spacing:.08em;text-transform:uppercase;
+    background:rgba(26,107,58,.1);color:var(--accent);
+    padding:2px 8px;border-radius:3px;
+  }
+
+  /* ── IMPACT ─────────────────────── */
+  .impact-sec{background:var(--s2);}
+  .impact-list{margin-top:56px;display:flex;flex-direction:column;gap:0;}
+  .ir{
+    display:grid;grid-template-columns:72px 1fr;
+    gap:24px;padding:28px 0;
+    border-bottom:1px solid var(--rule);align-items:start;
+  }
+  .ir:first-child{padding-top:0;}
+  .ir:last-child{border-bottom:none;}
+  .ir-n{
+    font-family:'Playfair Display',serif;
+    font-size:42px;font-weight:700;line-height:1;
+    color:rgba(26,107,58,.2);text-align:right;padding-top:4px;
+  }
+  .ir h3{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:6px;}
+  .ir p{font-size:13px;color:var(--muted);line-height:1.75;max-width:740px;}
+
+  /* ── SKILLS ─────────────────────── */
+  .skills-sec{background:var(--bg);}
+  .skill-cloud{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px;}
+  .skill{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;
+    padding:9px 18px;border-radius:4px;
+    border:1px solid var(--rule);background:var(--surface);color:var(--ink);
+    cursor:default;transition:all .2s;
+  }
+  .skill:hover{background:var(--ink);color:#f8f6f0;border-color:var(--ink);}
+
+  /* ── FOOTER ─────────────────────── */
+  footer{
+    padding:36px 56px;border-top:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  }
+  footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;}
+  footer a{font-size:12px;font-weight:800;color:var(--accent);text-decoration:none;}
+
+  /* responsive */
+  @media(max-width:900px){
+    .hero{padding:120px 24px 0;}
+    section{padding:72px 24px;}
+    nav{padding:14px 24px;}
+    hr.rule{margin:0 24px;}
+    .process-track{flex-direction:column;gap:24px;}
+    .process-track::before{display:none;}
+    .savings-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:600px){
+    h1{font-size:38px;}
+    .stat-row{flex-direction:column;}
+    .gaps-grid{grid-template-columns:1fr;}
+    .screens-grid{grid-template-columns:1fr;}
+  }
+
+  /* animations */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+  .hero-inner>*{animation:fadeUp .6s ease both;}
+  .hero-tag{animation-delay:.1s;}
+  h1{animation-delay:.2s;}
+  .hero-desc{animation-delay:.3s;}
+  .ctx-strip{animation:fadeUp .65s .4s ease both;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Portfolio · Case Study</span>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#process">Process</a>
+    <a href="#migration">Migration</a>
+    <a href="#savings">Savings</a>
+    <a href="#features">Features</a>
+    <a href="#impact">Impact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag"><div class="dot"></div>Sales & Distribution · Digital Transformation</div>
+    <h1>
+      Sid's Farm<br/>
+      <em>S&amp;D Platform</em><br/>
+      <span class="light">Migration</span>
+    </h1>
+    <p class="hero-desc">
+      Led the end-to-end evaluation, documentation, and migration of Sid's Farm's field sales
+      and distribution operations from <strong>Incitesol</strong> to <strong>Bizom (by Mobisy Technologies)</strong> —
+      achieving <strong>₹1,05,000/month in direct cost savings</strong>, closing critical feature gaps in
+      route optimisation, target tracking, and delivery management, while preserving a
+      structured T+1 order-to-delivery operational model across 1,000+ stores.
+    </p>
+  </div>
+  <div class="ctx-strip">
+    <div class="ctx-item"><label>Client</label><span>Sid's Farm</span></div>
+    <div class="ctx-item"><label>Domain</label><span>FMCG / Dairy</span></div>
+    <div class="ctx-item"><label>Scope</label><span>Sales & Distribution</span></div>
+    <div class="ctx-item"><label>Migration</label><span>Incitesol → Bizom</span></div>
+    <div class="ctx-item"><label>Monthly Savings</label><span>₹1,05,000</span></div>
+    <div class="ctx-item"><label>Annual Savings</label><span>₹12,60,000</span></div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- OVERVIEW -->
+<section class="ov-sec" id="overview">
+  <div class="sec-label"><span class="n">1</span>Background</div>
+  <h2>What was the <em>challenge?</em></h2>
+  <p class="lead">
+    Sid's Farm — a premium dairy brand based in Hyderabad — operates a large-scale direct distribution
+    network with field sales executives managing 1,000+ retail stores across multiple routes. Their
+    existing SFA (Sales Force Automation) platform, Incitesol, was running at a store-limit-based pricing
+    model that had grown expensive relative to the value delivered. Key capabilities like route
+    optimisation, target-vs-achievement dashboards, digital signatures for POD, and asset management
+    were absent. The project involved auditing the full operational process, documenting it as an SOW,
+    evaluating Bizom as a replacement, and leading the migration while maintaining operational continuity.
+  </p>
+  <div class="stat-row">
+    <div class="sbox"><div class="sbox-n">1,000+</div><div class="sbox-l">Stores Managed</div></div>
+    <div class="sbox"><div class="sbox-n">50+</div><div class="sbox-l">Field Users</div></div>
+    <div class="sbox"><div class="sbox-n">5</div><div class="sbox-l">Process Modules</div></div>
+    <div class="sbox"><div class="sbox-n">T+1</div><div class="sbox-l">Delivery Model</div></div>
+    <div class="sbox"><div class="sbox-n">₹1.26L</div><div class="sbox-l">Annual Savings Realised</div></div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- PROCESS -->
+<section class="process-sec" id="process">
+  <div class="sec-label"><span class="n">2</span>Operational Process</div>
+  <h2>The T+1 order-to-delivery <em>cycle</em></h2>
+  <p class="lead">
+    The entire S&D operation runs on a T+1 model — orders are placed the day before delivery (T−1),
+    invoiced and dispatched on the delivery date (T), and payments reconciled the following day (T+1).
+    This was documented as a formal SOW covering 5 modules and 15+ operational steps.
+  </p>
+
+  <div class="process-track">
+    <div class="proc-step">
+      <div class="proc-circle">01</div>
+      <span class="proc-day">One-time</span>
+      <div class="proc-title">Store Onboarding</div>
+      <div class="proc-desc">Field exec creates store via app with GPS, route, warehouse. S&D assigns margin template and credit limit. Store activates for ordering.</div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-circle">02</div>
+      <span class="proc-day">T−1 (Day Before)</span>
+      <div class="proc-title">Order Placement</div>
+      <div class="proc-desc">Sales team or retailer places order for next-day delivery. Orders stay in Draft until cutoff, then auto-confirm. Amendments go through approval workflow.</div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-circle">03</div>
+      <span class="proc-day">T (Delivery Day)</span>
+      <div class="proc-title">Invoicing & Fulfillment</div>
+      <div class="proc-desc">Stock logged in at warehouse. Invoices generated for confirmed orders (E-invoice for GST-registered). Routes assigned with optimised store sequences. Stock-out logged per driver.</div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-circle">04</div>
+      <span class="proc-day">T (On Ground)</span>
+      <div class="proc-title">Delivery & Returns</div>
+      <div class="proc-desc">Driver delivers to each store, logs POD and GRN. PRNs and replacements recorded in real time. Post-delivery, returns cross-validated at warehouse and inventory reconciled.</div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-circle">05</div>
+      <span class="proc-day">T+1 (Next Day)</span>
+      <div class="proc-title">Payment & Reconciliation</div>
+      <div class="proc-desc">Cash and online payments logged, verified, and approved. Each payment credited to store ledger against invoice debits. Group payments supported for 7/15-day cycle stores.</div>
+    </div>
+  </div>
+
+  <!-- process detail cards -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px;">
+    <div style="background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:28px 24px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;">Ledger Model</div>
+      <h3 style="font-size:15px;font-weight:800;margin-bottom:12px;">Immutable, double-entry ledger tracking</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;">
+        <li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>Order placements logged as <strong>debits</strong> against customer account</li>
+        <li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>Cash/online payments logged as <strong>credits</strong> post-approval</li>
+        <li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>PRNs treated as <strong>credits</strong> against order value</li>
+        <li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>Replacements = inventory movements, <strong>no financial impact</strong></li>
+        <li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span>Every entry time-stamped, user-tagged, and <strong>immutable</strong></li>
+      </ul>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:28px 24px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;">Approval Workflows</div>
+      <h3 style="font-size:15px;font-weight:800;margin-bottom:12px;">Role-separated approval gates</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;">
+        <li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span><strong>Order amendments</strong> require approval before moving to invoicing</li>
+        <li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span><strong>Cash collections</strong> require approval before ledger reconciliation</li>
+        <li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span><strong>Online payments</strong> verified before credits are applied</li>
+        <li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span><strong>PRNs</strong> cross-validated at warehouse post-delivery before inventory update</li>
+        <li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span><strong>Store credit limit relaxation</strong> requires dedicated approval</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- INCITESOL APP SCREENS -->
+<section class="screens-sec" id="screens">
+  <div class="sec-label"><span class="n">3</span>Incitesol App — Documented Flows</div>
+  <h2>What was <em>being used</em></h2>
+  <p class="lead">
+    Before migrating, the full Incitesol field app was documented screen by screen — creating a reference
+    for requirements mapping, gap analysis, and Bizom configuration. The app covered 10+ functional modules
+    used daily by field executives.
+  </p>
+  <div class="screens-grid">
+    <div class="screen-card">
+      <span class="screen-num">Screen 01</span>
+      <h3>Login & Role-Based Access</h3>
+      <p>Username/mobile login provisioned via Incitesol Admin Portal. Role-based access ensured only authorised field executives could log in and access their assigned stores and routes.</p>
+    </div>
+    <div class="screen-card">
+      <span class="screen-num">Screen 02</span>
+      <h3>Home Screen — Daily Control Centre</h3>
+      <p>Geo Check-In/Check-Out recorded start and end of workday. Displayed total stores assigned (1,040+), total routes (22), customer visits, complaints, and total journey distance in km.</p>
+    </div>
+    <div class="screen-card">
+      <span class="screen-num">Screen 03</span>
+      <h3>Store List & Route View</h3>
+      <p>Full list of assigned stores filterable by route and area. Primary gateway for all store-level activity — order placement, payment collection, and visit check-in. Each store showed due amounts and credit utilisation.</p>
+    </div>
+    <div class="screen-card">
+      <span class="screen-num">Screen 03.1</span>
+      <h3>Store Actions Menu</h3>
+      <p>Per-store action hub: Order Edit (invoice + PRN + Replacement tabs), Payment (invoice selection and collection), Visit Check-In (geo-tagged), Navigation Map, and Change Address with GPS coordinate capture.</p>
+    </div>
+    <div class="screen-card">
+      <span class="screen-num">Screen 03.1.1</span>
+      <h3>Order Placement Interface</h3>
+      <p>SKU-level order entry by packet size and quantity with live credit limit and due amount visibility. Supports Invoice, PRN, and Replacement in three tabs. Shows past orders and pending indent drafts.</p>
+    </div>
+    <div class="screen-card">
+      <span class="screen-num">Screen 03.1.2</span>
+      <h3>PRN & Replacement Records</h3>
+      <p>Historical view of all Purchase Return Notes — item, reason, and quantity. Replacement section logs non-billable product swaps for stock correction and traceability at each store.</p>
+    </div>
+    <div class="screen-card">
+      <span class="screen-num">Activity Modules</span>
+      <h3>Add Store / Lead Management</h3>
+      <p>New store onboarding with name, GST, email, address, and route assignment. Prospects entered as Leads first, then converted to active stores before orders can be placed.</p>
+    </div>
+    <div class="screen-card">
+      <span class="screen-num">Activity Modules</span>
+      <h3>Stock In / Stock Out</h3>
+      <p>Warehouse-level stock movement tracking. Stock-In captures product arrival from plant/warehouse. Stock-Out logs dispatch per driver route. Includes reconciliation completion tracking (84% completion shown in example).</p>
+    </div>
+    <div class="screen-card">
+      <span class="screen-num">Activity Modules</span>
+      <h3>Attendance, Leave & Track</h3>
+      <p>Geo-tagged check-in/check-out with auto-calculation of total working hours. Daily travel route logged in Track module. Leave application with date, leave type, and remarks submitted directly from the app.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- MIGRATION DECISION -->
+<section class="decision-sec" id="migration">
+  <div class="sec-label"><span class="n">4</span>Migration Decision</div>
+  <h2>Why the switch <em>to Bizom</em></h2>
+  <p class="lead">
+    The migration decision was driven by a structured three-way evaluation (Incitesol, Bizom, Raastha.ai)
+    across price, feature coverage, and operational fit for a growing dairy distribution network.
+    Bizom emerged as the strongest choice on both economics and capability.
+  </p>
+
+  <div class="before-after">
+    <div class="ba-card ba-before">
+      <span class="ba-label">Before · Incitesol</span>
+      <h3>What was missing</h3>
+      <ul class="ba-list">
+        <li>No route optimisation for delivery sequencing</li>
+        <li>No target vs. achievement dashboards</li>
+        <li>No KRA / performance dashboards for managers</li>
+        <li>No target setting at user or outlet level</li>
+        <li>No focus SKU tagging for priority products</li>
+        <li>No digital signature capture (POD/GRN)</li>
+        <li>No asset management module</li>
+        <li>No competition stock survey capability</li>
+        <li>No configurable survey / activity forms</li>
+        <li>No notification management (web → mobile)</li>
+        <li>Pricing: Store-limit based — costly at scale</li>
+        <li>Monthly cost: ~₹1,30,000</li>
+      </ul>
+    </div>
+    <div class="ba-card ba-after">
+      <span class="ba-label">After · Bizom</span>
+      <h3>What gets unlocked</h3>
+      <ul class="ba-list">
+        <li>Optimised delivery routes with store sequencing</li>
+        <li>Target vs. achievement dashboards (SKU/brand/category/beat)</li>
+        <li>KRA and user performance dashboards for reportees</li>
+        <li>Target settings at user and outlet level</li>
+        <li>Focus SKU tagging for priority products</li>
+        <li>Digital signature capture from mobile</li>
+        <li>Full asset management (add, remove, verify)</li>
+        <li>Competition stock survey at outlets</li>
+        <li>Configurable surveys (text, dropdown, image capture)</li>
+        <li>Notification management (web → mobile push)</li>
+        <li>Pricing: Per-user based — scales efficiently</li>
+        <li>Monthly cost: ~₹25,000 (negotiated rate)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- FEATURE COMPARISON TABLE -->
+<section class="compare-sec" id="comparison">
+  <div class="sec-label"><span class="n">5</span>Feature Comparison</div>
+  <h2>Incitesol vs <em>Bizom</em> — head to head</h2>
+  <p class="lead">
+    A comprehensive feature-by-feature comparison across all operational modules — based on the
+    formal competitive analysis conducted as part of the migration evaluation.
+  </p>
+
+  <div class="compare-note">
+    <span class="cn-icon">ℹ️</span>
+    <p><strong>Legend:</strong> <span class="avail av-yes">Available</span> = Ready out-of-the-box &nbsp;·&nbsp; <span class="avail av-no">Not Available</span> = Feature absent &nbsp;·&nbsp; <span class="avail av-dev">Config Needed</span> = Requires development or configuration by Bizom team</p>
+  </div>
+
+  <div class="comp-table">
+    <div class="ct-row ct-hdr">
+      <div class="ct-cell">Feature</div>
+      <div class="ct-cell">Incitesol</div>
+      <div class="ct-cell">Bizom</div>
+    </div>
+
+    <!-- Order Management -->
+    <div class="ct-row ct-cat"><div class="ct-cell">Order Management</div></div>
+    <div class="ct-row"><div class="ct-cell">Order placement, updates & cancellations</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Credit limit visibility during order placement</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Order amendment request & approval workflow</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Edit and update orders before cutoff</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-dev">Config Needed</span></div></div>
+    <div class="ct-row"><div class="ct-cell">View historical orders per store</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+
+    <!-- Delivery Management -->
+    <div class="ct-row ct-cat"><div class="ct-cell">Delivery Management</div></div>
+    <div class="ct-row"><div class="ct-cell">Optimised delivery routes</div><div class="ct-cell"><span class="avail av-no">Not Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Sequence of all stores to be visited</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">View all orders/invoices to be delivered</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-dev">Config Needed</span></div></div>
+    <div class="ct-row"><div class="ct-cell">PRN and Replacement quantity entry</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-dev">Config Needed</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Take POD and GRN</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-dev">Config Needed</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Digital signature capture from mobile</div><div class="ct-cell"><span class="avail av-no">Not Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Asset management (add/remove/verify)</div><div class="ct-cell"><span class="avail av-no">Not Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">GPS-tagged & time-stamped activities</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+
+    <!-- Inventory Management -->
+    <div class="ct-row ct-cat"><div class="ct-cell">Inventory Management</div></div>
+    <div class="ct-row"><div class="ct-cell">Stock-in / Stock-out logging</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Godown/sub-division management</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-dev">Config Needed</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Route reconciliation after delivery trip</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-dev">Config Needed</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Stock taking at outlet level</div><div class="ct-cell"><span class="avail av-no">Not Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+
+    <!-- Payments -->
+    <div class="ct-row ct-cat"><div class="ct-cell">Payments & Reconciliation</div></div>
+    <div class="ct-row"><div class="ct-cell">Invoice listing & payment entry against invoices</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Cash collection approval workflow</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Group payment support (7/15-day cycle stores)</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-dev">Config Needed</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Bulk payment upload</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-dev">Config Needed</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Store-wise outstanding balance tracking</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+
+    <!-- Executive Operations -->
+    <div class="ct-row ct-cat"><div class="ct-cell">Executive Operations & Analytics</div></div>
+    <div class="ct-row"><div class="ct-cell">Geo-coordinated attendance / check-in</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Target vs. achievement dashboards</div><div class="ct-cell"><span class="avail av-no">Not Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">KRA / User performance dashboards</div><div class="ct-cell"><span class="avail av-no">Not Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Target settings (user/outlet level)</div><div class="ct-cell"><span class="avail av-no">Not Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Focus SKU tagging (priority products)</div><div class="ct-cell"><span class="avail av-no">Not Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Notification management (web → mobile)</div><div class="ct-cell"><span class="avail av-no">Not Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Competition stock survey at outlets</div><div class="ct-cell"><span class="avail av-no">Not Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+    <div class="ct-row"><div class="ct-cell">Configurable survey & activity forms</div><div class="ct-cell"><span class="avail av-no">Not Available</span></div><div class="ct-cell"><span class="avail av-yes">Available</span></div></div>
+
+    <!-- Invoicing -->
+    <div class="ct-row ct-cat"><div class="ct-cell">Invoicing</div></div>
+    <div class="ct-row"><div class="ct-cell">Invoice view (consolidated)</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-dev">Config Needed</span></div></div>
+    <div class="ct-row"><div class="ct-cell">e-Invoicing (GST compliance, IRN & QR code)</div><div class="ct-cell"><span class="avail av-yes">Available</span></div><div class="ct-cell"><span class="avail av-dev">Config Needed</span></div></div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- SAVINGS SECTION -->
+<section class="savings-sec" id="savings">
+  <div class="sec-label"><span class="n">6</span>Cost Analysis</div>
+  <h2>The financial <em>case for migration</em></h2>
+  <p class="lead">
+    The platform switch wasn't just about features — it delivered a direct, measurable cost reduction
+    from day one, driven by the shift from a store-limit-based pricing model to a per-user model at a
+    negotiated rate for 50 users.
+  </p>
+
+  <div class="savings-grid">
+    <div class="sg-box">
+      <div class="sg-n">₹1,30,000</div>
+      <div class="sg-l">Incitesol Monthly</div>
+      <div class="sg-note">Store-limit based pricing at scale</div>
+    </div>
+    <div class="sg-box">
+      <div class="sg-n">₹25,000</div>
+      <div class="sg-l">Bizom Monthly</div>
+      <div class="sg-note">Negotiated per-user rate · 50 users</div>
+    </div>
+    <div class="sg-box">
+      <div class="sg-n">₹1,05,000</div>
+      <div class="sg-l">Monthly Savings</div>
+      <div class="sg-note">80.8% reduction in monthly SaaS cost</div>
+    </div>
+    <div class="sg-box">
+      <div class="sg-n">₹12,60,000</div>
+      <div class="sg-l">Annual Savings</div>
+      <div class="sg-note">Year-1 direct cost saving on licence alone</div>
+    </div>
+  </div>
+
+  <div class="cost-breakdown">
+    <div class="cost-card cost-before">
+      <span class="cost-tag">Incitesol · Previous Cost</span>
+      <div class="cost-main">₹1,30,000<span style="font-size:16px;font-weight:400;">/mo</span></div>
+      <div class="cost-period">₹15,60,000 per year (estimated)</div>
+      <ul class="cost-items">
+        <li>Store-limit based pricing — cost grows with store count</li>
+        <li>No route optimisation, no target dashboards</li>
+        <li>No digital signature / asset management</li>
+        <li>Limited scalability — costs increase disproportionately with growth</li>
+      </ul>
+    </div>
+    <div class="cost-card cost-after">
+      <span class="cost-tag">Bizom · New Cost</span>
+      <div class="cost-main">₹25,000<span style="font-size:16px;font-weight:400;">/mo</span></div>
+      <div class="cost-period">₹3,00,000 per year (negotiated 50-user rate) + ₹4,00,000 one-time setup</div>
+      <ul class="cost-items">
+        <li>Per-user pricing — scales predictably with headcount not stores</li>
+        <li>Full SFA + Van Sales + Virtual DMS + Asset Management included</li>
+        <li>Target dashboards, route optimisation, digital POD included</li>
+        <li>Standard support & hosting included in recurring licence</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- FEATURE GAPS GAINED -->
+<section class="gaps-sec" id="features">
+  <div class="sec-label"><span class="n">7</span>New Capabilities Gained</div>
+  <h2>What Bizom <em>unlocks</em></h2>
+  <p class="lead">
+    Beyond cost savings, the migration brings 9 capabilities that were entirely absent in Incitesol —
+    directly addressing operational gaps in the field sales, delivery, and performance management workflows.
+  </p>
+
+  <div class="gaps-grid">
+    <div class="gap-card">
+      <span class="gap-icon">🗺️</span>
+      <h3>Optimised Route Planning</h3>
+      <p>Bizom generates optimised delivery sequences for each driver's route — reducing fuel costs, improving on-time delivery rates, and giving warehouse teams a predictable dispatch schedule.</p>
+      <span class="gap-tag">Delivery Management</span>
+    </div>
+    <div class="gap-card">
+      <span class="gap-icon">🎯</span>
+      <h3>Target vs. Achievement Dashboards</h3>
+      <p>Real-time visibility into sales performance against targets — broken down by SKU, brand, category, beat, and distributor. Enables territory managers to course-correct during the month rather than at month-end.</p>
+      <span class="gap-tag">Sales Analytics</span>
+    </div>
+    <div class="gap-card">
+      <span class="gap-icon">📊</span>
+      <h3>KRA / Performance Dashboards</h3>
+      <p>Manager-level dashboards showing performance of each reportee — attendance, order value, store coverage, and target achievement — replacing manual Excel-based tracking.</p>
+      <span class="gap-tag">Performance Management</span>
+    </div>
+    <div class="gap-card">
+      <span class="gap-icon">✍️</span>
+      <h3>Digital Signature Capture</h3>
+      <p>POD (Proof of Delivery) and GRN (Goods Receipt Note) can now be digitally signed on mobile — eliminating paper-based processes and providing a verifiable, timestamped delivery confirmation trail.</p>
+      <span class="gap-tag">Delivery Compliance</span>
+    </div>
+    <div class="gap-card">
+      <span class="gap-icon">🏷️</span>
+      <h3>Focus SKU Tagging</h3>
+      <p>Priority SKUs can be tagged and surfaced at the top of the order interface — ensuring field executives prioritise high-margin or launch products during store visits without relying on memory or verbal briefings.</p>
+      <span class="gap-tag">Order Management</span>
+    </div>
+    <div class="gap-card">
+      <span class="gap-icon">📦</span>
+      <h3>Asset Management</h3>
+      <p>Track facility assets (coolers, display units, etc.) placed at retail stores — add, remove, and verify assets per outlet. Critical for a dairy brand with extensive cold-chain infrastructure at retail.</p>
+      <span class="gap-tag">Field Operations</span>
+    </div>
+    <div class="gap-card">
+      <span class="gap-icon">📋</span>
+      <h3>Configurable Survey Forms</h3>
+      <p>Build custom activity forms with text, dropdown, checklist, radio button, and image capture fields — enabling shelf-check surveys, compliance audits, or brand visibility tracking without custom development.</p>
+      <span class="gap-tag">Field Activities</span>
+    </div>
+    <div class="gap-card">
+      <span class="gap-icon">🔍</span>
+      <h3>Competition Stock Survey</h3>
+      <p>Field executives can capture competitive intelligence at outlets — tracking competitor stock, pricing, and visibility. Feeds directly into merchandising and category strategy decisions.</p>
+      <span class="gap-tag">Market Intelligence</span>
+    </div>
+    <div class="gap-card">
+      <span class="gap-icon">🔔</span>
+      <h3>Notification Management</h3>
+      <p>Push notifications from web admin to mobile field users — for order cutoff reminders, target alerts, scheme updates, and operational communications. Replaces WhatsApp group broadcasts.</p>
+      <span class="gap-tag">Communication</span>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- IMPACT -->
+<section class="impact-sec" id="impact">
+  <div class="sec-label"><span class="n">8</span>Outcomes</div>
+  <h2>Key outcomes <em>&amp; contributions</em></h2>
+  <p class="lead">
+    This project touched strategy, operations, product evaluation, and documentation simultaneously —
+    delivering both immediate financial savings and a platform foundation for Sid's Farm's distribution
+    growth over the next 3–5 years.
+  </p>
+
+  <div class="impact-list">
+    <div class="ir">
+      <div class="ir-n">01</div>
+      <div>
+        <h3>₹1,05,000/month (80.8%) reduction in SaaS licence costs</h3>
+        <p>Identified a direct ₹1.26L annual saving by migrating from Incitesol's store-limit-based model to Bizom's per-user pricing at a negotiated rate of ₹25,000/month for 50 users — making the migration self-funding within the first year even after accounting for the one-time ₹4,00,000 setup cost.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-n">02</div>
+      <div>
+        <h3>Full SOW documentation of a 5-module T+1 distribution process</h3>
+        <p>Authored a comprehensive Statement of Work covering Store Onboarding, Order Placement, Invoicing & Fulfillment, Delivery & Returns, and Payment Reconciliation — with step-level detail on approval workflows, ledger logic, and system expectations. This became the reference document for Bizom configuration and ongoing team training.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-n">03</div>
+      <div>
+        <h3>Structured 3-platform competitive analysis across 70+ feature dimensions</h3>
+        <p>Conducted a granular feature comparison across Incitesol, Bizom, and a third vendor — mapping 70+ capabilities across Order Management, Delivery, Inventory, Payments, Executive Operations, Invoicing, and Analytics. The analysis provided a defensible, data-backed case for the migration decision to leadership.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-n">04</div>
+      <div>
+        <h3>Closed 9 critical feature gaps that were absent in Incitesol</h3>
+        <p>The migration delivered 9 capabilities that were entirely absent in the previous platform — including route optimisation, target-vs-achievement dashboards, digital POD/GRN signatures, focus SKU tagging, asset management, competition surveys, and configurable activity forms — transforming the field app from a basic order-taking tool into a full-stack SFA platform.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-n">05</div>
+      <div>
+        <h3>Incitesol app fully documented for requirements transfer and onboarding continuity</h3>
+        <p>Created a screen-by-screen documentation of the Incitesol field app — covering all 9 functional modules with flow descriptions and screenshots — ensuring no operational knowledge was lost during migration, and giving the Bizom configuration team a clear reference for feature parity requirements.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-n">06</div>
+      <div>
+        <h3>Pricing proposal negotiated to a below-list rate with included training</h3>
+        <p>The final Bizom proposal achieved a 53% reduction from Bizom's standard list price (₹1,300/user → ₹800/user) with a discounted one-time setup cost (₹8,50,000 → ₹4,00,000) and 15 days of master data support and training included — demonstrating commercial negotiation alongside technical evaluation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- SKILLS -->
+<section class="skills-sec">
+  <div class="sec-label"><span class="n">9</span>Skills Demonstrated</div>
+  <h2>Technical <em>&amp; functional scope</em></h2>
+  <p class="lead">This project spanned product, strategy, commercial negotiation, process documentation, and field operations — requiring a rare blend of analytical rigour and operational depth.</p>
+
+  <div class="skill-cloud">
+    <span class="skill">Process Documentation (SOW)</span>
+    <span class="skill">Competitive Analysis (3-vendor)</span>
+    <span class="skill">Platform Evaluation & Selection</span>
+    <span class="skill">SaaS Cost Optimisation</span>
+    <span class="skill">Commercial Negotiation</span>
+    <span class="skill">S&D Process Design (T+1 Model)</span>
+    <span class="skill">SFA / Sales Force Automation</span>
+    <span class="skill">Order Management Systems</span>
+    <span class="skill">Delivery Management</span>
+    <span class="skill">PRN & Replacement Workflows</span>
+    <span class="skill">Ledger & Reconciliation Logic</span>
+    <span class="skill">Approval Workflow Design</span>
+    <span class="skill">GST / e-Invoice Compliance</span>
+    <span class="skill">Inventory Management (Field)</span>
+    <span class="skill">Route Optimisation</span>
+    <span class="skill">Field App Documentation</span>
+    <span class="skill">Digital POD / GRN Design</span>
+    <span class="skill">Geo-fencing & Location Tracking</span>
+    <span class="skill">Target & KRA Dashboards</span>
+    <span class="skill">FMCG / Dairy Distribution</span>
+    <span class="skill">ERP Integration Scoping</span>
+    <span class="skill">Requirements Transfer</span>
+    <span class="skill">Stakeholder Communication</span>
+    <span class="skill">Migration Planning</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Sid's Farm · S&D Platform Migration · Incitesol → Bizom · Portfolio Case Study</p>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Back to top</a>
+</footer>
+
+</body>
+</html>

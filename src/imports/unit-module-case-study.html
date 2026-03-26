@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Unit Module – CodeParva | Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2330;
+    --accent: #3fb950;
+    --accent2: #58a6ff;
+    --warn: #d29922;
+    --ink: #e6edf3;
+    --muted: #7d8590;
+    --rule: #21262d;
+    --tag-bg: #21262d;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ─────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,17,23,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    padding: 16px 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-size: 13px; letter-spacing: .04em;
+    text-decoration: none; color: var(--muted);
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    padding: 140px 56px 80px;
+    gap: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* animated grid background */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: .35;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 30% 70%, rgba(63,185,80,.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-left { position: relative; z-index: 2; }
+  .hero-right {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    align-self: end;
+  }
+
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 28px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow span {
+    display: inline-block; width: 24px; height: 1px; background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(52px, 7.5vw, 104px);
+    font-weight: 400; line-height: .95;
+    letter-spacing: -0.02em;
+  }
+  h1 .outline {
+    -webkit-text-stroke: 1px var(--ink);
+    color: transparent;
+  }
+  h1 .green { color: var(--accent); }
+
+  .hero-desc {
+    margin-top: 36px;
+    font-size: 16px; line-height: 1.75;
+    color: var(--muted); max-width: 480px;
+    font-family: 'Syne', sans-serif; font-weight: 400;
+  }
+
+  /* right side: terminal card */
+  .terminal {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+  }
+  .terminal-bar {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--rule);
+    padding: 12px 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+  .terminal-title {
+    margin-left: 8px; font-size: 11px; color: var(--muted); letter-spacing: .08em;
+  }
+  .terminal-body { padding: 20px 20px 24px; line-height: 2; }
+  .t-line { display: flex; gap: 10px; }
+  .t-prompt { color: var(--accent); flex-shrink: 0; }
+  .t-key { color: var(--accent2); }
+  .t-val { color: var(--warn); }
+  .t-comment { color: var(--muted); }
+  .t-blank { height: 8px; }
+
+  .hero-meta-strip {
+    margin-top: 24px;
+    display: flex; gap: 0;
+    border: 1px solid var(--rule); border-radius: 6px;
+    overflow: hidden;
+  }
+  .meta-cell {
+    flex: 1; padding: 16px 20px;
+    border-right: 1px solid var(--rule);
+    background: var(--surface);
+  }
+  .meta-cell:last-child { border-right: none; }
+  .meta-cell label {
+    display: block; font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 6px;
+  }
+  .meta-cell span { font-size: 13px; font-weight: 600; color: var(--ink); }
+
+  /* ── SHARED SECTION ─────────────────────── */
+  section { padding: 96px 56px; }
+  .sec-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 48px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .sec-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--rule); max-width: 200px;
+  }
+  h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(30px, 4vw, 52px);
+    font-weight: 400; line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  h2 em { color: var(--accent); font-style: italic; }
+  p.lead { color: var(--muted); max-width: 660px; font-size: 16px; line-height: 1.8; }
+  hr.rule { border: none; border-top: 1px solid var(--rule); margin: 0 56px; }
+
+  /* ── OVERVIEW STATS ─────────────────────── */
+  .overview { background: var(--surface); }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px; background: var(--rule);
+    margin-top: 56px;
+    border: 1px solid var(--rule);
+  }
+  .stat-box {
+    background: var(--surface);
+    padding: 36px 28px;
+    position: relative; overflow: hidden;
+  }
+  .stat-box::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .4s ease;
+  }
+  .stat-box:hover::before { transform: scaleX(1); }
+  .stat-n {
+    font-family: 'Instrument Serif', serif;
+    font-size: 52px; line-height: 1;
+    color: var(--accent); margin-bottom: 8px;
+  }
+  .stat-l {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── FEATURE CARDS ─────────────────────── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 56px;
+  }
+  @media (max-width: 900px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .features-grid { grid-template-columns: 1fr; }
+    nav { padding: 14px 20px; }
+    section { padding: 72px 20px; }
+    hr.rule { margin: 0 20px; }
+  }
+
+  .fcard {
+    background: var(--bg);
+    padding: 40px 36px;
+    position: relative; overflow: hidden;
+    transition: background .25s;
+    border-left: 3px solid transparent;
+    transition: border-color .3s, background .3s;
+  }
+  .fcard:hover { background: var(--surface); border-left-color: var(--accent); }
+  .fcard-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: .16em; color: var(--accent);
+    margin-bottom: 20px; display: block;
+  }
+  .fcard h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px; font-weight: 700;
+    margin-bottom: 12px; color: var(--ink);
+  }
+  .fcard p { font-size: 13px; line-height: 1.7; color: var(--muted); }
+  .fcard-tags {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px;
+  }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+    background: var(--tag-bg); color: var(--muted);
+    padding: 3px 9px; border-radius: 2px;
+    border: 1px solid var(--rule);
+  }
+
+  /* ── VERSIONS ─────────────────────────── */
+  .versions-section { background: var(--bg); }
+  .feature-block { margin-bottom: 80px; }
+  .feature-block:last-child { margin-bottom: 0; }
+
+  .fb-header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .fb-icon {
+    width: 40px; height: 40px; border-radius: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .fb-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 800;
+    color: var(--ink);
+  }
+  .fb-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+    background: var(--surface2); color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 3px 10px; border-radius: 20px;
+    margin-left: auto;
+  }
+
+  .ver-list { display: flex; flex-direction: column; gap: 0; }
+  .ver {
+    display: grid; grid-template-columns: 140px 1fr;
+    border-top: 1px solid var(--rule);
+    padding: 28px 0 28px 24px;
+    position: relative;
+    transition: background .2s;
+  }
+  .ver:hover { background: var(--surface); }
+  .ver::before {
+    content: '';
+    position: absolute; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 3px; height: 0;
+    background: var(--accent);
+    transition: height .3s ease;
+  }
+  .ver:hover::before { height: 60%; }
+  .ver-id {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--muted);
+    padding-top: 4px; flex-shrink: 0;
+  }
+  .ver-id strong { color: var(--accent2); display: block; margin-bottom: 2px; font-size: 13px; }
+  .ver-body h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700;
+    color: var(--ink); margin-bottom: 8px;
+  }
+  .ver-body p { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 680px; }
+  .ver-body ul {
+    margin-top: 8px; padding-left: 18px;
+    font-size: 13px; color: var(--muted);
+  }
+  .ver-body ul li { margin-bottom: 3px; }
+
+  /* ── IMPACT ──────────────────────────── */
+  .impact-section { background: var(--surface); }
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1px; background: var(--rule);
+    margin-top: 56px; border: 1px solid var(--rule);
+  }
+  .impact-card {
+    background: var(--surface);
+    padding: 36px 32px;
+    transition: background .2s;
+  }
+  .impact-card:hover { background: var(--surface2); }
+  .impact-card .ic-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 40px; color: var(--rule);
+    line-height: 1; margin-bottom: 16px;
+  }
+  .impact-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700;
+    color: var(--ink); margin-bottom: 10px;
+  }
+  .impact-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  /* ── TECH SKILLS ─────────────────────── */
+  .skills-section { background: var(--bg); }
+  .skills-wrap {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px;
+  }
+  .skill-chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: .06em;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    padding: 10px 20px; border-radius: 4px;
+    color: var(--ink);
+    transition: all .2s; cursor: default;
+  }
+  .skill-chip:hover {
+    border-color: var(--accent); color: var(--accent);
+    background: rgba(63,185,80,.07);
+  }
+
+  /* ── FOOTER ──────────────────────────── */
+  footer {
+    padding: 40px 56px;
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+  }
+  footer p {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--muted); letter-spacing: .1em;
+  }
+  footer a {
+    font-size: 12px; color: var(--accent); text-decoration: none;
+    letter-spacing: .06em;
+    transition: opacity .2s;
+  }
+  footer a:hover { opacity: .7; }
+
+  /* animate in */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * { animation: fadeUp .65s ease both; }
+  .hero-eyebrow { animation-delay: .1s; }
+  h1            { animation-delay: .2s; }
+  .hero-desc    { animation-delay: .3s; }
+  .hero-right   { animation: fadeUp .65s .4s ease both; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Portfolio · Case Study</span>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#features">Features</a>
+    <a href="#versions">Versions</a>
+    <a href="#impact">Impact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span></span>CodeParva Technologies · Self-Storage SaaS</div>
+    <h1>
+      Unit<br/>
+      <span class="outline">Module</span>
+    </h1>
+    <p class="hero-desc">
+      Design and development of the Unit Module for TFW — a self-storage platform feature
+      spanning visual facility maps, rent lifecycle management, configurable unit types,
+      walk-around tooling, and recurring billing — all built across multiple versioned iterations.
+    </p>
+  </div>
+
+  <div class="hero-right">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="terminal-title">unit-module · project.config</span>
+      </div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-prompt">$</span><span class="t-comment">// Unit Module · CodeParva TFW</span></div>
+        <div class="t-blank"></div>
+        <div class="t-line"><span class="t-key">company</span><span style="color:var(--muted)">:</span>&nbsp;<span class="t-val">"CodeParva Technologies"</span></div>
+        <div class="t-line"><span class="t-key">product</span><span style="color:var(--muted)">:</span>&nbsp;<span class="t-val">"TFW (The Facility Works)"</span></div>
+        <div class="t-line"><span class="t-key">module</span><span style="color:var(--muted)">:</span>&nbsp;<span class="t-val">"Unit Management"</span></div>
+        <div class="t-line"><span class="t-key">features</span><span style="color:var(--muted)">:</span>&nbsp;<span class="t-val">9</span></div>
+        <div class="t-line"><span class="t-key">versions</span><span style="color:var(--muted)">:</span>&nbsp;<span class="t-val">24+</span></div>
+        <div class="t-blank"></div>
+        <div class="t-line"><span class="t-key">domains</span><span style="color:var(--muted)">: [</span></div>
+        <div class="t-line">&nbsp;&nbsp;<span class="t-val">"BEV Canvas"</span><span style="color:var(--muted)">,</span></div>
+        <div class="t-line">&nbsp;&nbsp;<span class="t-val">"Rent Assessment"</span><span style="color:var(--muted)">,</span></div>
+        <div class="t-line">&nbsp;&nbsp;<span class="t-val">"Rent Adjustment"</span><span style="color:var(--muted)">,</span></div>
+        <div class="t-line">&nbsp;&nbsp;<span class="t-val">"Recurring Charges"</span><span style="color:var(--muted)">,</span></div>
+        <div class="t-line">&nbsp;&nbsp;<span class="t-val">"Unit Type Config"</span></div>
+        <div class="t-line"><span style="color:var(--muted)">]</span></div>
+        <div class="t-blank"></div>
+        <div class="t-line"><span class="t-prompt">$</span><span class="t-comment">// status: shipped ✓</span></div>
+      </div>
+    </div>
+
+    <div class="hero-meta-strip">
+      <div class="meta-cell"><label>Company</label><span>CodeParva</span></div>
+      <div class="meta-cell"><label>Domain</label><span>SaaS / Storage</span></div>
+      <div class="meta-cell"><label>Features</label><span>9 Areas</span></div>
+      <div class="meta-cell"><label>Versions</label><span>24+ Releases</span></div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- OVERVIEW -->
+<section class="overview" id="overview">
+  <div class="sec-label">01 · Background</div>
+  <h2>What is the <em>Unit Module?</em></h2>
+  <p class="lead">
+    The Unit Module is the operational backbone of TFW — it governs how physical storage units are
+    represented, configured, rented, billed, and maintained across a facility. Spanning everything from
+    an interactive Bird's Eye View canvas to automated rent assessment pipelines and mobile walk-around
+    tooling, this module required deep product thinking across visual UX, financial logic, and system configuration.
+  </p>
+
+  <div class="stat-grid">
+    <div class="stat-box">
+      <div class="stat-n">9</div>
+      <div class="stat-l">Feature Areas</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-n">24+</div>
+      <div class="stat-l">Versioned Releases</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-n">8</div>
+      <div class="stat-l">Adj. Calculation Modes</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-n">5</div>
+      <div class="stat-l">Unit Categories</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-n">6</div>
+      <div class="stat-l">BEV Canvas Versions</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-n">4</div>
+      <div class="stat-l">Rent Adj. Versions</div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- FEATURES -->
+<section id="features" style="background: var(--bg);">
+  <div class="sec-label">02 · Feature Areas</div>
+  <h2>Nine areas of the <em>Unit Module</em></h2>
+  <p class="lead">Each area was independently scoped and versioned. Together they form a complete lifecycle for how a self-storage facility creates, prices, monitors, and bills its physical units.</p>
+
+  <div class="features-grid">
+
+    <div class="fcard">
+      <span class="fcard-num">01</span>
+      <h3>Bird's Eye View (BEV)</h3>
+      <p>An interactive canvas showing the spatial layout of all units across levels. Supports zoom, unit status colour-coding, setup mode for repositioning units, and hover tooltips with live tenant data.</p>
+      <div class="fcard-tags">
+        <span class="tag">Canvas</span><span class="tag">Zoom</span><span class="tag">Color Codes</span><span class="tag">Multi-level</span>
+      </div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-num">02</span>
+      <h3>BEV Placeholder</h3>
+      <p>Extends the BEV canvas to support non-unit elements — offices, lifts, roads, custom spaces — with configurable dimensions and labels so the map accurately reflects the physical facility layout.</p>
+      <div class="fcard-tags">
+        <span class="tag">Placeholders</span><span class="tag">Facility Map</span><span class="tag">Custom Labels</span>
+      </div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-num">03</span>
+      <h3>Edit Unit</h3>
+      <p>Comprehensive unit editor covering rental status transitions, current rate management, invoicing configuration, insurance, promo plans, rate history with full adjustment lifecycle (schedule, reverse, waive, modify), and maintenance events.</p>
+      <div class="fcard-tags">
+        <span class="tag">Rate History</span><span class="tag">Invoicing</span><span class="tag">Insurance</span><span class="tag">Maintenance</span>
+      </div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-num">04</span>
+      <h3>Unit Type Configuration</h3>
+      <p>Facility-level configuration for unit categories (climate-controlled, outdoor, mobile, automobile, warehouse), standard rates by period, setup fees, deposits, rent slider logic with occupancy thresholds, and lease styles.</p>
+      <div class="fcard-tags">
+        <span class="tag">Rent Slider</span><span class="tag">Bulk Update</span><span class="tag">Categories</span><span class="tag">Deposit</span>
+      </div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-num">05</span>
+      <h3>Rent Assessment</h3>
+      <p>Automated and manual billing pipeline generating charges across all tenants or a single unit/ledger. Supports anniversary and non-anniversary facility modes, payment-triggered assessment, and concurrency locking to prevent double-billing.</p>
+      <div class="fcard-tags">
+        <span class="tag">Automated Billing</span><span class="tag">Anniversary Mode</span><span class="tag">Concurrency Lock</span>
+      </div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-num">06</span>
+      <h3>Rent Adjustment Wizard</h3>
+      <p>Bulk rate adjustment tool letting facility managers filter units by rental status, unit type, tenancy period, and last-adjustment date — then schedule flat or percentage increases with tenant notification, recurrence, and template saving.</p>
+      <div class="fcard-tags">
+        <span class="tag">Bulk Adjust</span><span class="tag">Scheduling</span><span class="tag">Notifications</span><span class="tag">Templates</span>
+      </div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-num">07</span>
+      <h3>Recurring Charges</h3>
+      <p>Facility-specific recurring add-on charges (e.g. garbage collection, extended gate hours) applied per unit on every rent assessment cycle — with configurable start/end dates, charge categories, and flat or percentage amounts.</p>
+      <div class="fcard-tags">
+        <span class="tag">Recurring Billing</span><span class="tag">Charge Category</span><span class="tag">Period-aware</span>
+      </div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-num">08</span>
+      <h3>Walk Around</h3>
+      <p>Mobile-friendly tooling for facility staff to walk the property and bulk-update overlock/unlock statuses unit by unit. Supports configurable sort orders (5 system presets + custom) and partial-save on bulk failure.</p>
+      <div class="fcard-tags">
+        <span class="tag">Mobile</span><span class="tag">Bulk Update</span><span class="tag">Sort Config</span><span class="tag">Overlock</span>
+      </div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-num">09</span>
+      <h3>Unit Transfer Between Ledgers</h3>
+      <p>Supports transferring a unit's association between tenant ledgers — enabling scenarios such as tenant account restructuring without disrupting billing history or lease continuity.</p>
+      <div class="fcard-tags">
+        <span class="tag">Ledger Transfer</span><span class="tag">Account Management</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- VERSIONS -->
+<section class="versions-section" id="versions">
+  <div class="sec-label">03 · Iterative Delivery</div>
+  <h2>Feature versions <em>&amp; decisions</em></h2>
+  <p class="lead">Features were shipped in successive versions, each addressing real user feedback, migration challenges, or client requests. Below is the versioned evolution of the most complex feature areas.</p>
+
+  <div style="margin-top: 72px;">
+
+    <!-- BEV -->
+    <div class="feature-block">
+      <div class="fb-header">
+        <div class="fb-icon">🗺️</div>
+        <span class="fb-title">Bird's Eye View (BEV)</span>
+        <span class="fb-badge">6 versions</span>
+      </div>
+      <div class="ver-list">
+        <div class="ver">
+          <div class="ver-id"><strong>v1.0</strong>Core Canvas</div>
+          <div class="ver-body">
+            <h3>Interactive facility map with setup mode</h3>
+            <p>Built the foundational BEV canvas: multi-level support, zoom (40–160%), unit placement with setup mode (create/edit/remove), colour-coded rental/availability/delinquency status, and click-through navigation to view tenant or move-in flows.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-id"><strong>v2.0</strong>Unit Search</div>
+          <div class="ver-body">
+            <h3>Search-to-scroll with double-stroke highlight</h3>
+            <p>Added unit search that scrolls and auto-switches levels to the searched unit's position. Used a double-stroke visual highlight instead of colour (since unit colour is status-driven and user-configured) to clearly identify the result — requested by Fullsteam.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-id"><strong>v3.0</strong>Placeholders</div>
+          <div class="ver-body">
+            <h3>Non-unit elements on the canvas</h3>
+            <p>Introduced placeholder entities (Office, Lift, Road, Others with custom labels) with configurable dimensions. Decided to use text labels over icons after review. Delete restricted to unsaved or placeholder-only selections — units excluded from bulk delete.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-id"><strong>v4.0</strong>Colour Resolution</div>
+          <div class="ver-body">
+            <h3>Simplified delinquency colour model</h3>
+            <p>Resolved conflicting colour logic across lockout events, late events, and auction states. Final decision: gate lockout triggers full unit colour (red default); all other delinquency events follow standard corner-indicator behaviour. Auction integrated into future delinquency event scope.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-id"><strong>v5.0</strong>Canvas Scroll Fix</div>
+          <div class="ver-body">
+            <h3>Arrow-key navigation in setup mode</h3>
+            <p>Resolved a spacebar-capture issue in setup mode (caused by TeamViewer input interception) by implementing arrow-key canvas panning. Verified coordinate migration integrity as part of the fix.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-id"><strong>v6.0</strong>Hover Tooltip</div>
+          <div class="ver-body">
+            <h3>Rich unit info on hover — without a click</h3>
+            <p>Replaced the basic unit-number tooltip with a rich hover card showing: unit number, unit type, rate (standard if vacant / current if rented), next billing date, tenant name, ledger balance, last paid date and amount, and full status. Integrated with BEV search to show the same card at the scrolled-to unit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UNIT TYPE -->
+    <div class="feature-block">
+      <div class="fb-header">
+        <div class="fb-icon">⚙️</div>
+        <span class="fb-title">Unit Type Configuration</span>
+        <span class="fb-badge">4 versions</span>
+      </div>
+      <div class="ver-list">
+        <div class="ver">
+          <div class="ver-id"><strong>v1.0</strong>Foundation</div>
+          <div class="ver-body">
+            <h3>Full unit type config with rent slider</h3>
+            <p>Built the core unit type setup: description, setup fee, deposit, charge category, rates by period, dimensions, category (Climate Controlled, Outdoor, Mobile, Automobile), overbook limit, and the rent slider — a dynamic pricing engine that adjusts move-in rates based on facility occupancy thresholds using flat or percentage calculations.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-id"><strong>v2.0</strong>Deactivation</div>
+          <div class="ver-body">
+            <h3>Safe unit type deactivation</h3>
+            <p>Added eligibility-gated deactivation — a unit type can only be deactivated if no units are tagged to it. Deactivation triggers automatic cleanup of any rent adjustments linked to the unit type.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-id"><strong>v3.0</strong>Bulk Update</div>
+          <div class="ver-body">
+            <h3>Batch rate and fee updates across unit types</h3>
+            <p>Enabled bulk editing of standard rate, web rate, deposit, setup fee, charge category, and lease style across multiple unit types and periods in one operation. Built transactional failure handling — partial failures roll back the entire batch to prevent inconsistent state. Lease and website rates separated as distinct action items for clarity.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-id"><strong>v4.0</strong>Warehouse Category</div>
+          <div class="ver-body">
+            <h3>Warehouse as a supported unit category</h3>
+            <p>Added Warehouse as a system-level unit category following a client request (Herlihy, FID: 29421). Scoped future extensibility via an "Others / Custom" category path for any further bespoke requests.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RENT ADJUSTMENT -->
+    <div class="feature-block">
+      <div class="fb-header">
+        <div class="fb-icon">📈</div>
+        <span class="fb-title">Rent Adjustment</span>
+        <span class="fb-badge">4 versions</span>
+      </div>
+      <div class="ver-list">
+        <div class="ver">
+          <div class="ver-id"><strong>v1.0</strong>Wizard Base</div>
+          <div class="ver-body">
+            <h3>Bulk rent adjustment with multi-criteria filtering</h3>
+            <p>Built the rent adjustment wizard allowing facility managers to select units by rental status, unit type, period, last-adjustment date, and occupancy tenure. Supports 8 adjustment calculation modes (flat, percentage of current/standard, higher/lower of flat vs percent, increase to standard), configurable recurrence, and tenant notification via print or email — with template saving for reuse.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-id"><strong>v2.0</strong>Terminology</div>
+          <div class="ver-body">
+            <h3>UX clarity and status column improvements</h3>
+            <p>Introduced a status column (Scheduled / Complete / Stopped), reorganised the affected units grid, simplified tenant-based filter labels ("Tenants who have not been adjusted before", "Tenants who have rented over"), and clarified recurrence UI with explicit period selectors — based on user feedback sessions with Tom.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-id"><strong>v3.0</strong>Increase %</div>
+          <div class="ver-body">
+            <h3>Show percentage impact at the confirmation step</h3>
+            <p>Added a summary percentage showing how much the scheduled adjustment increases or decreases rates overall — calculated as the delta between sum of all scheduled rates vs. all current rates for affected units, expressed as a percentage change. Helps managers validate the impact before committing.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-id"><strong>v4.0</strong>Single Unit Adjustment</div>
+          <div class="ver-body">
+            <h3>Per-unit adjustment from rate history</h3>
+            <p>Introduced single-unit rent adjustment accessible directly from the Edit Unit rate history panel — showing full tenant context (current rate, standard rate, move-in date, last increase date, next assessment date). Supports all 8 calculation modes, rounding options, configurable notification timing with alternate contact, and conflict detection for existing scheduled adjustments. Requested by Tama Toledo (FID: 15458).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIT UNIT -->
+    <div class="feature-block">
+      <div class="fb-header">
+        <div class="fb-icon">✏️</div>
+        <span class="fb-title">Edit Unit</span>
+        <span class="fb-badge">2 versions</span>
+      </div>
+      <div class="ver-list">
+        <div class="ver">
+          <div class="ver-id"><strong>v1.0</strong>Core Editor</div>
+          <div class="ver-body">
+            <h3>Full unit editor with rate history lifecycle</h3>
+            <p>Built the complete Edit Unit screen: rental status transitions (rented ↔ vacant with appropriate data clearing and defaults), current rate and next assessment date management, insurance configuration, invoicing settings (enable/disable, invoice-to date, always-generate toggle), rate history with Moved In / Pending / Applied / Waived / Reversed / Moved Out statuses, and maintenance event tracking per unit.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-id"><strong>v2.0</strong>Migration Rate Fix</div>
+          <div class="ver-body">
+            <h3>Correct current rate mapping from v10 migration</h3>
+            <p>Addressed a migration bug where the next rent assessment rate was incorrectly used as the current rate during v10→v11 migration — causing incorrect billing when recurring charges, insurance, or promo plans were present. Fixed by migrating current charges from v10 as independent line items (recurring charges, insurance, promo) rather than collapsing them into a single rate figure.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECURRING CHARGES -->
+    <div class="feature-block">
+      <div class="fb-header">
+        <div class="fb-icon">🔄</div>
+        <span class="fb-title">Recurring Charges</span>
+        <span class="fb-badge">2 versions</span>
+      </div>
+      <div class="ver-list">
+        <div class="ver">
+          <div class="ver-id"><strong>v1.0</strong>Core Feature</div>
+          <div class="ver-body">
+            <h3>Add-on charges billed every rent assessment cycle</h3>
+            <p>Built recurring charge creation on units — supporting a description, start/end date, charge category, flat or percentage type, and rounding. Charges auto-generate on each rent assessment cycle. Users can manually discontinue from the next period. Migrated from v10 with automatic RC 1/RC 2 naming for entries missing titles.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-id"><strong>v2.0</strong>Migration Name Fix</div>
+          <div class="ver-body">
+            <h3>Auto-naming blank recurring charge entries</h3>
+            <p>Fixed a migration edge case (reported at Harrison Storage, FID: 1838) where recurring charges migrated from v10 without a title were left unnamed. Added logic to auto-assign RC 1, RC 2, etc., per unit to ensure the charges are identifiable in the UI post-migration.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WALK AROUND -->
+    <div class="feature-block" style="margin-bottom:0;">
+      <div class="fb-header">
+        <div class="fb-icon">🚶</div>
+        <span class="fb-title">Walk Around</span>
+        <span class="fb-badge">1 version</span>
+      </div>
+      <div class="ver-list">
+        <div class="ver" style="border-top: 1px solid var(--rule);">
+          <div class="ver-id"><strong>v1.0</strong>Initial Build</div>
+          <div class="ver-body">
+            <h3>Mobile-optimised unit patrol and overlock management</h3>
+            <p>Designed for staff walking the physical facility on a mobile or tablet device. Features: configurable unit order (5 system presets — last name alpha, unit number asc/desc, address, zip + 1 custom sort), bulk overlock/unlock status updates with partial-save on failure, and access to rate history, tenant info, move-in and move-out flows per unit. Migrated v10 custom sort orders per unit from tblSortOrder/tblUnit_tblSortOrder. Requested by Tim/Tom.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- IMPACT -->
+<section class="impact-section" id="impact">
+  <div class="sec-label">04 · Outcomes</div>
+  <h2>Key outcomes <em>&amp; contributions</em></h2>
+  <p class="lead">Across the Unit Module, the work spanned complex UX, financial engine design, data migration strategy, and multi-facility configurability — resulting in a production-grade module used across diverse storage facility types.</p>
+
+  <div class="impact-grid">
+    <div class="impact-card">
+      <div class="ic-num">01</div>
+      <h3>Visual facility management via interactive canvas</h3>
+      <p>Built a zoomable, multi-level BEV canvas that gives facility managers a live spatial overview of unit status, delinquency, and gate lockout — with rich hover tooltips and direct navigation — replacing guesswork with at-a-glance insight.</p>
+    </div>
+    <div class="impact-card">
+      <div class="ic-num">02</div>
+      <h3>Dynamic pricing engine with occupancy-based rent slider</h3>
+      <p>Designed and implemented the rent slider — a real-time move-in pricing engine that automatically discounts or premiums rates based on facility occupancy thresholds, configurable by unit type with flat or percentage calculation modes.</p>
+    </div>
+    <div class="impact-card">
+      <div class="ic-num">03</div>
+      <h3>Complete rate history audit trail per unit</h3>
+      <p>Delivered a full rate history ledger per unit tracking every rate event — move in, applied adjustments, pending schedules, waivers, reversals, and move out — with attribution to users and linkage to lease numbers, enabling transparent financial audit.</p>
+    </div>
+    <div class="impact-card">
+      <div class="ic-num">04</div>
+      <h3>Bulk rent adjustment with 8 calculation modes</h3>
+      <p>Built a flexible bulk rent adjustment wizard supporting 8 increase/decrease calculation strategies across unit subsets, with configurable recurrence, multi-channel tenant notification, warning thresholds, and reusable templates for routine rate cycles.</p>
+    </div>
+    <div class="impact-card">
+      <div class="ic-num">05</div>
+      <h3>Resilient data migration from v10 to v11</h3>
+      <p>Identified and resolved critical migration bugs — including incorrect current rate mapping caused by recurring charges, insurance, and promo plans being collapsed into a single figure — ensuring billing continuity post-migration for all facilities.</p>
+    </div>
+    <div class="impact-card">
+      <div class="ic-num">06</div>
+      <h3>Mobile-first walk-around tooling for field staff</h3>
+      <p>Designed a dedicated mobile experience for facility staff to patrol units, update overlock statuses in bulk, and access tenant/unit info on the go — with configurable sort orders and graceful partial-save failure handling.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- SKILLS -->
+<section class="skills-section">
+  <div class="sec-label">05 · Skills Demonstrated</div>
+  <h2>Technical <em>&amp; product scope</em></h2>
+  <p class="lead">The Unit Module demanded a broad skill set spanning canvas UI engineering, billing system design, configuration architecture, and data migration strategy — all delivered iteratively with real customer feedback shaping each version.</p>
+
+  <div class="skills-wrap">
+    <span class="skill-chip">Canvas / Map UI (BEV)</span>
+    <span class="skill-chip">Interactive Setup Mode</span>
+    <span class="skill-chip">Zoom & Scroll Engineering</span>
+    <span class="skill-chip">Colour Code Systems</span>
+    <span class="skill-chip">Rent Assessment Pipeline</span>
+    <span class="skill-chip">Billing Concurrency Locking</span>
+    <span class="skill-chip">Rent Adjustment Engine</span>
+    <span class="skill-chip">8-Mode Rate Calculation</span>
+    <span class="skill-chip">Dynamic Pricing (Rent Slider)</span>
+    <span class="skill-chip">Recurring Charge Logic</span>
+    <span class="skill-chip">Rate History Audit Trail</span>
+    <span class="skill-chip">Bulk Update with Rollback</span>
+    <span class="skill-chip">Unit Type Configuration</span>
+    <span class="skill-chip">Mobile-first UX (Walk Around)</span>
+    <span class="skill-chip">Configurable Sort Orders</span>
+    <span class="skill-chip">Tenant Notification System</span>
+    <span class="skill-chip">Lease Style Integration</span>
+    <span class="skill-chip">Insurance & Promo Plans</span>
+    <span class="skill-chip">Data Migration Strategy</span>
+    <span class="skill-chip">v10 → v11 Migration</span>
+    <span class="skill-chip">Multi-facility SaaS</span>
+    <span class="skill-chip">Product Requirements</span>
+    <span class="skill-chip">Versioned Feature Delivery</span>
+    <span class="skill-chip">Client-driven Prioritisation</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>CodeParva Technologies · Unit Module · Portfolio Case Study</p>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Back to top</a>
+</footer>
+
+</body>
+</html>

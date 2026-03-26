@@ -54,7 +54,7 @@ export default function Contact() {
     {
       label: 'Location',
       value: 'Bengaluru, India',
-      action: 'Open to remote & relocation',
+      action: 'Open to remote',
       url: '#',
       icon: '📍'
     }
@@ -82,6 +82,7 @@ export default function Contact() {
           
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-7 text-[13px] text-[#A09880]">
+            <Link to="/" className="cursor-pointer hover:text-[#C8953A] transition-colors">Home</Link>
             <Link to="/projects" className="cursor-pointer hover:text-[#C8953A] transition-colors">Projects</Link>
             <Link to="/experience" className="cursor-pointer hover:text-[#C8953A] transition-colors">Experience</Link>
             <Link to="/outside-the-brief" className="cursor-pointer hover:text-[#C8953A] transition-colors">Outside the Brief</Link>
@@ -106,6 +107,7 @@ export default function Contact() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 flex flex-col gap-3 text-[13px] text-[#A09880]">
+            <Link to="/" className="cursor-pointer hover:text-[#C8953A] transition-colors">Home</Link>
             <Link to="/projects" className="cursor-pointer hover:text-[#C8953A] transition-colors">Projects</Link>
             <Link to="/experience" className="cursor-pointer hover:text-[#C8953A] transition-colors">Experience</Link>
             <Link to="/outside-the-brief" className="cursor-pointer hover:text-[#C8953A] transition-colors">Outside the Brief</Link>

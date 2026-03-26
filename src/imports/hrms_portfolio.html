@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workforce & Payroll Platform — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0D1117;
+    --ink-mid: #1E2A3A;
+    --ink-soft: #374151;
+    --accent: #C8A96E;
+    --accent-dim: #9A7D4F;
+    --cream: #F7F3EE;
+    --cream-dark: #EDE7DC;
+    --rule: rgba(200,169,110,0.25);
+    --glass: rgba(13,17,23,0.75);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--ink);
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--rule);
+    background: rgba(13,17,23,0.85);
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.55;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .nav-links a:hover { opacity: 1; color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 140px 60px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5.5vw, 80px);
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(247,243,238,0.6);
+    max-width: 420px;
+    margin-bottom: 52px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(247,243,238,0.45);
+  }
+
+  .meta-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 140px 60px 80px;
+  }
+
+  .hero-diagram {
+    width: 100%;
+    max-width: 440px;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 1s forwards;
+  }
+
+  /* Animated circles in hero */
+  .hero-rings {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--rule);
+    animation: spin linear infinite;
+  }
+
+  .ring:nth-child(1) { width: 320px; height: 320px; animation-duration: 40s; }
+  .ring:nth-child(2) { width: 480px; height: 480px; animation-duration: 65s; animation-direction: reverse; }
+  .ring:nth-child(3) { width: 620px; height: 620px; animation-duration: 90s; }
+
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  /* ── SECTION SHARED ── */
+  section { position: relative; z-index: 1; }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 54px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  /* ── PROBLEM ── */
+  #problem {
+    padding: 140px 0;
+    background: var(--ink-mid);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .problem-desc {
+    font-size: 16px;
+    line-height: 1.75;
+    color: rgba(247,243,238,0.6);
+    font-weight: 300;
+  }
+
+  .problem-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .p-card {
+    background: rgba(247,243,238,0.04);
+    border: 1px solid var(--rule);
+    padding: 28px 24px;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .p-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .p-card:hover::before { transform: scaleX(1); }
+  .p-card:hover { background: rgba(200,169,110,0.06); }
+
+  .p-card-icon {
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+
+  .p-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    color: var(--cream);
+  }
+
+  .p-card-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(247,243,238,0.45);
+  }
+
+  /* ── CAPABILITIES ── */
+  #capabilities {
+    padding: 140px 0;
+  }
+
+  .cap-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+    align-items: end;
+  }
+
+  .cap-intro {
+    font-size: 16px;
+    line-height: 1.75;
+    color: rgba(247,243,238,0.6);
+    font-weight: 300;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .cap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .cap-item {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    align-items: center;
+    gap: 28px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+    cursor: pointer;
+    transition: padding-left 0.3s ease;
+    position: relative;
+  }
+
+  .cap-item:hover { padding-left: 8px; }
+
+  .cap-item:hover .cap-arrow { opacity: 1; transform: translateX(0); }
+
+  .cap-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: rgba(200,169,110,0.15);
+    line-height: 1;
+    transition: color 0.3s;
+  }
+
+  .cap-item:hover .cap-num { color: rgba(200,169,110,0.4); }
+
+  .cap-content {}
+
+  .cap-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--cream);
+    transition: color 0.3s;
+  }
+
+  .cap-item:hover .cap-title { color: var(--accent); }
+
+  .cap-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(247,243,238,0.45);
+  }
+
+  .cap-arrow {
+    font-size: 20px;
+    color: var(--accent);
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all 0.3s ease;
+  }
+
+  /* ── PAYROLL HIGHLIGHT ── */
+  #engine {
+    padding: 140px 0;
+    background: var(--cream);
+    color: var(--ink);
+  }
+
+  #engine .section-title { color: var(--ink); }
+  #engine .section-label { color: var(--accent-dim); }
+
+  .engine-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .engine-card {
+    background: white;
+    padding: 36px 32px;
+    border-top: 3px solid transparent;
+    transition: border-color 0.3s;
+  }
+
+  .engine-card:hover { border-color: var(--accent); }
+
+  .engine-card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-dim);
+    margin-bottom: 20px;
+  }
+
+  .engine-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .engine-rule {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .rule-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  .rule-text {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .rule-text strong { color: var(--ink); font-weight: 600; }
+
+  /* ── GOVERNANCE ── */
+  #governance {
+    padding: 140px 0;
+  }
+
+  .gov-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 60px;
+    align-items: start;
+  }
+
+  .gov-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .gov-table tr {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .gov-table tr:first-child td {
+    padding-bottom: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .gov-table td {
+    padding: 18px 0;
+    font-size: 14px;
+    vertical-align: top;
+  }
+
+  .gov-table td:first-child {
+    font-weight: 600;
+    color: var(--cream);
+    padding-right: 24px;
+    width: 45%;
+  }
+
+  .gov-table td:last-child {
+    color: rgba(247,243,238,0.55);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .risk-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .risk-item {
+    padding: 24px;
+    background: rgba(247,243,238,0.04);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .risk-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .risk-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(247,243,238,0.5);
+  }
+
+  /* ── OUTCOMES ── */
+  #outcomes {
+    padding: 140px 0;
+    background: var(--ink-mid);
+    border-top: 1px solid var(--rule);
+  }
+
+  .outcomes-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .outcome-card {
+    padding: 48px 36px;
+    background: rgba(247,243,238,0.03);
+    border: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .outcome-card:hover { background: rgba(200,169,110,0.05); }
+
+  .outcome-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 900;
+    color: var(--accent);
+    opacity: 0.2;
+    position: absolute;
+    top: 16px; right: 20px;
+    line-height: 1;
+  }
+
+  .outcome-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .outcome-text {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(247,243,238,0.5);
+  }
+
+  /* ── CV BULLETS ── */
+  #cv {
+    padding: 140px 0;
+    background: var(--ink);
+  }
+
+  .cv-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 60px;
+    text-align: center;
+  }
+
+  .cv-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 60px;
+    text-align: left;
+  }
+
+  .cv-card {
+    border: 1px solid var(--rule);
+    padding: 44px 48px;
+    position: relative;
+    background: rgba(200,169,110,0.03);
+    transition: border-color 0.3s;
+  }
+
+  .cv-card:hover { border-color: var(--accent); }
+
+  .cv-card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .cv-card-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(247,243,238,0.8);
+    font-weight: 300;
+  }
+
+  .cv-card-text strong {
+    color: var(--cream);
+    font-weight: 600;
+  }
+
+  .cv-quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: var(--accent);
+    opacity: 0.12;
+    position: absolute;
+    top: 20px; left: 32px;
+    line-height: 1;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px 60px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(247,243,238,0.25);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Stagger children */
+  .stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .stagger.visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
+  .stagger.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.1s; }
+  .stagger.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.2s; }
+  .stagger.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.3s; }
+  .stagger.visible > *:nth-child(5) { opacity: 1; transform: none; transition-delay: 0.4s; }
+  .stagger.visible > *:nth-child(6) { opacity: 1; transform: none; transition-delay: 0.5s; }
+  .stagger.visible > *:nth-child(7) { opacity: 1; transform: none; transition-delay: 0.6s; }
+
+  /* ── SVG DIAGRAM ── */
+  .lifecycle-svg text { font-family: 'DM Sans', sans-serif; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Portfolio — AVP Product</div>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#capabilities">Platform</a></li>
+    <li><a href="#engine">Payroll Engine</a></li>
+    <li><a href="#outcomes">Outcomes</a></li>
+    <li><a href="#cv">CV Bullets</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Case Study &nbsp;/&nbsp; HRMS Platform &nbsp;/&nbsp; 2024–25</div>
+    <h1 class="hero-title">Enterprise<br><em>Workforce</em><br>& Payroll<br>Platform</h1>
+    <p class="hero-sub">Organisation-wide digital transformation of workforce operations — onboarding, attendance, payroll, incentives, asset tracking and exits — for part-time and ground staff across four cities.</p>
+    <div class="hero-meta">
+      <div class="meta-item"><span class="meta-dot"></span>Role: AVP – Product (Head of Product)</div>
+      <div class="meta-item"><span class="meta-dot"></span>Platform: ERPNext (Custom Build)</div>
+      <div class="meta-item"><span class="meta-dot"></span>Cities: Hyderabad · Bengaluru · Pune · Vijayawada</div>
+      <div class="meta-item"><span class="meta-dot"></span>Functions: HR · Supply Chain · Operations · Finance</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-rings">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+    </div>
+    <!-- Lifecycle SVG -->
+    <svg class="hero-diagram" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="210" cy="210" r="180" stroke="rgba(200,169,110,0.12)" stroke-width="1"/>
+      <circle cx="210" cy="210" r="120" stroke="rgba(200,169,110,0.18)" stroke-width="1"/>
+      <circle cx="210" cy="210" r="60" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.35)" stroke-width="1.5"/>
+      <!-- Center -->
+      <text x="210" y="203" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" fill="#C8A96E" font-weight="700">Workforce</text>
+      <text x="210" y="220" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="rgba(200,169,110,0.7)">Platform</text>
+      <!-- Nodes -->
+      <!-- Onboarding top -->
+      <circle cx="210" cy="30" r="28" fill="rgba(13,17,23,0.9)" stroke="rgba(200,169,110,0.5)" stroke-width="1.5"/>
+      <text x="210" y="25" text-anchor="middle" font-size="9" fill="#C8A96E" font-family="DM Sans,sans-serif" font-weight="600">Onboarding</text>
+      <text x="210" y="38" text-anchor="middle" font-size="9" fill="rgba(200,169,110,0.6)" font-family="DM Sans,sans-serif">&amp; Docs</text>
+      <!-- Attendance right-top -->
+      <circle cx="370" cy="100" r="28" fill="rgba(13,17,23,0.9)" stroke="rgba(200,169,110,0.5)" stroke-width="1.5"/>
+      <text x="370" y="95" text-anchor="middle" font-size="9" fill="#C8A96E" font-family="DM Sans,sans-serif" font-weight="600">Attendance</text>
+      <text x="370" y="108" text-anchor="middle" font-size="9" fill="rgba(200,169,110,0.6)" font-family="DM Sans,sans-serif">Engine</text>
+      <!-- Payroll right-bottom -->
+      <circle cx="370" cy="320" r="28" fill="rgba(13,17,23,0.9)" stroke="rgba(200,169,110,0.5)" stroke-width="1.5"/>
+      <text x="370" y="315" text-anchor="middle" font-size="9" fill="#C8A96E" font-family="DM Sans,sans-serif" font-weight="600">Payroll &amp;</text>
+      <text x="370" y="328" text-anchor="middle" font-size="9" fill="rgba(200,169,110,0.6)" font-family="DM Sans,sans-serif">Incentives</text>
+      <!-- Exit bottom -->
+      <circle cx="210" cy="390" r="28" fill="rgba(13,17,23,0.9)" stroke="rgba(200,169,110,0.5)" stroke-width="1.5"/>
+      <text x="210" y="385" text-anchor="middle" font-size="9" fill="#C8A96E" font-family="DM Sans,sans-serif" font-weight="600">Exit &amp;</text>
+      <text x="210" y="398" text-anchor="middle" font-size="9" fill="rgba(200,169,110,0.6)" font-family="DM Sans,sans-serif">Settlement</text>
+      <!-- Assets left-bottom -->
+      <circle cx="50" cy="320" r="28" fill="rgba(13,17,23,0.9)" stroke="rgba(200,169,110,0.5)" stroke-width="1.5"/>
+      <text x="50" y="315" text-anchor="middle" font-size="9" fill="#C8A96E" font-family="DM Sans,sans-serif" font-weight="600">Asset</text>
+      <text x="50" y="328" text-anchor="middle" font-size="9" fill="rgba(200,169,110,0.6)" font-family="DM Sans,sans-serif">Tracking</text>
+      <!-- Visibility left-top -->
+      <circle cx="50" cy="100" r="28" fill="rgba(13,17,23,0.9)" stroke="rgba(200,169,110,0.5)" stroke-width="1.5"/>
+      <text x="50" y="95" text-anchor="middle" font-size="9" fill="#C8A96E" font-family="DM Sans,sans-serif" font-weight="600">Workforce</text>
+      <text x="50" y="108" text-anchor="middle" font-size="9" fill="rgba(200,169,110,0.6)" font-family="DM Sans,sans-serif">Visibility</text>
+      <!-- Connectors -->
+      <line x1="210" y1="58" x2="210" y2="150" stroke="rgba(200,169,110,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="344" y1="115" x2="270" y2="163" stroke="rgba(200,169,110,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="344" y1="306" x2="270" y2="257" stroke="rgba(200,169,110,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="210" y1="362" x2="210" y2="270" stroke="rgba(200,169,110,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="76" y1="306" x2="150" y2="257" stroke="rgba(200,169,110,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="76" y1="115" x2="150" y2="163" stroke="rgba(200,169,110,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
+    </svg>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="section-inner">
+    <div class="problem-grid">
+      <div class="reveal">
+        <div class="section-label">The Problem</div>
+        <h2 class="section-title">Manual. Fragmented.<br>Unscalable.</h2>
+        <p class="problem-desc" style="margin-top:24px;">Before this initiative, the organisation managed its entire part-time and ground workforce through spreadsheets and physical files. As the workforce scaled across cities, the cracks turned into crises — in payroll accuracy, compliance, operational visibility and asset recovery.</p>
+      </div>
+      <div class="problem-cards stagger">
+        <div class="p-card">
+          <div class="p-card-icon">📋</div>
+          <div class="p-card-title">No System of Record</div>
+          <div class="p-card-text">All employee and partner data maintained in disconnected spreadsheets and physical hard copies across locations.</div>
+        </div>
+        <div class="p-card">
+          <div class="p-card-icon">🕐</div>
+          <div class="p-card-title">Attendance Unreliable</div>
+          <div class="p-card-text">Biometric capture disconnected from payroll; manual tracking prone to error and manipulation.</div>
+        </div>
+        <div class="p-card">
+          <div class="p-card-icon">💸</div>
+          <div class="p-card-title">Payroll Leakage</div>
+          <div class="p-card-text">Incentive and bonus calculations done manually with no audit trail — error-prone and opaque to employees.</div>
+        </div>
+        <div class="p-card">
+          <div class="p-card-icon">📦</div>
+          <div class="p-card-title">Asset Not Recovered</div>
+          <div class="p-card-text">Issued assets (bags, equipment) not tracked in any system — exiting workers rarely returned them.</div>
+        </div>
+        <div class="p-card">
+          <div class="p-card-icon">🗺️</div>
+          <div class="p-card-title">Zero Leadership Visibility</div>
+          <div class="p-card-text">No real-time view of workforce availability by city, location or role for planning and hiring.</div>
+        </div>
+        <div class="p-card">
+          <div class="p-card-icon">⚖️</div>
+          <div class="p-card-title">Compliance Risk</div>
+          <div class="p-card-text">Onboarding and exit processes uncontrolled, undocumented and non-auditable across all locations.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="capabilities">
+  <div class="section-inner">
+    <div class="cap-header reveal">
+      <div>
+        <div class="section-label">Platform Built</div>
+        <h2 class="section-title">Seven Core<br>Capabilities</h2>
+      </div>
+      <p class="cap-intro">I owned the complete product scope — from org model design to worker-facing mobile app — translating complex multi-stakeholder operational realities into a single configurable platform.</p>
+    </div>
+    <div class="cap-list stagger">
+      <div class="cap-item">
+        <div class="cap-num">01</div>
+        <div class="cap-content">
+          <div class="cap-title">Workforce Master Data & Role Architecture</div>
+          <div class="cap-desc">Configurable org model: departments, sub-departments, cost centres, employment types, role-linked pay structures, shift definitions and bulk shift assignment.</div>
+        </div>
+        <div class="cap-arrow">→</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-num">02</div>
+        <div class="cap-content">
+          <div class="cap-title">Onboarding & Compliance Workflow</div>
+          <div class="cap-desc">Digital consent capture, masked document storage, role-based pay inheritance, HR checker gate, biometric and mobile access provisioning.</div>
+        </div>
+        <div class="cap-arrow">→</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-num">03</div>
+        <div class="cap-content">
+          <div class="cap-title">Attendance & Regularisation Engine</div>
+          <div class="cap-desc">Hybrid biometric + mobile punch-in/out, location capture, shift awareness, 24-hour regularisation window with multi-level approval hierarchy.</div>
+        </div>
+        <div class="cap-arrow">→</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-num">04</div>
+        <div class="cap-content">
+          <div class="cap-title">Payroll & Incentive Rule Engine — Core Differentiator</div>
+          <div class="cap-desc">Multi-rule incentive programmes, configurable bonus engines, advance pay eligibility and automated exit deductions — all modifiable by business users without redeployment.</div>
+        </div>
+        <div class="cap-arrow">→</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-num">05</div>
+        <div class="cap-content">
+          <div class="cap-title">Asset Lifecycle & Recovery Management</div>
+          <div class="cap-desc">Configurable asset catalogue, model-level assignment per worker, returnable/non-returnable classification, deduction enforcement at exit and final settlement.</div>
+        </div>
+        <div class="cap-arrow">→</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-num">06</div>
+        <div class="cap-content">
+          <div class="cap-title">Workforce Visibility & Hiring Dashboards</div>
+          <div class="cap-desc">Leadership dashboards by city, location and role — active, inactive, exited and backup workforce — with bulk onboarding upload for faster coverage planning.</div>
+        </div>
+        <div class="cap-arrow">→</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-num">07</div>
+        <div class="cap-content">
+          <div class="cap-title">Worker / Partner Self-Service App</div>
+          <div class="cap-desc">Masked profile view, attendance history, leave and regularisation requests, asset liability details, payslips, advance pay requests and distance tracking.</div>
+        </div>
+        <div class="cap-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYROLL ENGINE -->
+<section id="engine">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Design Highlight</div>
+      <h2 class="section-title" style="color: var(--ink)">Payroll & Incentive<br>Rule Engine</h2>
+      <p style="font-size:16px;line-height:1.75;color:rgba(30,42,58,0.65);max-width:600px;margin-top:16px;font-weight:300;">The most complex and differentiating capability — a configurable rule engine allowing business users to define, modify and activate incentive structures without engineering involvement.</p>
+    </div>
+    <div class="engine-grid stagger">
+      <div class="engine-card">
+        <div class="engine-card-label">Incentive Rules</div>
+        <div class="engine-card-title">Multi-Variable Incentive Programmes</div>
+        <div class="engine-rule"><div class="rule-dot"></div><div class="rule-text"><strong>Attendance:</strong> Leave days ≤ 2/month → eligible for full incentive component</div></div>
+        <div class="engine-rule"><div class="rule-dot"></div><div class="rule-text"><strong>Punch-in time:</strong> Before 4:15 AM → ₹200 component unlocked</div></div>
+        <div class="engine-rule"><div class="rule-dot"></div><div class="rule-text"><strong>Issue-based:</strong> Tiered deductions — 0 tickets = ₹300, 5+ tickets = ₹0</div></div>
+        <div class="engine-rule"><div class="rule-dot"></div><div class="rule-text"><strong>Seasonal override:</strong> Time-window activation — e.g. Diwali attendance-only mode</div></div>
+      </div>
+      <div class="engine-card">
+        <div class="engine-card-label">Bonus Rules</div>
+        <div class="engine-card-title">Configurable Bonus Engines</div>
+        <div class="engine-rule"><div class="rule-dot"></div><div class="rule-text"><strong>Packet bonus:</strong> &gt;3,000 qualifying packets/month → ₹1 per packet above threshold</div></div>
+        <div class="engine-rule"><div class="rule-dot"></div><div class="rule-text"><strong>Long route:</strong> Total km &gt; 30 → ₹3 per extra km; both threshold and rate configurable</div></div>
+        <div class="engine-rule"><div class="rule-dot"></div><div class="rule-text"><strong>Tray bonus:</strong> Monthly trays ÷ 24 × ₹10 for Cluster DP role</div></div>
+        <div class="engine-rule"><div class="rule-dot"></div><div class="rule-text"><strong>Referral:</strong> ₹500 payout to referring partner after 2 months active tenure</div></div>
+      </div>
+      <div class="engine-card">
+        <div class="engine-card-label">Deductions & Advance</div>
+        <div class="engine-card-title">Automated Settlement Logic</div>
+        <div class="engine-rule"><div class="rule-dot"></div><div class="rule-text"><strong>Advance pay:</strong> Pro-rated by days worked; approval via zonal head within 7 days</div></div>
+        <div class="engine-rule"><div class="rule-dot"></div><div class="rule-text"><strong>Asset deductions:</strong> Bag not returned → configured value auto-deducted at exit</div></div>
+        <div class="engine-rule"><div class="rule-dot"></div><div class="rule-text"><strong>Absence deductions:</strong> Unapproved absent days deducted from monthly salary</div></div>
+        <div class="engine-rule"><div class="rule-dot"></div><div class="rule-text"><strong>Full &amp; final:</strong> All pending amounts reconciled and settled at exit</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOVERNANCE -->
+<section id="governance">
+  <div class="section-inner">
+    <div class="cap-header reveal">
+      <div>
+        <div class="section-label">Operating Model</div>
+        <h2 class="section-title">Governance &<br>Risk Design</h2>
+      </div>
+      <p class="cap-intro">I designed the ownership model across all functions and built failure handling directly into the product — not as an afterthought.</p>
+    </div>
+    <div class="gov-grid">
+      <div class="reveal">
+        <table class="gov-table">
+          <tr>
+            <td>Area</td>
+            <td>Ownership</td>
+          </tr>
+          <tr>
+            <td>Onboarding & Docs</td>
+            <td>Ground teams (maker) → HR verification (checker); all features gated on HR approval</td>
+          </tr>
+          <tr>
+            <td>Attendance & Regularisation</td>
+            <td>Partner self-service → Zonal head (24-hr window) → HR</td>
+          </tr>
+          <tr>
+            <td>Payroll & Settlements</td>
+            <td>Central HR ownership; processed only after attendance confirmed</td>
+          </tr>
+          <tr>
+            <td>Asset Issuance & Recovery</td>
+            <td>Operations at onboarding + HR deductions at exit</td>
+          </tr>
+          <tr>
+            <td>System Exceptions</td>
+            <td>HR and Ops jointly; daily sync monitoring + manual fallback</td>
+          </tr>
+        </table>
+      </div>
+      <div class="risk-list stagger">
+        <div class="risk-item">
+          <div class="risk-title">Daily Attendance Sync Monitoring</div>
+          <div class="risk-text">Automated alerting for drift; manual fallback workflows when biometric devices or connectivity fail.</div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-title">Mobile App as Biometric Backup</div>
+          <div class="risk-text">Designed so device dependency doesn't break the system — mobile punch-in operates independently.</div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-title">Post-Go-Live Control Metrics</div>
+          <div class="risk-text">80% punch-in/out compliance target at 2 months. Failure triggers mandatory regularisation and salary deduction enforcement — designed in before launch.</div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-title">Phase-Gated Rollout</div>
+          <div class="risk-text">Payslips and regularisation deferred to Phase 2 to validate adoption before adding compliance burden to ground teams.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section id="outcomes">
+  <div class="section-inner">
+    <div class="outcomes-header reveal">
+      <div class="section-label">Results</div>
+      <h2 class="section-title">Key Outcomes</h2>
+    </div>
+    <div class="outcomes-grid stagger">
+      <div class="outcome-card">
+        <div class="outcome-num">1</div>
+        <div class="outcome-title">Single System of Record</div>
+        <div class="outcome-text">Replaced spreadsheets and physical files with a unified platform for part-time and ground workforce across four cities.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">2</div>
+        <div class="outcome-title">Automated Payroll & Incentives</div>
+        <div class="outcome-text">Eliminated manual incentive calculation. Business users modify rules without engineering involvement or redeployment.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">3</div>
+        <div class="outcome-title">Controlled Onboarding & Exit</div>
+        <div class="outcome-text">Maker-checker model with HR gate reduced turnaround time and ensured consistent compliance documentation.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">4</div>
+        <div class="outcome-title">Asset Recovery Enforced</div>
+        <div class="outcome-text">Automated deduction at exit closed a major financial leakage area previously invisible to finance and operations.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">5</div>
+        <div class="outcome-title">Leadership Visibility</div>
+        <div class="outcome-text">Real-time dashboards by city, location, role and status — enabling proactive hiring and operational coverage planning.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">6</div>
+        <div class="outcome-title">Scale-Ready Foundation</div>
+        <div class="outcome-text">Platform designed for multi-city replication with no process redesign. Expanded from Hyderabad across all cities within one month of go-live.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CV BULLETS -->
+<section id="cv">
+  <div class="cv-inner">
+    <div class="reveal">
+      <div class="section-label" style="text-align:center">CV Pointers</div>
+      <h2 class="section-title" style="text-align:center">Two Bullets for<br>Your Résumé</h2>
+    </div>
+    <div class="cv-cards stagger">
+      <div class="cv-card">
+        <div class="cv-quote-mark">"</div>
+        <div class="cv-card-label">Bullet 01 — Platform Ownership</div>
+        <div class="cv-card-text">
+          <strong>Owned end-to-end product design and rollout</strong> of a multi-city Workforce & Payroll platform on ERPNext, replacing fully manual operations for 500+ part-time and ground staff across Hyderabad, Bengaluru, Pune and Vijayawada — covering onboarding, attendance, payroll, incentives, asset tracking and exits, with a <strong>configurable rule engine enabling business users to manage incentive structures without engineering involvement.</strong>
+        </div>
+      </div>
+      <div class="cv-card">
+        <div class="cv-quote-mark">"</div>
+        <div class="cv-card-label">Bullet 02 — Operating Model & Governance</div>
+        <div class="cv-card-text">
+          <strong>Designed the governance and operating model</strong> for a cross-functional workforce digitalisation programme — defining approval hierarchies across dark store leads, zonal heads and central HR; building compliance-first onboarding (maker-checker), <strong>automated asset recovery at exit,</strong> and post-go-live control metrics (80% attendance compliance target) to enforce adoption and eliminate payroll leakage.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-text">Enterprise Workforce & Payroll Transformation Platform</div>
+  <div class="footer-text">AVP – Product &nbsp;·&nbsp; Head of Product &nbsp;·&nbsp; Portfolio Case Study</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal, .stagger');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

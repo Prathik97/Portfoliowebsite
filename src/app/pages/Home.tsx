@@ -9,11 +9,11 @@ export default function Home() {
     { num: '₹575 Cr', label: 'Company Valuation', desc: 'Product-led growth at Sid\'s Farm' },
     { num: '−63%', label: 'Subscription Conv. Time', desc: '15 days → 5.5, nearly 3× faster' },
     { num: '+85%', label: 'Session Engagement', desc: 'Rebuilt around North Star metric' },
-    { num: '30L MAU', label: 'From 9L · −65% Cost', desc: 'Scaled users, cut MarTech spend' },
+    { num: '₹90L', label: 'Annual Cost Savings', desc: 'SCM optimization through geofencing' },
     { num: '2×', label: 'Agent Productivity', desc: 'Salesforce CRM across 4 teams' },
     { num: '500+', label: 'Staff Digitised', desc: 'HRMS · 4 cities · 0 spreadsheets' },
     { num: '₹18.5L', label: 'Autopay Revenue', desc: 'Generated in first 6 weeks' },
-    { num: '₹90L', label: 'Cost Saved', desc: 'Dark store geofencing initiative' },
+    { num: '30L MAU', label: 'From 9L · −65% Cost', desc: 'Scaled users, cut MarTech spend' },
     { num: '67%', label: 'Chatbot Deflection', desc: 'WhatsApp automation via Salesforce' },
   ];
 
@@ -22,19 +22,22 @@ export default function Home() {
       initials: 'TG',
       name: 'Tom Garden',
       role: 'Owner, CodeParva LLC',
-      quote: "Prathik has grown from a UI/UX designer to a very competent and creative Product Manager. His contribution has been impressive and his reliability and team loyalty are amazing. His intense focus on the tasks at hand, along with his vision for where the product should go, have been a large part of the reason for the successful product launch."
+      quote: "Prathik has grown from a UI/UX designer to a very competent and creative Product Manager. His contribution has been impressive and his reliability and team loyalty are amazing. His intense focus on the tasks at hand, along with his vision for where the product should go, have been a large part of the reason for the successful product launch.",
+      linkedIn: 'https://www.linkedin.com/in/thomas-garden-27623115/'
     },
     {
       initials: 'DL',
       name: 'Divyadeep Lolla',
       role: 'Ex Chief Growth Officer, Sid\'s Farm',
-      quote: "In the world of Product Management where the business is extremely demanding, you need people like Prathik who can simplify complexity and figure out the right set of priorities. He has a remarkable ability to translate abstract and complex ideas into intuitive and visually appealing interfaces."
+      quote: "In the world of Product Management where the business is extremely demanding, you need people like Prathik who can simplify complexity and figure out the right set of priorities. He has a remarkable ability to translate abstract and complex ideas into intuitive and visually appealing interfaces.",
+      linkedIn: 'https://www.linkedin.com/in/divyadeeplolla/'
     },
     {
       initials: 'AT',
       name: 'Anitha Thoguluva',
       role: 'Engineering Manager, Microsoft · Ex CTO, CodeParva',
-      quote: "In my 5+ years working with Prathik at CodeParva, I\'ve been consistently impressed by his dedication to career growth. He\'s a problem-solver with a keen eye for detail, readily proposing solutions rather than just identifying issues. His initial technical background allows him to assess UI/UX designs for feasibility and performance."
+      quote: "In my 5+ years working with Prathik at CodeParva, I\'ve been consistently impressed by his dedication to career growth. He\'s a problem-solver with a keen eye for detail, readily proposing solutions rather than just identifying issues. His initial technical background allows him to assess UI/UX designs for feasibility and performance.",
+      linkedIn: 'https://www.linkedin.com/in/anithathoguluva'
     }
   ];
 
@@ -54,6 +57,7 @@ export default function Home() {
           
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-7 text-[13px] text-[#A09880]">
+            <Link to="/" className="cursor-pointer text-[#C8953A] transition-colors">Home</Link>
             <Link to="/projects" className="cursor-pointer hover:text-[#C8953A] transition-colors">Projects</Link>
             <Link to="/experience" className="cursor-pointer hover:text-[#C8953A] transition-colors">Experience</Link>
             <Link to="/outside-the-brief" className="cursor-pointer hover:text-[#C8953A] transition-colors">Outside the Brief</Link>
@@ -78,6 +82,7 @@ export default function Home() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 flex flex-col gap-3 text-[13px] text-[#A09880]">
+            <Link to="/" className="cursor-pointer text-[#C8953A] transition-colors">Home</Link>
             <Link to="/projects" className="cursor-pointer hover:text-[#C8953A] transition-colors">Projects</Link>
             <Link to="/experience" className="cursor-pointer hover:text-[#C8953A] transition-colors">Experience</Link>
             <Link to="/outside-the-brief" className="cursor-pointer hover:text-[#C8953A] transition-colors">Outside the Brief</Link>
@@ -216,7 +221,7 @@ export default function Home() {
                   <div className="flex-1 md:flex-none text-left md:text-center">
                     <div className="text-[13px] text-[#F0EDE6] leading-tight">{testimonial.name}</div>
                     <div className="text-[11px] text-[#6B6455] leading-relaxed mt-0.5">{testimonial.role}</div>
-                    <div className="text-[11px] text-[#C8953A] cursor-pointer mt-1.5">→ LinkedIn</div>
+                    <div className="text-[11px] text-[#C8953A] cursor-pointer mt-1.5" onClick={() => window.open(testimonial.linkedIn, '_blank')}>→ LinkedIn</div>
                   </div>
                 </div>
 
@@ -232,20 +237,20 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="text-center mt-7 text-[12px] text-[#C8953A] cursor-pointer hover:text-[#C8953A]/80 transition-colors">
+          <div className="text-center mt-7 text-[12px] text-[#C8953A] cursor-pointer hover:text-[#C8953A]/80 transition-colors" onClick={() => window.open('https://www.linkedin.com/in/prathikkumarmp', '_blank')}>
             → More recommendations on LinkedIn
           </div>
         </div>
       </section>
 
-      {/* CTA Bar */}
-      <section className="bg-[#0F0E0B] border-t border-[#C8953A]/10 px-6 md:px-12 py-16 md:py-18 text-center">
-        <h2 className="text-2xl md:text-3xl text-[#F0EDE6] mb-6 tracking-tight">
+      {/* CTA Section */}
+      <section className="max-w-[1000px] mx-auto px-6 md:px-12 pt-16 md:pt-20 pb-12 md:pb-16 text-center">
+        <h2 className="text-2xl md:text-3xl text-[#F0EDE6] leading-tight mb-6">
           Ready to build something that moves the needle?
         </h2>
-        <button className="bg-[#C8953A] text-[#0F0E0B] text-[14px] px-7 py-3 rounded-full hover:bg-[#C8953A]/90 transition-colors">
+        <Link to="/contact" className="inline-block bg-[#C8953A] text-[#0F0E0B] text-[14px] px-7 py-3 rounded-full hover:bg-[#C8953A]/90 transition-colors">
           Get in touch →
-        </button>
+        </Link>
       </section>
 
       {/* Footer */}

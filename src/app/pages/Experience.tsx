@@ -98,9 +98,9 @@ export default function Experience() {
       description: 'A CS foundation that shaped a technically literate approach to product — I read code, understand system constraints, and don\'t need an engineer to translate.'
     },
     {
-      degree: 'Pre-Engineering — Kota',
-      institution: '',
-      period: 'Before 2015',
+      degree: '11th & 12th',
+      institution: 'Rao IIT Academy · Kota, Rajasthan',
+      period: '2013 – 2015',
       description: 'Where discipline and structured problem-solving were built — the kind that holds up when a product launch is on the line.'
     }
   ];
@@ -148,6 +148,7 @@ export default function Experience() {
           
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-7 text-[13px] text-[#A09880]">
+            <Link to="/" className="cursor-pointer hover:text-[#C8953A] transition-colors">Home</Link>
             <Link to="/projects" className="cursor-pointer hover:text-[#C8953A] transition-colors">Projects</Link>
             <Link to="/experience" className="cursor-pointer text-[#C8953A] transition-colors">Experience</Link>
             <Link to="/outside-the-brief" className="cursor-pointer hover:text-[#C8953A] transition-colors">Outside the Brief</Link>
@@ -172,6 +173,7 @@ export default function Experience() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 flex flex-col gap-3 text-[13px] text-[#A09880]">
+            <Link to="/" className="cursor-pointer hover:text-[#C8953A] transition-colors">Home</Link>
             <Link to="/projects" className="cursor-pointer hover:text-[#C8953A] transition-colors">Projects</Link>
             <Link to="/experience" className="cursor-pointer text-[#C8953A] transition-colors">Experience</Link>
             <Link to="/outside-the-brief" className="cursor-pointer hover:text-[#C8953A] transition-colors">Outside the Brief</Link>
@@ -351,7 +353,17 @@ export default function Experience() {
       {/* Certifications */}
       <section className="px-6 md:px-12 pb-16 md:pb-20">
         <div className="max-w-[1000px] mx-auto">
-          <h2 className="text-3xl text-[#F0EDE6] mb-4 tracking-tight">Certifications & Learning</h2>
+          <div className="flex justify-between items-end mb-4">
+            <h2 className="text-3xl text-[#F0EDE6] tracking-tight">Certifications & Learning</h2>
+            <a 
+              href="https://www.linkedin.com/in/prathikkumarmp/details/certifications/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[12px] text-[#C8953A] hover:text-[#C8953A]/80 transition-colors cursor-pointer flex items-center gap-1"
+            >
+              View on LinkedIn <span>→</span>
+            </a>
+          </div>
           <p className="text-[15px] text-[#BFBAB0] mb-10 italic">
             I treat learning the same way I treat product iteration — deliberately, with a specific gap in mind.
           </p>

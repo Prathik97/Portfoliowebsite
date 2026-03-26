@@ -43,81 +43,52 @@ export default function Projects() {
 
   const projects = [
     {
-      id: 'customer-app',
       status: 'Delivered',
-      scope: 'Company-Level Program',
+      statusType: 'Feature Launch',
       domain: 'D2C',
-      title: 'D2C Customer App — 0→1 to Growth Platform',
-      problem: 'The app couldn\'t support subscriptions, campaigns, or growth without an engineering ticket for every change.',
-      action: 'Rebuilt end-to-end — new IA, design system, subscription lifecycle, autopay, CMS layer, retargeting journeys.',
-      tags: ['D2C Mobile', 'Subscriptions', 'Autopay', 'CleverTap', 'Clarity'],
-      outcome: '−63% Days to Subscribe',
-      outcomeDetail: '₹18.5L Autopay Revenue in 6 Weeks'
+      title: 'D2C Customer App Rebuild — +85% Session Engagement',
+      problem: 'Low daily usage and weak product-market fit. The app was a utility, not a daily habit.',
+      action: 'Rebuilt the app around a North Star engagement metric — gamified cart mechanics tied to same-day subscriptions. Introduced dual CTA flows, 15-day onboarding drip campaigns, and push notification triggers mapped to user behaviour segments.',
+      tags: ['Mobile App', 'Product Strategy', 'Engagement', 'Subscription Model', 'UX Redesign'],
+      outcome: '+85% Session Engagement',
+      outcomeDetail: 'Daily active users increased · Habit-driven architecture'
     },
     {
-      id: 'salesforce-crm',
       status: 'Delivered',
-      scope: '3 Phases',
+      statusType: 'Process Improvement',
+      domain: 'D2C',
+      title: 'Subscription Onboarding Redesign — −63% Conversion Time',
+      problem: 'Average subscription conversion time was 15 days — too long for a time-sensitive product category.',
+      action: 'Redesigned the entire subscription onboarding flow. Simplified information capture, reduced friction at critical decision points, introduced progressive disclosure for plan details, and streamlined the address → delivery slot → plan selection sequence.',
+      tags: ['Subscriptions', 'Onboarding', 'CRO', 'UX', 'Funnel Optimisation'],
+      outcome: '−63% Time to Convert',
+      outcomeDetail: '15 days → 5.5 days · Nearly 3× faster'
+    },
+    {
+      status: 'Delivered',
+      statusType: 'Integration',
       domain: 'CRM',
-      title: 'Salesforce CRM — One Platform. Every Customer Conversation.',
-      problem: '4 teams in silos. No unified customer view. No chatbot. Duplicate cases across every channel.',
-      action: '3-phase Salesforce rollout: core CRM, chatbot automation, full IVR migration to Tata Tele.',
-      tags: ['Salesforce', 'WhatsApp', 'Tata Tele IVR', 'Chatbot', 'Case Routing'],
+      title: 'Salesforce CRM — 2× Agent Productivity Across 4 Teams',
+      problem: 'Customer service, sales, delivery, and collections teams operating on fragmented tools with no shared context.',
+      action: 'Led Salesforce CRM implementation across 4 teams. Unified customer data, automated case routing, built custom dashboards, and integrated telephony. Result: agents spend less time toggling tools, more time solving problems.',
+      tags: ['Salesforce', 'CRM', 'Process Automation', 'Team Productivity', 'Integration'],
       outcome: '2× Agent Productivity',
-      outcomeDetail: '−60% ART · −39% FRT · 67% Chatbot Deflection'
+      outcomeDetail: 'Unified CRM across 4 operational teams'
     },
     {
-      id: 'supply-chain',
-      status: 'Phase 1 Delivered',
-      scope: 'In Development',
+      status: 'Delivered',
+      statusType: 'Cost Optimisation',
       domain: 'SCM & Inventory',
-      title: 'Supply Chain Execution & Last Mile Delivery',
-      problem: 'Route overlap and excess km from customers assigned to wrong dark stores — ₹90L in avoidable cost.',
-      action: 'Geofencing enforced clean dark-store boundaries. Building in-house LMD platform to replace Mojro entirely.',
-      tags: ['Geofencing', 'Raasta AI', 'Last Mile', 'Route Optimisation'],
-      outcome: '₹90L Cost Saved',
-      outcomeDetail: '116 Routes Cut · 40% LMD Cost Reduction Targeted'
+      title: 'Dark Store Geofencing — ₹90L Annual Cost Reduction',
+      problem: 'Manual hub and spoke delivery model leading to unnecessary operational costs and inefficiency.',
+      action: 'Led geofencing initiative for 9 dark stores across the city, optimizing the cost structure of delivery logistics.',
+      tags: ['Geofencing', 'Cost Optimisation', 'Supply Chain', 'Operations'],
+      outcome: '₹90L Savings',
+      outcomeDetail: 'Annual cost reduction through optimized delivery routes'
     },
     {
-      id: 'farmer-management',
-      status: 'Phase 1 Delivered',
-      scope: '',
-      domain: 'AgriTech',
-      title: 'Farmer Management System — Zero-to-One Platform',
-      problem: 'No farmer registry. Paper-based field ops. Cattle health records didn\'t exist. Zero integration with milk settlement.',
-      action: 'Built the full procurement hierarchy digitally — farmer onboarding, cattle health, paravet workflows, Nano Dairy integration.',
-      tags: ['AgriTech', 'RBAC Design', 'Offline-First', 'Cattle Health', 'Procurement Ops'],
-      outcome: '10+ Roles Unified',
-      outcomeDetail: '3 System Layers · Offline-First Field Operations'
-    },
-    {
-      id: 'hrms',
       status: 'Delivered',
-      scope: 'Multi-City',
-      domain: 'HRMS',
-      title: 'Enterprise Workforce & Payroll Platform',
-      problem: '500+ part-time staff across 4 cities managed entirely through spreadsheets. Payroll leaking. Assets not tracked.',
-      action: 'ERPNext platform: onboarding, biometric attendance, configurable incentive engine, asset lifecycle, worker self-service app.',
-      tags: ['ERPNext', 'Payroll Engine', 'Biometric', '4 Cities', 'Incentive Rule Engine'],
-      outcome: '500+ Staff Digitised',
-      outcomeDetail: '4 Cities · 0 Spreadsheets'
-    },
-    {
-      id: 'website-revamp',
-      status: 'Delivered',
-      scope: 'Platform Migration',
-      domain: 'D2C',
-      title: 'Website Revamp — WordPress to Shopify',
-      problem: 'Every content update needed a developer. Plugin conflicts caused outages. 3 business teams blocked daily.',
-      action: 'Two parallel phases: platform migration to remove risk, then full UX redesign and design system on stable foundation.',
-      tags: ['Shopify', 'Design System', 'IA · UX', 'Platform Migration'],
-      outcome: '0% Crash Rate',
-      outcomeDetail: '3 Teams Unblocked · ~0 Engineering Dependency'
-    },
-    {
-      id: 'martech-migration',
-      status: 'Delivered',
-      scope: 'Cost Optimisation',
+      statusType: 'Cost Optimisation',
       domain: 'MarTech',
       title: 'MarTech & Telephony Migration — Cost & Scale Transformation',
       problem: 'MoEngage costing ₹20L/year for a MAU ceiling the business had already outgrown.',
@@ -125,6 +96,101 @@ export default function Projects() {
       tags: ['CleverTap', 'MoEngage', 'Tata Tele', 'Cost Optimisation'],
       outcome: '−65% MarTech Cost',
       outcomeDetail: '9L → 30L MAU · −63% Telephony Cost'
+    },
+    {
+      status: 'Delivered',
+      statusType: 'Feature Launch',
+      domain: 'AgriTech',
+      title: 'Farmer Management System — 500+ Dairy Farmers Digitised',
+      problem: 'Milk procurement happening entirely offline — inconsistent quality tracking, manual payment cycles.',
+      action: 'Built a Farmer Management System to digitise milk procurement. Tracks milk quality (fat, SNF), automates payment cycles, generates farmer statements. Deployed across 500+ farmers across 4 cities.',
+      tags: ['AgriTech', 'Digitisation', 'Farmer Mgmt', 'Supply Chain', 'Quality Control'],
+      outcome: '500+ Farmers Onboarded',
+      outcomeDetail: 'Quality tracking · Automated payment cycles'
+    },
+    {
+      status: 'Delivered',
+      statusType: 'Feature Launch',
+      domain: 'Finance',
+      title: 'Payment Module — V11 Connect Platform',
+      problem: 'Property management platform needed a comprehensive payment system supporting multiple payment methods, batch processing, and complex billing scenarios.',
+      action: 'Designed and developed V11 Connect\'s end-to-end payment system spanning 5 payment methods (Cash, Credit Card, ACH, Check, Money Order), bulk batch processing, autopay credit card runs, prepayment logic with force rent assessment, and configurable surcharge/discount modifiers.',
+      tags: ['B2B SaaS', 'Payment Systems', 'Financial Operations', 'PropTech', 'CodeParva'],
+      outcome: '5 Payment Methods',
+      outcomeDetail: '7 versions shipped · Batch processing enabled',
+      caseStudyLink: '/case-study/payment-module'
+    },
+    {
+      status: 'Delivered',
+      statusType: 'Feature Launch',
+      domain: 'Real Estate',
+      title: 'Move Out Module — V11 Connect Platform',
+      problem: 'Manual move-out process creating operational bottlenecks and inconsistent tenant experiences.',
+      action: 'Built comprehensive move-out workflow handling notice period tracking, refund calculations, unit inspections, deposit settlements, and move-out statement generation. Integrated with billing, tenant alerts, and payment systems.',
+      tags: ['B2B SaaS', 'Workflow Automation', 'PropTech', 'Tenant Operations', 'CodeParva'],
+      outcome: 'End-to-end Automation',
+      outcomeDetail: 'Notice tracking · Deposit settlement · Unit inspection',
+      caseStudyLink: '/case-study/move-out-module'
+    },
+    {
+      status: 'Delivered',
+      statusType: 'Feature Launch',
+      domain: 'Real Estate',
+      title: 'Move In Module — V11 Connect Platform',
+      problem: 'Complex move-in workflows with multiple stakeholders requiring streamlined onboarding and billing setup.',
+      action: 'Designed move-in module handling reservation conversion, unit assignment, deposit collection, lease generation, prorated billing, and tenant portal activation. Configurable workflows adapted to different facility types and rental models.',
+      tags: ['B2B SaaS', 'Onboarding', 'PropTech', 'Billing Systems', 'CodeParva'],
+      outcome: 'Streamlined Onboarding',
+      outcomeDetail: 'Reservation to move-in · Automated billing setup',
+      caseStudyLink: '/case-study/move-in-module'
+    },
+    {
+      status: 'Delivered',
+      statusType: 'Feature Launch',
+      domain: 'Real Estate',
+      title: 'Reports & Analytics — V11 Connect Platform',
+      problem: 'Property managers needed comprehensive operational reporting covering financial, occupancy, delinquency, and unit status metrics across multiple facilities.',
+      action: 'Built end-to-end reporting and analytics system with 200+ reports across 20 categories including Super Summary (flagship management report), Income Summary, Delinquency Reports, Unit Activity, Non-Standard Rates, Rent Adjustments, Retail Sales, and Access Control. Each report specified with full requirements covering filters, columns, aggregations, and access levels.',
+      tags: ['B2B SaaS', 'Reporting', 'Analytics', 'Business Intelligence', 'CodeParva'],
+      outcome: '200+ Reports',
+      outcomeDetail: '20 categories · Multi-level access control',
+      caseStudyLink: '/case-study/reports-analytics'
+    },
+    {
+      status: 'Delivered',
+      statusType: 'Feature Launch',
+      domain: 'HRMS',
+      title: 'Enterprise Workforce & Payroll Platform — 500+ Staff Digitised',
+      problem: 'Manual workforce operations across spreadsheets — no system of record, payroll leakage, unreliable attendance, and asset recovery gaps.',
+      action: 'Built organization-wide HRMS on ERPNext covering 500+ part-time and ground staff across 4 cities. Delivered workforce master data, onboarding workflows, attendance & regularization engine, payroll rule engine with configurable incentive logic, asset lifecycle management, and worker self-service mobile app.',
+      tags: ['HRMS', 'ERPNext', 'Payroll', 'Workforce Management', 'Digitisation'],
+      outcome: '500+ Staff Covered',
+      outcomeDetail: '4 cities · 0 spreadsheets · Asset recovery enforced',
+      caseStudyLink: '/case-study/hrms'
+    },
+    {
+      status: 'Delivered',
+      statusType: 'Feature Launch',
+      domain: 'Retail',
+      title: 'Retail Sale Module — V11 Connect Platform',
+      problem: 'Self-storage facilities needed integrated commerce system to manage merchandise sales — padlocks, boxes, packing tape — with inventory tracking, vendor management, and returns.',
+      action: 'Built end-to-end retail commerce system embedded within V11 Connect platform spanning inventory management with barcode support and 3-tier pricing, point-of-sale for tenants and walk-ins, multi-path returns with 4 refund pathways, vendor lifecycle management, and configurable rules engine with 8 granular permissions.',
+      tags: ['B2B SaaS', 'Retail', 'POS', 'Inventory Management', 'CodeParva'],
+      outcome: 'Complete Commerce System',
+      outcomeDetail: '4 core layers · 3 price tiers · 8 permissions',
+      caseStudyLink: '/case-study/retail-sale'
+    },
+    {
+      status: 'Delivered',
+      statusType: 'Cost Optimisation',
+      domain: 'Retail',
+      title: 'S&D Platform Migration — ₹12.6L Annual Savings',
+      problem: 'Sid\'s Farm\'s sales force automation platform (Incitesol) running at expensive store-limit pricing model with missing capabilities like route optimization, target tracking, and digital POD.',
+      action: 'Led end-to-end evaluation, documentation, and migration from Incitesol to Bizom for 1,000+ stores and 50+ field users. Documented T+1 order-to-delivery cycle as formal SOW covering 5 modules and 15+ operational steps. Maintained operational continuity throughout migration while unlocking route optimization and target-vs-achievement dashboards.',
+      tags: ['Sales Force Automation', 'FMCG', 'Bizom', 'Field Operations', 'Sid\'s Farm'],
+      outcome: '₹12.6L Savings',
+      outcomeDetail: '₹1.05L monthly savings · 1,000+ stores migrated',
+      caseStudyLink: '/case-study/sd-migration'
     }
   ];
 
@@ -132,14 +198,14 @@ export default function Projects() {
     { number: '9', label: 'Domains Shipped', detail: 'D2C to AgriTech' },
     { number: '₹575 Cr', label: 'Valuation Impact', detail: 'Product-led growth' },
     { number: '7 Years', label: 'Experience', detail: 'Design to PM' },
-    { number: '30L MAU', label: 'Scale Built', detail: 'From 9L users' }
+    { number: '₹90L', label: 'Cost Savings', detail: 'SCM optimization' }
   ];
 
   const metricsBar = [
     { num: '9', label: 'Domains shipped across' },
     { num: '₹575 Cr', label: 'Valuation contributed to' },
     { num: '−63%', label: 'Fastest funnel improvement' },
-    { num: '30L MAU', label: 'Capacity built from 9L' },
+    { num: '₹90L', label: 'Annual cost savings through SCM' },
     { num: '500+', label: 'Staff digitised' },
     { num: '₹25 Cr', label: 'SaaS ARR at exit' }
   ];
@@ -157,6 +223,7 @@ export default function Projects() {
           
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-7 text-[13px] text-[#A09880]">
+            <Link to="/" className="cursor-pointer hover:text-[#C8953A] transition-colors">Home</Link>
             <Link to="/projects" className="cursor-pointer text-[#C8953A] transition-colors">Projects</Link>
             <Link to="/experience" className="cursor-pointer hover:text-[#C8953A] transition-colors">Experience</Link>
             <Link to="/outside-the-brief" className="cursor-pointer hover:text-[#C8953A] transition-colors">Outside the Brief</Link>
@@ -181,6 +248,7 @@ export default function Projects() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 flex flex-col gap-3 text-[13px] text-[#A09880]">
+            <Link to="/" className="cursor-pointer hover:text-[#C8953A] transition-colors">Home</Link>
             <Link to="/projects" className="cursor-pointer text-[#C8953A] transition-colors">Projects</Link>
             <Link to="/experience" className="cursor-pointer hover:text-[#C8953A] transition-colors">Experience</Link>
             <Link to="/outside-the-brief" className="cursor-pointer hover:text-[#C8953A] transition-colors">Outside the Brief</Link>
@@ -283,8 +351,8 @@ export default function Projects() {
           {filteredProjects.map((project, index) => (
             <div 
               key={index}
-              onClick={() => navigate(`/case-study/${project.id}`)}
-              className="bg-[#141310] border border-[#C8953A]/15 rounded-2xl p-6 md:p-8 hover:border-[#C8953A]/35 hover:bg-[#16150F] transition-all group cursor-pointer"
+              onClick={() => project.caseStudyLink && navigate(project.caseStudyLink)}
+              className={`bg-[#141310] border border-[#C8953A]/15 rounded-2xl p-6 md:p-8 hover:border-[#C8953A]/35 hover:bg-[#16150F] transition-all group ${project.caseStudyLink ? 'cursor-pointer' : ''}`}
             >
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6">
                 {/* Left: Main Content */}
@@ -293,12 +361,8 @@ export default function Projects() {
                   <div className="flex flex-wrap items-center gap-3">
                     <div className="flex items-center gap-2 text-[11px]">
                       <span className="text-[#C8953A]">{project.status}</span>
-                      {project.scope && (
-                        <>
-                          <span className="text-[#C8953A]/40">·</span>
-                          <span className="text-[#C8953A]">{project.scope}</span>
-                        </>
-                      )}
+                      <span className="text-[#C8953A]/40">·</span>
+                      <span className="text-[#C8953A]">{project.statusType}</span>
                     </div>
                     <span className="px-3 py-1 bg-[#C8953A]/10 border border-[#C8953A]/25 rounded-full text-[10px] text-[#F0EDE6] uppercase tracking-wide font-medium">
                       {project.domain}
@@ -327,10 +391,12 @@ export default function Projects() {
                   </div>
 
                   {/* Read Case Study Link */}
-                  <div className="text-[13px] text-[#C8953A] flex items-center gap-2 group-hover:gap-3 transition-all pt-2">
-                    <span>Read case study</span>
-                    <span className="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-                  </div>
+                  {project.caseStudyLink && (
+                    <div className="text-[13px] text-[#C8953A] flex items-center gap-2 group-hover:gap-3 transition-all pt-2">
+                      <span>Read case study</span>
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Right: Outcomes */}

@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Reports & Analytics – CodeParva | Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:      #f9f7f4;
+    --ink:     #1c1914;
+    --accent:  #0f5ef7;
+    --accent2: #e05c00;
+    --muted:   #70695e;
+    --rule:    #e3ddd5;
+    --surface: #ffffff;
+    --s2:      #f2ede6;
+    --tag:     #e8e2d9;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'Cabinet Grotesk',sans-serif;
+    font-size:16px;line-height:1.65;
+  }
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(249,247,244,.93);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--rule);
+    padding:14px 56px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .nav-logo{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+  .nav-links{display:flex;gap:32px;}
+  .nav-links a{font-size:13px;font-weight:700;text-decoration:none;color:var(--muted);transition:color .2s;}
+  .nav-links a:hover{color:var(--accent);}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;padding:130px 56px 80px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    position:relative;overflow:hidden;
+    background:var(--ink);color:#f9f7f4;
+  }
+  /* big number bg */
+  .hero-num{
+    position:absolute;right:-40px;top:50%;transform:translateY(-50%);
+    font-family:'Lora',serif;font-size:clamp(180px,28vw,400px);
+    font-weight:600;line-height:1;
+    color:transparent;-webkit-text-stroke:1px rgba(249,247,244,.06);
+    pointer-events:none;user-select:none;
+  }
+  .hero-kicker{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:28px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .hero-kicker::before{content:'';width:28px;height:1px;background:var(--accent);}
+  h1{
+    font-family:'Lora',serif;
+    font-size:clamp(52px,8vw,108px);
+    font-weight:600;line-height:.9;letter-spacing:-0.02em;
+    max-width:900px;
+  }
+  h1 em{font-style:italic;font-weight:400;color:rgba(249,247,244,.5);}
+  .hero-desc{
+    margin-top:36px;font-size:17px;color:rgba(249,247,244,.55);
+    line-height:1.8;max-width:640px;
+  }
+
+  /* category pill row */
+  .cat-pills{
+    display:flex;flex-wrap:wrap;gap:8px;margin-top:32px;
+  }
+  .cat-pill{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    padding:5px 14px;border-radius:100px;
+    border:1px solid rgba(249,247,244,.15);
+    color:rgba(249,247,244,.55);
+    transition:all .2s;cursor:default;
+  }
+  .cat-pill:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+  .hero-meta{
+    margin-top:48px;padding-top:32px;
+    border-top:1px solid rgba(249,247,244,.1);
+    display:flex;gap:48px;flex-wrap:wrap;
+    position:relative;z-index:2;
+  }
+  .hm-item label{
+    display:block;font-family:'JetBrains Mono',monospace;
+    font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+    color:rgba(249,247,244,.3);margin-bottom:5px;
+  }
+  .hm-item span{font-size:15px;font-weight:800;color:#f9f7f4;}
+
+  /* SHARED */
+  section{padding:96px 56px;}
+  .sec-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:44px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .sec-label .n{
+    font-size:11px;font-weight:700;color:var(--accent);
+    border:1px solid var(--accent);width:24px;height:24px;
+    border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  h2{
+    font-family:'Lora',serif;
+    font-size:clamp(28px,4vw,50px);
+    font-weight:600;line-height:1.05;margin-bottom:18px;
+  }
+  h2 em{font-style:italic;font-weight:400;color:var(--accent);}
+  p.lead{color:var(--muted);max-width:700px;font-size:16px;line-height:1.8;}
+  hr.rule{border:none;border-top:1px solid var(--rule);margin:0 56px;}
+
+  /* OVERVIEW */
+  .overview-sec{background:var(--s2);}
+  .stat-row{
+    display:flex;gap:1px;background:var(--rule);
+    border:1px solid var(--rule);margin-top:56px;overflow:hidden;
+  }
+  .sbox{
+    flex:1;background:var(--s2);padding:36px 28px;
+    position:relative;overflow:hidden;cursor:default;
+    transition:background .2s;
+  }
+  .sbox:hover{background:var(--surface);}
+  .sbox::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--accent);transform:scaleX(0);transform-origin:left;
+    transition:transform .4s ease;
+  }
+  .sbox:hover::before{transform:scaleX(1);}
+  .sbox-n{font-family:'Lora',serif;font-size:52px;font-weight:600;line-height:1;color:var(--accent);margin-bottom:6px;}
+  .sbox-l{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+
+  /* CATEGORY GRID */
+  .categories-sec{background:var(--bg);}
+  .cat-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    gap:1px;background:var(--rule);border:1px solid var(--rule);
+    margin-top:56px;
+  }
+  @media(max-width:900px){.cat-grid{grid-template-columns:repeat(2,1fr);}}
+  .cat-card{
+    background:var(--bg);padding:32px 28px;
+    transition:background .25s;cursor:default;
+  }
+  .cat-card:hover{background:var(--surface);}
+  .cat-icon{font-size:24px;margin-bottom:14px;display:block;}
+  .cat-card h3{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:8px;}
+  .cat-card p{font-size:12px;color:var(--muted);line-height:1.65;}
+  .cat-count{
+    display:inline-block;margin-top:12px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;letter-spacing:.08em;
+    background:var(--tag);color:var(--muted);
+    padding:2px 9px;border-radius:3px;
+  }
+
+  /* REPORT DEEP DIVES */
+  .deepdive-sec{background:var(--s2);}
+  .dd-grid{display:flex;flex-direction:column;gap:0;margin-top:56px;}
+  .dd-row{
+    display:grid;grid-template-columns:280px 1fr;
+    border-top:1px solid var(--rule);padding:36px 0;
+    transition:background .2s;
+  }
+  .dd-row:hover{background:rgba(15,94,247,.03);}
+  @media(max-width:700px){.dd-row{grid-template-columns:1fr;}}
+  .dd-left{}
+  .dd-cat{
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:6px;display:block;
+  }
+  .dd-name{font-size:16px;font-weight:800;color:var(--ink);line-height:1.2;}
+  .dd-right{padding-left:32px;}
+  .dd-right p{font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:12px;}
+  .dd-specs{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+  .spec{
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;letter-spacing:.06em;text-transform:uppercase;
+    background:var(--tag);color:var(--muted);
+    padding:3px 9px;border-radius:3px;
+    border:1px solid var(--rule);
+  }
+  @media(max-width:700px){.dd-right{padding-left:0;margin-top:16px;}}
+
+  /* FRAMEWORK */
+  .framework-sec{background:var(--bg);}
+  .fw-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:16px;margin-top:56px;
+  }
+  @media(max-width:780px){.fw-grid{grid-template-columns:1fr 1fr;}}
+  .fw-card{
+    background:var(--surface);
+    border:1px solid var(--rule);
+    border-radius:10px;padding:28px 24px;
+    transition:border-color .25s,transform .25s;cursor:default;
+  }
+  .fw-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .fw-icon{font-size:26px;margin-bottom:14px;display:block;}
+  .fw-card h3{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:8px;}
+  .fw-card p{font-size:12px;color:var(--muted);line-height:1.65;}
+
+  /* SUPER SUMMARY BREAKDOWN */
+  .super-sec{background:var(--ink);color:#f9f7f4;}
+  .super-sec .sec-label{color:rgba(249,247,244,.35);}
+  .super-sec .sec-label .n{color:var(--accent);border-color:var(--accent);}
+  .super-sec h2{color:#f9f7f4;}
+  .super-sec p.lead{color:rgba(249,247,244,.55);}
+  .super-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:1px;background:rgba(249,247,244,.08);
+    border:1px solid rgba(249,247,244,.08);
+    margin-top:56px;
+  }
+  @media(max-width:780px){.super-grid{grid-template-columns:1fr 1fr;}}
+  .sg-card{
+    background:var(--ink);padding:32px 28px;
+    cursor:default;transition:background .2s;
+  }
+  .sg-card:hover{background:#201e18;}
+  .sg-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:12px;display:block;
+  }
+  .sg-card h3{font-size:14px;font-weight:800;color:#f9f7f4;margin-bottom:8px;}
+  .sg-card ul{list-style:none;display:flex;flex-direction:column;gap:4px;}
+  .sg-card ul li{font-size:12px;color:rgba(249,247,244,.45);display:flex;align-items:flex-start;gap:7px;}
+  .sg-card ul li::before{content:'·';color:var(--accent);font-size:18px;line-height:1;flex-shrink:0;}
+
+  /* IMPACT */
+  .impact-sec{background:var(--s2);}
+  .impact-list{margin-top:56px;display:flex;flex-direction:column;gap:0;}
+  .ir{
+    display:grid;grid-template-columns:80px 1fr;
+    gap:24px;padding:28px 0;
+    border-bottom:1px solid var(--rule);align-items:start;
+  }
+  .ir:first-child{padding-top:0;}
+  .ir:last-child{border-bottom:none;}
+  .ir-num{
+    font-family:'Lora',serif;font-size:44px;font-weight:600;line-height:1;
+    color:rgba(15,94,247,.2);text-align:right;padding-top:4px;
+  }
+  .ir h3{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:6px;}
+  .ir p{font-size:13px;color:var(--muted);line-height:1.75;max-width:740px;}
+
+  /* SKILLS */
+  .skills-sec{background:var(--bg);}
+  .skill-cloud{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px;}
+  .skill{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;
+    padding:9px 18px;border-radius:4px;
+    border:1px solid var(--rule);background:var(--surface);color:var(--ink);
+    cursor:default;transition:all .2s;
+  }
+  .skill:hover{background:var(--ink);color:#f9f7f4;border-color:var(--ink);}
+
+  /* FOOTER */
+  footer{
+    padding:36px 56px;border-top:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  }
+  footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;}
+  footer a{font-size:12px;font-weight:800;color:var(--accent);text-decoration:none;}
+
+  /* responsive */
+  @media(max-width:900px){
+    section{padding:72px 24px;}
+    nav{padding:14px 24px;}
+    hr.rule{margin:0 24px;}
+    .hero{padding:120px 24px 64px;}
+    .stat-row{flex-direction:column;}
+  }
+
+  /* animate */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+  .hero>*{animation:fadeUp .6s ease both;}
+  .hero-kicker{animation-delay:.1s;}
+  h1{animation-delay:.2s;}
+  .hero-desc{animation-delay:.3s;}
+  .cat-pills{animation-delay:.38s;}
+  .hero-meta{animation-delay:.46s;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Portfolio · Case Study</span>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#categories">Categories</a>
+    <a href="#reports">Reports</a>
+    <a href="#framework">Framework</a>
+    <a href="#impact">Impact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-num">200</div>
+  <div class="hero-kicker">CodeParva Technologies · TFW Platform</div>
+  <h1>Reports &<br/><em>Analytics</em><br/>Module</h1>
+  <p class="hero-desc">
+    Design and development of a comprehensive 200+ report system for TFW — a self-storage
+    management platform — spanning 18 report categories, multi-level access controls, configurable
+    filters, delivery modes, migration from a legacy v10 system, and a requirement framework covering
+    every report's columns, footers, filters, permissions, and business logic.
+  </p>
+  <div class="cat-pills">
+    <span class="cat-pill">Accounts Receivable</span>
+    <span class="cat-pill">Auditing</span>
+    <span class="cat-pill">Delinquency</span>
+    <span class="cat-pill">Income</span>
+    <span class="cat-pill">Insurance</span>
+    <span class="cat-pill">Invoice</span>
+    <span class="cat-pill">Reminders</span>
+    <span class="cat-pill">Rent Adjustment</span>
+    <span class="cat-pill">Reservation</span>
+    <span class="cat-pill">Retail Sale</span>
+    <span class="cat-pill">Sales Tax</span>
+    <span class="cat-pill">Summary</span>
+    <span class="cat-pill">System</span>
+    <span class="cat-pill">Tenant</span>
+    <span class="cat-pill">Tenant Alerts</span>
+    <span class="cat-pill">Unit</span>
+    <span class="cat-pill">Unit Access</span>
+    <span class="cat-pill">Unit Status</span>
+    <span class="cat-pill">Vehicles</span>
+    <span class="cat-pill">Work Orders</span>
+  </div>
+  <div class="hero-meta">
+    <div class="hm-item"><label>Company</label><span>CodeParva Technologies</span></div>
+    <div class="hm-item"><label>Product</label><span>TFW (The Facility Works)</span></div>
+    <div class="hm-item"><label>Total Reports</label><span>200+</span></div>
+    <div class="hm-item"><label>Categories</label><span>20 Categories</span></div>
+    <div class="hm-item"><label>Access Levels</label><span>Account · BG · Facility</span></div>
+    <div class="hm-item"><label>Legacy Migration</label><span>v10 → v11</span></div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- OVERVIEW -->
+<section class="overview-sec" id="overview">
+  <div class="sec-label"><span class="n">1</span>Background</div>
+  <h2>What is the <em>Reports Module?</em></h2>
+  <p class="lead">
+    TFW's reporting system is the primary business intelligence layer of the platform — giving facility
+    managers, business group operators, and account-level administrators visibility into every financial,
+    operational, and tenancy event happening across their facilities. The system spans 200+ individual reports
+    across 20 categories, each with its own requirement specification covering column definitions, filter logic,
+    sort options, footer aggregations, permission levels, and delivery methods. Reports operate at three
+    hierarchy levels — account, business group, and facility — and were migrated from a legacy v10 system
+    with full data continuity.
+  </p>
+  <div class="stat-row">
+    <div class="sbox"><div class="sbox-n">200+</div><div class="sbox-l">Total Reports Built</div></div>
+    <div class="sbox"><div class="sbox-n">20</div><div class="sbox-l">Report Categories</div></div>
+    <div class="sbox"><div class="sbox-n">3</div><div class="sbox-l">Access Hierarchy Levels</div></div>
+    <div class="sbox"><div class="sbox-n">8</div><div class="sbox-l">Sample Reports Documented</div></div>
+    <div class="sbox"><div class="sbox-n">v10→v11</div><div class="sbox-l">Full Migration Coverage</div></div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- CATEGORIES -->
+<section class="categories-sec" id="categories">
+  <div class="sec-label"><span class="n">2</span>Report Categories</div>
+  <h2>20 categories, <em>one platform</em></h2>
+  <p class="lead">Every report in TFW belongs to a named category — determining its access level, the report workspace it appears in, and the permission set required to generate it. The screenshot shows the full folder structure from the internal report repository.</p>
+
+  <div class="cat-grid">
+    <div class="cat-card">
+      <span class="cat-icon">📊</span>
+      <h3>Accounts Receivable</h3>
+      <p>Outstanding balances, unpaid charges, and AR aging across tenants and facilities.</p>
+      <span class="cat-count">AR Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">🔍</span>
+      <h3>Auditing</h3>
+      <p>Audit trails, user action logs, and system-level change tracking for compliance.</p>
+      <span class="cat-count">Audit Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">⚠️</span>
+      <h3>Delinquency</h3>
+      <p>Late tenants, overlock/unlock pending lists, unpaid AR due reports, and gate lockout tracking.</p>
+      <span class="cat-count">Delinquency Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">💰</span>
+      <h3>Income</h3>
+      <p>Income summaries, net change of account details, cash/check/CC breakdowns — at account, BG, and facility level.</p>
+      <span class="cat-count">Income Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">🛡️</span>
+      <h3>Insurance</h3>
+      <p>Insurance plan coverage, premium tracking, and policy status across rented units.</p>
+      <span class="cat-count">Insurance Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">🧾</span>
+      <h3>Invoice</h3>
+      <p>Invoice generation, delivery status tracking, and invoice-to-date reports per tenant or ledger.</p>
+      <span class="cat-count">Invoice Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">🔔</span>
+      <h3>Reminders</h3>
+      <p>Upcoming payment reminders, expiry notices, and scheduled communication tracking.</p>
+      <span class="cat-count">Reminder Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">📈</span>
+      <h3>Rent Adjustment</h3>
+      <p>Rent adjustment detail by unit, rate history, increase/decrease status, pending/applied/waived adjustments.</p>
+      <span class="cat-count">Rent Adj. Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">📅</span>
+      <h3>Reservation</h3>
+      <p>Active reservations, reservation code listings, expiry tracking, and conversion-to-move-in reporting.</p>
+      <span class="cat-count">Reservation Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">🛒</span>
+      <h3>Retail Sale</h3>
+      <p>Purchase orders, retail sale usage by item, quantity sold, and revenue summaries for facility merchandise.</p>
+      <span class="cat-count">Retail Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">🏛️</span>
+      <h3>Sales Tax</h3>
+      <p>Sales tax collected by charge category, GST/PST/HST breakdowns, and tax reconciliation reports.</p>
+      <span class="cat-count">Tax Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">📋</span>
+      <h3>Summary</h3>
+      <p>Super Summary — the flagship management report covering charges, payments, receipts, unit occupancy, aging, delinquency, and prepaid totals at business group level.</p>
+      <span class="cat-count">Summary Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">⚙️</span>
+      <h3>System</h3>
+      <p>System-level configuration reports, user activity logs, and platform health reporting.</p>
+      <span class="cat-count">System Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">👤</span>
+      <h3>Tenant</h3>
+      <p>Tenant listings, move-in/out activity, contact logs, demographic reports, and tenant history exports.</p>
+      <span class="cat-count">Tenant Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">🚨</span>
+      <h3>Tenant Alerts</h3>
+      <p>Active alert listings by tenant, alert type, severity, and configured feature scope.</p>
+      <span class="cat-count">Alert Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">🏢</span>
+      <h3>Unit</h3>
+      <p>Unit-level reports including move-in/out activity, non-standard rates, rate history, and occupancy data.</p>
+      <span class="cat-count">Unit Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">🔑</span>
+      <h3>Unit Access</h3>
+      <p>Gate access code listings by code or tenant, time zone assignments, and multi-unit access mapping.</p>
+      <span class="cat-count">Access Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">📦</span>
+      <h3>Unit Status</h3>
+      <p>Overlock/unlock pending lists, vacant/rented/reserved status snapshots, and maintenance event tracking.</p>
+      <span class="cat-count">Status Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">🚗</span>
+      <h3>Vehicles</h3>
+      <p>Tenant vehicle registrations, insurance expiry, and registration renewal tracking for vehicle-associated units.</p>
+      <span class="cat-count">Vehicle Reports</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">🔧</span>
+      <h3>Work Orders</h3>
+      <p>Maintenance work orders, completion status, assigned staff, and unit-level maintenance history.</p>
+      <span class="cat-count">Work Order Reports</span>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- REPORT DEEP DIVES -->
+<section class="deepdive-sec" id="reports">
+  <div class="sec-label"><span class="n">3</span>Report Deep Dives</div>
+  <h2>Representative reports <em>in detail</em></h2>
+  <p class="lead">Each of the 200+ reports was specified with a full requirement document covering general description, access level, frequency of use, filters, column definitions, footer aggregations, and sample output. Below are detailed breakdowns of 8 key reports.</p>
+
+  <div class="dd-grid">
+
+    <div class="dd-row">
+      <div class="dd-left">
+        <span class="dd-cat">Category · Summary</span>
+        <div class="dd-name">Super Summary</div>
+      </div>
+      <div class="dd-right">
+        <p>The flagship management report — generated at business group level with management-level permission. Provides a dense, multi-column financial and operational snapshot covering Adjustments, Bounced Checks, Charges, Credits, Payments, Receipts by payment method, Transaction Count, and Waived Fees — each across Today, MTD, YTD, 5 rolling prior months, and a same-month prior-year comparison column. Also includes Unit Summary (occupancy %, area %, economic occupancy, gross potential, variance above/below), Aging Summary (0–10, 11–30, 31–60, 61–90, 91+), Delinquent Unit breakdowns by event type, and Prepaid totals.</p>
+        <div class="dd-specs">
+          <span class="spec">Business Group Level</span><span class="spec">Management Permission</span>
+          <span class="spec">9-column time view</span><span class="spec">Economic Occupancy Calc</span>
+          <span class="spec">Aging Summary</span><span class="spec">Delinquency Breakdown</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dd-row">
+      <div class="dd-left">
+        <span class="dd-cat">Category · Income</span>
+        <div class="dd-name">Income Summary</div>
+      </div>
+      <div class="dd-right">
+        <p>High-frequency financial report available at account, business group, and facility level. Breaks down total payments received by payment method (Amex, Visa, Discover, Mastercard, Cash, Check, Money Order) — distinguishing Internal vs. SIM payments — with totals for Credit Cards, Cash & Checks, ACH, and a Net Change of Accounts section mapping payments to charge categories.</p>
+        <div class="dd-specs">
+          <span class="spec">All 3 Levels</span><span class="spec">Date Range Filter</span>
+          <span class="spec">Payment Method Breakdown</span><span class="spec">Internal vs SIM</span>
+          <span class="spec">Net Change of Accounts</span><span class="spec">High Frequency</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dd-row">
+      <div class="dd-left">
+        <span class="dd-cat">Category · Income</span>
+        <div class="dd-name">Net Change of Account Details</div>
+      </div>
+      <div class="dd-right">
+        <p>A transaction-level income drill-down used when the Income Summary shows discrepancies. Lists every transaction in a date range with per-row breakdown across fixed charge category columns: Rent, Sales Tax, Rental Deposit, Reservation Deposit, Allowance, Prepaid, Late Fee, NSF Fee, Refund, Inventory, Insurance, Other — with column totals in the footer and bracket notation for negative/refund amounts.</p>
+        <div class="dd-specs">
+          <span class="spec">Facility Level</span><span class="spec">Date Range Filter</span>
+          <span class="spec">12 Fixed Charge Columns</span><span class="spec">NSF Integration</span>
+          <span class="spec">Positive/Negative Amounts</span><span class="spec">Discrepancy Use Case</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dd-row">
+      <div class="dd-left">
+        <span class="dd-cat">Category · Delinquency</span>
+        <div class="dd-name">Late Report — All Unpaid AR Due</div>
+      </div>
+      <div class="dd-right">
+        <p>Operational delinquency report listing all tenants late by a configurable day range. Columns show unit number, tenant name, total ledger balance, last payment date, late amount, late-since date, days late, and gate/overlock status (marked with X). Sortable by unit, tenant name, or days late. Footer shows total unit count and total late amount. Used for collections prioritisation.</p>
+        <div class="dd-specs">
+          <span class="spec">Facility Level</span><span class="spec">From/To Days Filter</span>
+          <span class="spec">Sort: Unit / Tenant / Days Late</span>
+          <span class="spec">Lockout Status Column</span><span class="spec">Collections Use Case</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dd-row">
+      <div class="dd-left">
+        <span class="dd-cat">Category · Unit</span>
+        <div class="dd-name">Move In / Out Activity</div>
+      </div>
+      <div class="dd-right">
+        <p>Facility-level monthly activity report listing every move-in, move-out, and transfer in a date range. Columns include date, customer name, unit, unit type, action (In/Out), transfer flag, refund amount (credit balance on ledger post-move-out), prorate-out amount, and retained rent (rent kept by facility when not prorating out). Footer summarises total ins, total outs, total transfers, and aggregate refund/prorate/retained amounts.</p>
+        <div class="dd-specs">
+          <span class="spec">Facility Level</span><span class="spec">Date Range Filter</span>
+          <span class="spec">Retained Rent Logic</span><span class="spec">Transfer Tracking</span>
+          <span class="spec">Prorate Out Column</span><span class="spec">Monthly Use</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dd-row">
+      <div class="dd-left">
+        <span class="dd-cat">Category · Unit</span>
+        <div class="dd-name">Non-Standard Rates — Detailed</div>
+      </div>
+      <div class="dd-right">
+        <p>Comprehensive rate exception report showing every rented unit where the current rate differs from the unit type's standard rate. Grouped by unit type and billing period — showing unit number, rented rate, exception amount, monthly exposure, move-in date, tenant name, days in unit, paid-to date, and next bill date. Footer shows per-type subtotals, total units with exceptions, total dollar value of exceptions, and percentage of projected rent realised.</p>
+        <div class="dd-specs">
+          <span class="spec">Facility Level</span><span class="spec">Grouped by Unit Type & Period</span>
+          <span class="spec">Exception Amount Column</span><span class="spec">Projected vs Realised Rent</span>
+          <span class="spec">514 Exception Example</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dd-row">
+      <div class="dd-left">
+        <span class="dd-cat">Category · Rent Adjustment</span>
+        <div class="dd-name">Rent Adjustment Detail by Unit</div>
+      </div>
+      <div class="dd-right">
+        <p>Unit-by-unit rent adjustment status report covering every unit in a facility. Columns show unit number, unit size, tenant name, current rate, new rate, increase amount, effective date, and status (Pending, Waived, Vacated). Footer section shows the adjustment parameters: adjustment ID, type, created by, increase type, flat amount, rounding, recurrence, effective date, letter configuration, and which unit types/periods/statuses were included.</p>
+        <div class="dd-specs">
+          <span class="spec">Facility Level</span><span class="spec">All Status Types</span>
+          <span class="spec">Adjustment Parameter Footer</span><span class="spec">12-page Example</span>
+          <span class="spec">Pending / Waived / Vacated</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dd-row">
+      <div class="dd-left">
+        <span class="dd-cat">Category · Retail Sale</span>
+        <div class="dd-name">Retail Sale Usage + Purchase Order</div>
+      </div>
+      <div class="dd-right">
+        <p>Two linked retail reports: Retail Sale Usage summarises total quantities sold and extended cost per item over a date range — used for monthly inventory reconciliation. Purchase Order is the transaction-level receipt for individual sales showing item code, description, quantity, unit price, line total, subtotal, tax, and grand total — generated per sale and reprinted via order number filter.</p>
+        <div class="dd-specs">
+          <span class="spec">Facility Level</span><span class="spec">Date Range / Order Number Filter</span>
+          <span class="spec">Item Code + Description</span><span class="spec">Tax Calculation</span>
+          <span class="spec">Monthly Inventory Use</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dd-row">
+      <div class="dd-left">
+        <span class="dd-cat">Category · Unit Access</span>
+        <div class="dd-name">Tenant Access Codes by Code</div>
+      </div>
+      <div class="dd-right">
+        <p>Security and access control report listing all tenant gate access codes sorted numerically by code. Each row shows access code, tenant name, all associated unit numbers, and time zone setting. Supports multi-unit tenants (one code, multiple units) and identifies duplicate codes across tenants. Used for gate system audits and access reconciliation.</p>
+        <div class="dd-specs">
+          <span class="spec">Facility Level</span><span class="spec">Sorted by Access Code</span>
+          <span class="spec">Multi-unit Mapping</span><span class="spec">Time Zone Column</span>
+          <span class="spec">Gate Audit Use Case</span><span class="spec">11-page Example</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dd-row">
+      <div class="dd-left">
+        <span class="dd-cat">Category · Unit Status</span>
+        <div class="dd-name">Overlocks / Unlocks Pending</div>
+      </div>
+      <div class="dd-right">
+        <p>Operational delinquency action report listing all units with a pending overlock or unlock status. Shows unit number, tenant name, last payment date, unit type description, "To Be" status (Locked/Unlocked), and outstanding balance. Used by staff during the Walk Around workflow to prioritise overlock actions, and as a printed reference for facility walkthroughs.</p>
+        <div class="dd-specs">
+          <span class="spec">Facility Level</span><span class="spec">Overlock/Unlock Status</span>
+          <span class="spec">Last Payment Date</span><span class="spec">Balance Column</span>
+          <span class="spec">Walk Around Use Case</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dd-row" style="border-bottom:none;">
+      <div class="dd-left">
+        <span class="dd-cat">Category · Rent Adjustment</span>
+        <div class="dd-name">Rate History Report</div>
+      </div>
+      <div class="dd-right">
+        <p>Unit-level rate history report showing the complete rate change timeline for each unit. Columns include unit number, tenant name, move-in date, current rate, effective rate, next increase date and rate, last increase date and rate, unit type, and standard monthly rate. Sortable by unit number, tenant name, move-in date, last increase date, or next increase date — supporting multiple analyst workflows.</p>
+        <div class="dd-specs">
+          <span class="spec">Facility Level</span><span class="spec">5 Sort Options</span>
+          <span class="spec">Next/Last Increase Columns</span>
+          <span class="spec">Standard Rate Reference</span><span class="spec">Rate vs Standard Comparison</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- FRAMEWORK -->
+<section class="framework-sec" id="framework">
+  <div class="sec-label"><span class="n">4</span>Reporting Framework</div>
+  <h2>How the reporting <em>system works</em></h2>
+  <p class="lead">Behind the 200+ reports is a shared infrastructure layer — governing how reports are generated, accessed, delivered, filtered, and migrated. Every report follows the same specification structure, ensuring consistency across the entire catalogue.</p>
+
+  <div class="fw-grid">
+    <div class="fw-card">
+      <span class="fw-icon">🏗️</span>
+      <h3>Three Access Levels</h3>
+      <p>Reports are scoped to Account (full business), Business Group (multi-facility clusters), or Facility (single location) — with the Super Summary and high-level financial reports restricted to management-level permissions at the BG/Account tier.</p>
+    </div>
+    <div class="fw-card">
+      <span class="fw-icon">🔐</span>
+      <h3>Permission-Gated Access</h3>
+      <p>Each report category has its own access permission — financial reports require different permissions than operational ones. Management reports (like the Super Summary) have a separate UI access layer beyond the standard report workspace.</p>
+    </div>
+    <div class="fw-card">
+      <span class="fw-icon">🎛️</span>
+      <h3>Configurable Filters</h3>
+      <p>Every report specifies its available filters — Date Range, From/To Days, Sort By, Group By, or specific identifiers like Order Number. Filters are report-specific and wired to the underlying data model for each category.</p>
+    </div>
+    <div class="fw-card">
+      <span class="fw-icon">📐</span>
+      <h3>Standardised Spec Format</h3>
+      <p>Every report was documented in a requirement format covering: general description, access level, use case, generation frequency, filters, heading fields, column definitions (with business logic notes), footer aggregations, and a linked sample PDF.</p>
+    </div>
+    <div class="fw-card">
+      <span class="fw-icon">🖨️</span>
+      <h3>Delivery & Generation</h3>
+      <p>Reports are accessible via the Report Workspace (WC) and can be generated as PDFs for print or email delivery. Certain reports like the Purchase Order support reprint via a specific filter (order number), while others like the Super Summary are generated on-demand for a specific effective date.</p>
+    </div>
+    <div class="fw-card">
+      <span class="fw-icon">🔄</span>
+      <h3>v10 → v11 Migration</h3>
+      <p>All reports were designed with migration in mind — each requirement included migration notes ensuring legacy data (rate histories, adjustment records, access codes, contact logs) was carried forward correctly and reflected accurately in v11 report outputs.</p>
+    </div>
+    <div class="fw-card">
+      <span class="fw-icon">📊</span>
+      <h3>Footer Aggregations</h3>
+      <p>Every report specifies exactly what aggregations appear in the footer — total counts, sum totals, averages, percentages, and subtotals grouped by category or unit type. These aggregations are business-logic-specific, not simple column sums.</p>
+    </div>
+    <div class="fw-card">
+      <span class="fw-icon">🏢</span>
+      <h3>Corporate Reports</h3>
+      <p>A dedicated Corporate Reports workspace exists alongside the standard Report WC — providing account-level and multi-facility consolidated views used by business owners and regional managers rather than individual facility staff.</p>
+    </div>
+    <div class="fw-card">
+      <span class="fw-icon">📂</span>
+      <h3>Saved Document Migration</h3>
+      <p>The migration work included a Saved Document Migration effort — ensuring all previously generated reports and tenant documents from v10 were preserved and remained accessible in v11's document storage, linked to the correct tenants and facilities.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- SUPER SUMMARY DEEP DIVE -->
+<section class="super-sec" id="super">
+  <div class="sec-label"><span class="n">5</span>Super Summary · Deep Dive</div>
+  <h2>The flagship <em>management report</em></h2>
+  <p class="lead">The Super Summary is the most complex report in the system — a business group-level financial and operational dashboard in document form, requiring management-level access and covering nine time-period columns across eight major data sections.</p>
+
+  <div class="super-grid">
+    <div class="sg-card">
+      <span class="sg-label">Section 01</span>
+      <h3>Adjustments</h3>
+      <ul>
+        <li>Bad Debt Expense</li>
+        <li>Bad Debt Expense – Fees</li>
+        <li>Fees & Fees Credit</li>
+        <li>Prepaid Fees, Rent, Protection</li>
+        <li>Receivable, Rent Credit</li>
+        <li>Rent Discount</li>
+      </ul>
+    </div>
+    <div class="sg-card">
+      <span class="sg-label">Section 02</span>
+      <h3>Charges</h3>
+      <ul>
+        <li>Admin Fee, Fees, Late Fee</li>
+        <li>Merchandise & Discount</li>
+        <li>Protection Plan</li>
+        <li>Rent & Rent Discount</li>
+        <li>Sales Tax, Truck Rental</li>
+      </ul>
+    </div>
+    <div class="sg-card">
+      <span class="sg-label">Section 03</span>
+      <h3>Payments & Receipts</h3>
+      <ul>
+        <li>Payments by charge category</li>
+        <li>Receipts by method (Cash, Check, CC)</li>
+        <li>Transaction counts (MoveIn/Out, Adj…)</li>
+        <li>Waived Fees (Admin, Late)</li>
+      </ul>
+    </div>
+    <div class="sg-card">
+      <span class="sg-label">Section 04</span>
+      <h3>Unit Summary</h3>
+      <ul>
+        <li>Available / Rented / Reserved</li>
+        <li>Units %, Area, Area %</li>
+        <li>Economic Occupancy</li>
+        <li>Gross Potential, Variance Above/Below</li>
+        <li>Projected Rent, Effective Rate</li>
+      </ul>
+    </div>
+    <div class="sg-card">
+      <span class="sg-label">Section 05</span>
+      <h3>Aging Summary</h3>
+      <ul>
+        <li>0–10, 11–30, 31–60, 61–90, 91+ days</li>
+        <li>%Unit, %Unit$, %Gross, %Actual</li>
+        <li>Amount overdue per aging bucket</li>
+        <li>*Over 30 (excluded from total)</li>
+      </ul>
+    </div>
+    <div class="sg-card">
+      <span class="sg-label">Section 06</span>
+      <h3>Delinquent Units</h3>
+      <ul>
+        <li>Restrict Tenant Portal Login</li>
+        <li>Tenant Portal – View Only</li>
+        <li>Overlocked units</li>
+        <li>Gate Locked units</li>
+        <li>Other late fee events</li>
+      </ul>
+    </div>
+    <div class="sg-card">
+      <span class="sg-label">Section 07</span>
+      <h3>Prepaid Summary</h3>
+      <ul>
+        <li>Prepaid Fees balance</li>
+        <li>Prepaid Protection balance</li>
+        <li>Prepaid Rent balance</li>
+        <li>Total prepaid held</li>
+      </ul>
+    </div>
+    <div class="sg-card">
+      <span class="sg-label">Section 08</span>
+      <h3>9-Column Time View</h3>
+      <ul>
+        <li>Today (Daily)</li>
+        <li>MTD (start of month → effective date)</li>
+        <li>YTD (start of year → effective date)</li>
+        <li>5 rolling prior months</li>
+        <li>Same month prior year</li>
+      </ul>
+    </div>
+    <div class="sg-card">
+      <span class="sg-label">Section 09</span>
+      <h3>Bounced Checks (NSF)</h3>
+      <ul>
+        <li>AdjustProtection Plan</li>
+        <li>AdjustRent</li>
+        <li>NSF fee amounts collected</li>
+        <li>Number of NSF checks (per period)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- IMPACT -->
+<section class="impact-sec" id="impact">
+  <div class="sec-label"><span class="n">6</span>Outcomes</div>
+  <h2>Key outcomes <em>&amp; contributions</em></h2>
+  <p class="lead">Building a 200+ report system required a disciplined approach to specification, categorisation, business logic documentation, and migration — far beyond just generating data tables.</p>
+
+  <div class="impact-list">
+    <div class="ir">
+      <div class="ir-num">01</div>
+      <div>
+        <h3>200+ reports specified, categorised, and built across 20 domains</h3>
+        <p>Designed and delivered a complete reporting catalogue covering every operational and financial dimension of a self-storage business — from access code audits and rent adjustment status to income reconciliation and management-level occupancy dashboards — with every report individually specified using a standard requirement format.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-num">02</div>
+      <div>
+        <h3>Multi-level access architecture — account, business group, and facility scoping</h3>
+        <p>Implemented a three-tier report access model where reports are scoped to the correct organisational level — high-level financial and occupancy reports like the Super Summary are restricted to management-level BG/account access, while operational reports (overlocks, access codes, move-in activity) are accessible at facility level by standard staff.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-num">03</div>
+      <div>
+        <h3>Super Summary — a 9-column, 8-section management dashboard in report form</h3>
+        <p>Designed and built the Super Summary as the most complex report in the system — combining financial totals, payment receipts, unit occupancy metrics, economic occupancy calculation, aging buckets, delinquency event breakdowns, and prepaid summaries across nine time-period columns including rolling prior months and a same-month year-over-year comparison.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-num">04</div>
+      <div>
+        <h3>Business-logic-accurate column definitions across all 200+ reports</h3>
+        <p>Every column in every report was documented with its precise business logic — including edge cases like Retained Rent (rent kept when not prorating out at move-out), Variance Above/Below (rate deviation from standard), Economic Occupancy (effective rate vs gross potential), and NSF/Prepaid handling — ensuring reports reflected the actual financial state rather than simplified data dumps.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-num">05</div>
+      <div>
+        <h3>Full v10 → v11 migration coverage with data continuity</h3>
+        <p>Every report specification included migration notes — ensuring legacy data from the v10 platform (rate histories, adjustment records, contact logs, access codes, saved documents) was correctly carried forward and reflected accurately in all v11 report outputs from day one of the platform migration.</p>
+      </div>
+    </div>
+    <div class="ir">
+      <div class="ir-num">06</div>
+      <div>
+        <h3>Standardised specification format enabling scalable report development</h3>
+        <p>Established a repeatable requirement document format — general description, access level, use case, frequency, filters, heading, column definitions, footer aggregations, sample PDF link — that was applied consistently across all 200+ reports, making it possible to onboard new report requirements quickly and hand them off to engineers without ambiguity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- SKILLS -->
+<section class="skills-sec">
+  <div class="sec-label"><span class="n">7</span>Skills Demonstrated</div>
+  <h2>Technical <em>&amp; product scope</em></h2>
+  <p class="lead">The Reports Module required the full product skill set — from business analysis and data modelling to requirement writing, access design, migration planning, and financial logic documentation.</p>
+
+  <div class="skill-cloud">
+    <span class="skill">Report Requirements Writing</span>
+    <span class="skill">Business Logic Documentation</span>
+    <span class="skill">Financial Report Design</span>
+    <span class="skill">Multi-level Access Architecture</span>
+    <span class="skill">Permission Scoping</span>
+    <span class="skill">Super Summary (Complex Report)</span>
+    <span class="skill">Economic Occupancy Calculation</span>
+    <span class="skill">AR Aging Logic</span>
+    <span class="skill">Delinquency Reporting</span>
+    <span class="skill">Income Reconciliation</span>
+    <span class="skill">Net Change of Accounts</span>
+    <span class="skill">Rate Exception Reporting</span>
+    <span class="skill">Rent Adjustment Tracking</span>
+    <span class="skill">Access Code Audit Reports</span>
+    <span class="skill">Overlock/Unlock Reports</span>
+    <span class="skill">Move In/Out Activity</span>
+    <span class="skill">Retail Sale Reporting</span>
+    <span class="skill">Tax Reporting (GST/PST/HST)</span>
+    <span class="skill">Column & Footer Spec Design</span>
+    <span class="skill">Filter & Sort Logic</span>
+    <span class="skill">Data Migration Strategy</span>
+    <span class="skill">v10 → v11 Report Migration</span>
+    <span class="skill">Saved Document Migration</span>
+    <span class="skill">Corporate / BG Level Reporting</span>
+    <span class="skill">20-Category Report Taxonomy</span>
+    <span class="skill">Sample Report Validation</span>
+    <span class="skill">Product Requirements</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>CodeParva Technologies · Reports & Analytics Module · Portfolio Case Study</p>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Back to top</a>
+</footer>
+
+</body>
+</html>

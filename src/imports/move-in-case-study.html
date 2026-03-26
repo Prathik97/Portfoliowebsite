@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Move In Module – CodeParva | Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --ink: #1a1714;
+    --accent: #7c4ddb;
+    --accent-light: #f0ebff;
+    --accent2: #e8572a;
+    --muted: #6b6560;
+    --rule: #e4e0d9;
+    --surface: #ffffff;
+    --surface2: #f3f0eb;
+    --tag-bg: #ede9e2;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  /* ── NAV ─────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,248,245,.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+    padding: 15px 52px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+  }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; letter-spacing: .02em;
+    text-decoration: none; color: var(--muted); transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    padding: 130px 52px 80px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    position: relative; overflow: hidden;
+  }
+
+  /* wavy SVG background */
+  .hero-bg {
+    position: absolute; top: 0; right: -60px;
+    width: 70%; height: 100%;
+    opacity: .06; pointer-events: none;
+  }
+
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-light);
+    border: 1px solid #d0b8ff;
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-family: 'Fira Code', monospace;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    width: fit-content;
+  }
+  .hero-pill::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .5; transform: scale(.8); }
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(56px, 8vw, 108px);
+    font-weight: 700; line-height: .92;
+    letter-spacing: -0.03em;
+    max-width: 900px;
+  }
+  h1 .italic { font-style: italic; font-weight: 300; color: var(--accent); }
+  h1 .stroke {
+    -webkit-text-stroke: 1.5px var(--ink);
+    color: transparent;
+  }
+
+  .hero-row {
+    display: grid; grid-template-columns: 1fr 420px;
+    gap: 64px; margin-top: 52px; align-items: end;
+  }
+  .hero-desc {
+    font-size: 17px; color: var(--muted); line-height: 1.8; max-width: 520px;
+  }
+
+  /* process pill strip */
+  .process-strip {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 28px;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .process-strip-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 20px;
+  }
+  .proc-step {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .proc-step:last-child { border-bottom: none; }
+  .proc-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--accent-light); border: 1px solid #d0b8ff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fira Code', monospace; font-size: 11px;
+    color: var(--accent); flex-shrink: 0; font-weight: 500;
+  }
+  .proc-label {
+    font-size: 13px; font-weight: 600; color: var(--ink);
+  }
+  .proc-sub {
+    font-size: 11px; color: var(--muted); margin-top: 1px;
+  }
+  .proc-arrow {
+    position: absolute; left: 15px; bottom: -14px;
+    width: 1px; height: 14px; background: var(--rule);
+    z-index: 1;
+  }
+  .proc-step:last-child .proc-arrow { display: none; }
+
+  /* meta bar */
+  .hero-meta {
+    margin-top: 52px; padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    display: flex; gap: 48px; flex-wrap: wrap;
+  }
+  .meta-item label {
+    display: block;
+    font-family: 'Fira Code', monospace;
+    font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 5px;
+  }
+  .meta-item span { font-size: 14px; font-weight: 600; }
+
+  /* ── SHARED SECTION ──────────────────────── */
+  section { padding: 96px 52px; }
+  .sec-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 44px;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .sec-label .num {
+    background: var(--accent); color: #fff;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 10px; flex-shrink: 0;
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 4vw, 50px);
+    font-weight: 700; line-height: 1.1; margin-bottom: 18px;
+  }
+  h2 em { font-style: italic; font-weight: 300; color: var(--accent); }
+  p.lead { color: var(--muted); max-width: 680px; font-size: 16px; line-height: 1.8; }
+  hr.rule { border: none; border-top: 1px solid var(--rule); margin: 0 52px; }
+
+  /* ── OVERVIEW ─────────────────────────────── */
+  .overview-section { background: var(--ink); color: #faf8f5; }
+  .overview-section .sec-label { color: rgba(250,248,245,.4); }
+  .overview-section .sec-label .num { background: var(--accent); }
+  .overview-section h2 { color: #faf8f5; }
+  .overview-section p.lead { color: rgba(250,248,245,.6); }
+
+  .stat-row {
+    display: flex; gap: 1px; background: rgba(250,248,245,.08);
+    border: 1px solid rgba(250,248,245,.08);
+    margin-top: 56px;
+  }
+  .stat-cell {
+    flex: 1; background: var(--ink); padding: 36px 28px;
+    position: relative; overflow: hidden; cursor: default;
+    transition: background .25s;
+  }
+  .stat-cell:hover { background: #201d1a; }
+  .stat-cell::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .4s ease;
+  }
+  .stat-cell:hover::after { transform: scaleX(1); }
+  .stat-n {
+    font-family: 'Fraunces', serif;
+    font-size: 52px; line-height: 1; font-weight: 700;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  .stat-l {
+    font-family: 'Fira Code', monospace;
+    font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    color: rgba(250,248,245,.4);
+  }
+
+  /* ── FEATURE CARDS ───────────────────────── */
+  .features-section { background: var(--bg); }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-top: 56px;
+  }
+  @media (max-width: 900px) { .features-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 580px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .hero-row { grid-template-columns: 1fr; }
+    section { padding: 72px 20px; }
+    nav { padding: 14px 20px; }
+    hr.rule { margin: 0 20px; }
+    .stat-row { flex-direction: column; gap: 1px; }
+  }
+
+  .fcard {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 32px 28px;
+    transition: border-color .25s, box-shadow .25s, transform .25s;
+    cursor: default;
+  }
+  .fcard:hover {
+    border-color: #d0b8ff;
+    box-shadow: 0 8px 32px rgba(124,77,219,.08);
+    transform: translateY(-2px);
+  }
+  .fcard-icon {
+    font-size: 28px; margin-bottom: 16px; display: block;
+  }
+  .fcard h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px; font-weight: 700;
+    margin-bottom: 10px; color: var(--ink);
+  }
+  .fcard p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .fcard-tags {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px;
+  }
+  .tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+    background: var(--tag-bg); color: var(--muted);
+    padding: 3px 9px; border-radius: 4px;
+  }
+
+  /* ── FLOW DIAGRAM ─────────────────────────── */
+  .flow-section { background: var(--surface2); }
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px; background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 56px;
+  }
+  @media (max-width: 780px) { .flow-grid { grid-template-columns: 1fr 1fr; } }
+  .flow-step {
+    background: var(--bg);
+    padding: 40px 32px;
+    position: relative; overflow: hidden;
+  }
+  .flow-step-num {
+    font-family: 'Fraunces', serif;
+    font-size: 56px; font-weight: 700; line-height: 1;
+    color: var(--rule); margin-bottom: 20px;
+    transition: color .3s;
+  }
+  .flow-step:hover .flow-step-num { color: var(--accent-light); }
+  .flow-step h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .flow-step-items {
+    list-style: none; display: flex; flex-direction: column; gap: 6px;
+  }
+  .flow-step-items li {
+    font-size: 12px; color: var(--muted);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .flow-step-items li::before {
+    content: '→'; color: var(--accent); flex-shrink: 0; font-size: 11px; margin-top: 1px;
+  }
+
+  /* ── MODE SWITCHER CARDS ──────────────────── */
+  .modes-section { background: var(--bg); }
+  .modes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; margin-top: 56px;
+  }
+  @media (max-width: 780px) { .modes-grid { grid-template-columns: 1fr; } }
+  .mode-card {
+    border-radius: 16px;
+    padding: 36px 32px;
+    position: relative; overflow: hidden;
+  }
+  .mode-card.move-in { background: var(--accent-light); border: 1px solid #d0b8ff; }
+  .mode-card.estimate { background: #fff5f0; border: 1px solid #f9c4b0; }
+  .mode-card.reservation { background: #f0f9f0; border: 1px solid #a8d5a8; }
+  .mode-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+    margin-bottom: 16px; display: block; font-weight: 500;
+  }
+  .move-in .mode-label { color: var(--accent); }
+  .estimate .mode-label { color: var(--accent2); }
+  .reservation .mode-label { color: #3a7a3a; }
+  .mode-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px; font-weight: 700; margin-bottom: 12px; color: var(--ink);
+  }
+  .mode-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .mode-card ul {
+    margin-top: 14px; list-style: none; display: flex; flex-direction: column; gap: 6px;
+  }
+  .mode-card ul li {
+    font-size: 12px; color: var(--muted);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .move-in ul li::before { content: '✦'; color: var(--accent); font-size: 9px; margin-top: 3px; }
+  .estimate ul li::before { content: '✦'; color: var(--accent2); font-size: 9px; margin-top: 3px; }
+  .reservation ul li::before { content: '✦'; color: #3a7a3a; font-size: 9px; margin-top: 3px; }
+
+  /* ── LEASE SIGN ───────────────────────────── */
+  .lease-section { background: var(--surface2); }
+  .lease-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px; margin-top: 56px;
+  }
+  @media (max-width: 700px) { .lease-grid { grid-template-columns: 1fr; } }
+  .delivery-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 32px 28px;
+    transition: border-color .25s;
+  }
+  .delivery-card:hover { border-color: #d0b8ff; }
+  .delivery-icon { font-size: 32px; margin-bottom: 16px; display: block; }
+  .delivery-card h3 {
+    font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--ink);
+  }
+  .delivery-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .delivery-status {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 14px;
+    font-family: 'Fira Code', monospace;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 4px 12px; border-radius: 100px;
+  }
+  .delivery-status.optional { color: #7a6030; background: #fff8e8; }
+
+  /* ── CONFIGURATION ────────────────────────── */
+  .config-section { background: var(--bg); }
+  .config-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-top: 56px;
+  }
+  @media (max-width: 700px) { .config-grid { grid-template-columns: 1fr; } }
+  .config-card {
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 28px 24px;
+    background: var(--surface);
+  }
+  .config-card h3 {
+    font-size: 14px; font-weight: 700;
+    color: var(--ink); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .config-card h3 .badge {
+    font-family: 'Fira Code', monospace;
+    font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+    background: var(--accent-light); color: var(--accent);
+    padding: 2px 8px; border-radius: 4px;
+  }
+  .config-card ul {
+    list-style: none; display: flex; flex-direction: column; gap: 5px;
+  }
+  .config-card ul li {
+    font-size: 12px; color: var(--muted);
+    padding-left: 14px; position: relative;
+  }
+  .config-card ul li::before {
+    content: '·'; position: absolute; left: 0;
+    color: var(--accent); font-size: 16px; line-height: 1;
+  }
+
+  /* ── IMPACT ───────────────────────────────── */
+  .impact-section { background: var(--ink); color: #faf8f5; }
+  .impact-section .sec-label { color: rgba(250,248,245,.4); }
+  .impact-section .sec-label .num { background: var(--accent); }
+  .impact-section h2 { color: #faf8f5; }
+  .impact-section p.lead { color: rgba(250,248,245,.6); }
+
+  .impact-list { margin-top: 56px; display: flex; flex-direction: column; gap: 0; }
+  .impact-item {
+    display: grid; grid-template-columns: 64px 1fr;
+    gap: 24px; padding: 28px 0;
+    border-bottom: 1px solid rgba(250,248,245,.08);
+    align-items: start;
+  }
+  .impact-item:first-child { padding-top: 0; }
+  .impact-item:last-child { border-bottom: none; }
+  .impact-glyph {
+    font-family: 'Fraunces', serif;
+    font-size: 36px; font-weight: 700; line-height: 1;
+    color: rgba(124,77,219,.4);
+    text-align: center; padding-top: 4px;
+  }
+  .impact-item h3 {
+    font-size: 15px; font-weight: 700; color: #faf8f5; margin-bottom: 6px;
+  }
+  .impact-item p { font-size: 13px; color: rgba(250,248,245,.55); line-height: 1.7; }
+
+  /* ── SKILLS ───────────────────────────────── */
+  .skills-section { background: var(--bg); }
+  .skills-flow {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px;
+  }
+  .skill {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px; letter-spacing: .06em;
+    padding: 10px 20px; border-radius: 100px;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    color: var(--ink);
+    transition: all .2s; cursor: default;
+  }
+  .skill:hover {
+    background: var(--accent-light);
+    border-color: #d0b8ff;
+    color: var(--accent);
+  }
+
+  /* ── FOOTER ───────────────────────────────── */
+  footer {
+    padding: 40px 52px;
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+  }
+  footer p { font-family: 'Fira Code', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; }
+  footer a { font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 600; }
+
+  /* animate in */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero > * { animation: fadeUp .6s ease both; }
+  .hero-pill { animation-delay: .1s; }
+  h1 { animation-delay: .2s; }
+  .hero-row { animation-delay: .32s; }
+  .hero-meta { animation-delay: .44s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Portfolio · Case Study</span>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#flow">4-Step Flow</a>
+    <a href="#modes">Modes</a>
+    <a href="#lease">Lease & E-Sign</a>
+    <a href="#impact">Impact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <!-- wavy background decoration -->
+  <svg class="hero-bg" viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="300" cy="300" r="280" stroke="#7c4ddb" stroke-width="1"/>
+    <circle cx="300" cy="300" r="200" stroke="#7c4ddb" stroke-width="1"/>
+    <circle cx="300" cy="300" r="120" stroke="#7c4ddb" stroke-width="1"/>
+    <circle cx="300" cy="300" r="40" fill="#7c4ddb" opacity=".3"/>
+    <line x1="300" y1="0" x2="300" y2="600" stroke="#7c4ddb" stroke-width=".5"/>
+    <line x1="0" y1="300" x2="600" y2="300" stroke="#7c4ddb" stroke-width=".5"/>
+    <line x1="102" y1="102" x2="498" y2="498" stroke="#7c4ddb" stroke-width=".5"/>
+    <line x1="498" y1="102" x2="102" y2="498" stroke="#7c4ddb" stroke-width=".5"/>
+  </svg>
+
+  <div class="hero-pill">CodeParva Technologies · TFW Platform</div>
+  <h1>Move <span class="italic">In</span><br/><span class="stroke">Module</span></h1>
+
+  <div class="hero-row">
+    <p class="hero-desc">
+      End-to-end design and development of TFW's Move In feature — a multi-mode onboarding flow
+      supporting simultaneous Move In, Estimate, and Reservation paths with configurable proration,
+      lease generation, e-signature delivery, document management, and post-move-in payment handling.
+    </p>
+
+    <div class="process-strip">
+      <div class="process-strip-title">4-Step Move In Flow</div>
+
+      <div class="proc-step">
+        <div class="proc-num">01</div>
+        <div>
+          <div class="proc-label">Configure Unit & Rental</div>
+          <div class="proc-sub">Unit type, rate, proration, promo, insurance</div>
+        </div>
+        <div class="proc-arrow"></div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-num">02</div>
+        <div>
+          <div class="proc-label">Tenant Selection</div>
+          <div class="proc-sub">New, existing, inactive, or lead conversion</div>
+        </div>
+        <div class="proc-arrow"></div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-num">03</div>
+        <div>
+          <div class="proc-label">Review Summary</div>
+          <div class="proc-sub">Charges breakdown + document generation</div>
+        </div>
+        <div class="proc-arrow"></div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-num">04</div>
+        <div>
+          <div class="proc-label">Post Move In</div>
+          <div class="proc-sub">Payment collection + retail sale (POS)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-meta">
+    <div class="meta-item"><label>Company</label><span>CodeParva Technologies</span></div>
+    <div class="meta-item"><label>Product</label><span>TFW (The Facility Works)</span></div>
+    <div class="meta-item"><label>Feature</label><span>Move In Module</span></div>
+    <div class="meta-item"><label>Modes</label><span>Move In · Estimate · Reservation</span></div>
+    <div class="meta-item"><label>Delivery Types</label><span>Print · E-Sign · Send to Device</span></div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- OVERVIEW -->
+<section class="overview-section" id="overview">
+  <div class="sec-label"><span class="num">1</span>Background</div>
+  <h2>What is the <em>Move In Module?</em></h2>
+  <p class="lead">
+    Move In is the primary onboarding workflow in TFW — the moment a new tenant is formally assigned
+    a storage unit and a financial relationship begins. The module handles three parallel modes
+    (Move In, Estimate, and Reservation), manages complex billing logic for anniversary and
+    non-anniversary facilities, drives configurable document generation, and integrates e-signature
+    delivery — all in a single, stateful multi-step flow accessible from seven different entry points in the platform.
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-n">3</div>
+      <div class="stat-l">Parallel Modes</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">7</div>
+      <div class="stat-l">Access Entry Points</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">4</div>
+      <div class="stat-l">Proration Strategies</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">3</div>
+      <div class="stat-l">Lease Delivery Modes</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">5+</div>
+      <div class="stat-l">Document Types</div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="sec-label"><span class="num">2</span>Feature Areas</div>
+  <h2>What was <em>built</em></h2>
+  <p class="lead">The Move In module covers the complete onboarding surface — from unit selection to post-move-in retail, across three operational modes with full cross-mode state retention.</p>
+
+  <div class="features-grid">
+    <div class="fcard">
+      <span class="fcard-icon">🏠</span>
+      <h3>Multi-mode Move In Flow</h3>
+      <p>A unified 4-step workflow supporting Move In, Estimate, and Reservation modes simultaneously — with intelligent state retention and contextual warnings when switching between modes mid-flow.</p>
+      <div class="fcard-tags"><span class="tag">State Management</span><span class="tag">Mode Switching</span></div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-icon">📐</span>
+      <h3>Proration Engine</h3>
+      <p>Configurable proration for non-anniversary facilities across four strategies — Prorate First, Prorate Second, Prorate First Bill Second, and a day-threshold hybrid — with real-time bill-to-date recalculation.</p>
+      <div class="fcard-tags"><span class="tag">Billing Logic</span><span class="tag">Anniversary/Non-Anniv</span></div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-icon">👤</span>
+      <h3>Tenant Selection & Conversion</h3>
+      <p>Supports creating a new tenant, selecting an existing tenant (active or reactivating inactive), or converting a lead to a tenant — with ledger selection, sync billing date option, and alert-driven total amount recalculation.</p>
+      <div class="fcard-tags"><span class="tag">Lead Conversion</span><span class="tag">Ledger</span><span class="tag">Sync Billing</span></div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-icon">📄</span>
+      <h3>Document Generation</h3>
+      <p>Configurable generation of Lease, Welcome Letter, and Demographics documents at move-in — each with independently configured delivery methods (print, email, e-sign) set up in Move In Configuration.</p>
+      <div class="fcard-tags"><span class="tag">Lease</span><span class="tag">Welcome Letter</span><span class="tag">Delivery Config</span></div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-icon">✍️</span>
+      <h3>E-Sign Integration</h3>
+      <p>Three-mode lease delivery — print (with assumed in-person sign), email to tenant for e-sign (7-day validity, Esign Pending unit status), and send-to-device via the Syrasoft Cloud Assist app with real-time sign-and-retrieve flow.</p>
+      <div class="fcard-tags"><span class="tag">E-Sign</span><span class="tag">Esign Pending</span><span class="tag">Device</span></div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-icon">💰</span>
+      <h3>Charges & Waivers</h3>
+      <p>Move-in captures and renders all applicable charges — unit deposit, tenant deposit, setup fee, prorate, and insurance prorate — all waivable individually during the move-in flow, with the total updating in real time.</p>
+      <div class="fcard-tags"><span class="tag">Waivers</span><span class="tag">Deposits</span><span class="tag">Setup Fee</span></div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-icon">🎁</span>
+      <h3>Promo Plan & Insurance</h3>
+      <p>Optional promo plan and insurance sections shown as expandable dotted panels on step 1 — with promo plan automatically cleared and user-warned when switching to Reservation mode which doesn't support them.</p>
+      <div class="fcard-tags"><span class="tag">Promo Plans</span><span class="tag">Insurance</span><span class="tag">Coverage Amount</span></div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-icon">🧾</span>
+      <h3>Post Move In — Payment & POS</h3>
+      <p>After a successful move-in, the total charges are held on the ledger. The user can immediately process a payment or defer it. An optional Retail Sale (POS) entry point is also surfaced for tenants who need to purchase move-in supplies.</p>
+      <div class="fcard-tags"><span class="tag">Payment</span><span class="tag">POS</span><span class="tag">Ledger</span></div>
+    </div>
+
+    <div class="fcard">
+      <span class="fcard-icon">⚙️</span>
+      <h3>Move In Configuration</h3>
+      <p>Facility-level configuration controls proration mode, sync billing, charge categories for setup fee/deposits, and default document settings (welcome letter, demographics letter, lease style) with per-delivery-method overrides.</p>
+      <div class="fcard-tags"><span class="tag">Configuration</span><span class="tag">Proration</span><span class="tag">Docs</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- FLOW DIAGRAM -->
+<section class="flow-section" id="flow">
+  <div class="sec-label"><span class="num">3</span>4-Step Move In Flow</div>
+  <h2>How the <em>flow works</em></h2>
+  <p class="lead">Every move-in passes through four structured steps — each validated before progression, with data intelligently retained or warned against if the user changes mode mid-flow.</p>
+
+  <div class="flow-grid">
+    <div class="flow-step">
+      <div class="flow-step-num">01</div>
+      <h3>Configure Unit & Rental</h3>
+      <ul class="flow-step-items">
+        <li>Select unit type & unit number</li>
+        <li>Set move-in date & rental period</li>
+        <li>Review auto-populated rental info</li>
+        <li>Waive deposits, setup fee, prorate</li>
+        <li>Adjust bill-to date</li>
+        <li>Add promo plan (optional)</li>
+        <li>Configure insurance (optional)</li>
+        <li>Select lease style</li>
+      </ul>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">02</div>
+      <h3>Tenant Selection</h3>
+      <ul class="flow-step-items">
+        <li>Create new tenant on the fly</li>
+        <li>Select existing active tenant</li>
+        <li>Reactivate & select inactive tenant</li>
+        <li>Convert lead → tenant</li>
+        <li>Select ledger for multi-ledger tenants</li>
+        <li>Sync billing date (anniversary facilities)</li>
+        <li>Live total recalculation on sync toggle</li>
+      </ul>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">03</div>
+      <h3>Review Summary</h3>
+      <ul class="flow-step-items">
+        <li>Full charge breakdown displayed</li>
+        <li>Document generation options shown</li>
+        <li>Choose lease delivery method</li>
+        <li>Select welcome letter delivery</li>
+        <li>Validate all required fields</li>
+        <li>Confirm or cancel the move-in</li>
+      </ul>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">04</div>
+      <h3>Post Move In</h3>
+      <ul class="flow-step-items">
+        <li>Charges held on tenant ledger</li>
+        <li>Immediate payment collection</li>
+        <li>Defer payment for later</li>
+        <li>Point of Sale for move-in supplies</li>
+        <li>Lease status updated (Rented / Esign Pending)</li>
+        <li>Welcome letter & lease delivered</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- THREE MODES -->
+<section class="modes-section" id="modes">
+  <div class="sec-label"><span class="num">4</span>Three Operating Modes</div>
+  <h2>Move In, Estimate <em>&amp; Reservation</em></h2>
+  <p class="lead">The module runs three modes from the same UI surface — with full cross-mode state retention where data is compatible, and clear data-loss warnings with user confirmation when it isn't.</p>
+
+  <div class="modes-grid">
+    <div class="mode-card move-in">
+      <span class="mode-label">Mode 01 · Primary</span>
+      <h3>Move In</h3>
+      <p>Full rental commitment — assigns a unit to a tenant and creates charges on the ledger. Requires unit number, tenant, and ledger. Supports promo plans, insurance, and full document delivery.</p>
+      <ul>
+        <li>Unit + tenant + ledger required</li>
+        <li>All charges generated</li>
+        <li>Lease signed at this step</li>
+        <li>Promo & insurance supported</li>
+        <li>Anniversary sync billing available</li>
+      </ul>
+    </div>
+
+    <div class="mode-card estimate">
+      <span class="mode-label">Mode 02 · Pre-sale</span>
+      <h3>Estimate</h3>
+      <p>Generates a cost estimate for a prospective tenant — no financial commitment. Tenant or lead can be selected; ledger selection is not mandatory. Can seamlessly convert to Move In or Reservation.</p>
+      <ul>
+        <li>Works with leads (no account needed)</li>
+        <li>No charges created</li>
+        <li>Ledger selection optional</li>
+        <li>Estimate report generated</li>
+        <li>Converts to Move In preserving data</li>
+      </ul>
+    </div>
+
+    <div class="mode-card reservation">
+      <span class="mode-label">Mode 03 · Hold</span>
+      <h3>Reservation</h3>
+      <p>Holds a unit type for a prospective tenant with a reservation code — without assigning a specific unit. Insurance and promo plan data is cleared on switch (with user warning). Converts to Move In on arrival.</p>
+      <ul>
+        <li>Unit type only (no unit number)</li>
+        <li>Reservation code issued</li>
+        <li>No promo/insurance (warned on switch)</li>
+        <li>Overbook support per unit type</li>
+        <li>Tenant notification on reservation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- LEASE & E-SIGN -->
+<section class="lease-section" id="lease">
+  <div class="sec-label"><span class="num">5</span>Lease & E-Sign</div>
+  <h2>Legal document <em>delivery flows</em></h2>
+  <p class="lead">The lease is a legal occupancy agreement auto-populated with tenant and unit data at move-in time. Three delivery methods are supported — each with distinct UX, status management, and post-move-in re-delivery options.</p>
+
+  <div class="lease-grid">
+    <div class="delivery-card">
+      <span class="delivery-icon">🖨️</span>
+      <h3>Print</h3>
+      <p>The default delivery method. The lease is printed at move-in time, and it is assumed the tenant signs it in person. Move-in completes immediately and the unit status moves to Rented. Requires the Syrasoft Cloud Assist app to be configured.</p>
+      <span class="delivery-status">Must Have · Default</span>
+    </div>
+
+    <div class="delivery-card">
+      <span class="delivery-icon">✉️</span>
+      <h3>Email for E-Sign</h3>
+      <p>An email with the lease is automatically sent to the tenant's email after move-in. The unit status is set to <strong>Esign Pending</strong> until the tenant signs via the tenant-facing portal. Document validity is 7 days. Users can manually update status between Rented and Esign Pending. Requires email service to be configured and tenant email to be enabled.</p>
+      <span class="delivery-status">Must Have · Async</span>
+    </div>
+
+    <div class="delivery-card">
+      <span class="delivery-icon">📲</span>
+      <h3>Send to Device</h3>
+      <p>The lease is pushed to a connected device running the Syrasoft E-Sign app. The user waits at step 3 for the tenant to sign on the device — move-in completes only after signature submission. The signed document is retrieved and can be printed or emailed post-signing. Supports resend if the document doesn't appear on the device.</p>
+      <span class="delivery-status optional">Could Have · Synchronous</span>
+    </div>
+
+    <div class="delivery-card">
+      <span class="delivery-icon">🔄</span>
+      <h3>Post Move In Re-delivery</h3>
+      <p>After any move-in, the lease can be regenerated and re-delivered using any supported method. This covers cases like an email that wasn't received, a customer requesting a print copy, or transitioning from Esign Pending back to an in-person sign. Status can be manually overridden by authorised users.</p>
+      <span class="delivery-status">Must Have · Flexible</span>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- CONFIGURATION -->
+<section class="config-section" id="config">
+  <div class="sec-label"><span class="num">6</span>Configuration Layer</div>
+  <h2>What facilities <em>can configure</em></h2>
+  <p class="lead">Move-in behaviour is extensively configurable at the facility level — covering billing strategy, default documents, and charge categories — so different storage businesses can adapt it to their operational model.</p>
+
+  <div class="config-grid">
+    <div class="config-card">
+      <h3>Proration Settings <span class="badge">Non-Anniversary Only</span></h3>
+      <ul>
+        <li>Enable / disable proration globally</li>
+        <li>Prorate First — bill prorated rent for first month</li>
+        <li>Prorate Second — full first month, prorated second</li>
+        <li>Prorate First Bill Second — prorate + bill full 2nd period upfront</li>
+        <li>Prorate First Bill Second After Days — day-threshold hybrid</li>
+      </ul>
+    </div>
+
+    <div class="config-card">
+      <h3>Sync Billing <span class="badge">Anniversary Only</span></h3>
+      <ul>
+        <li>Optionally sync rent assessment dates across a tenant's units</li>
+        <li>Checkbox shown only if ledger already has rented units</li>
+        <li>Toggling recalculates total payable with live snackbar feedback</li>
+        <li>Prorates the first period to the sync date</li>
+      </ul>
+    </div>
+
+    <div class="config-card">
+      <h3>Charges Configuration</h3>
+      <ul>
+        <li>Setup fee — configurable charge category</li>
+        <li>Rental deposit — default charge category</li>
+        <li>Tenant deposit — default charge category</li>
+        <li>All charges individually waivable at move-in time</li>
+      </ul>
+    </div>
+
+    <div class="config-card">
+      <h3>Documentation Defaults</h3>
+      <ul>
+        <li>Welcome letter — select template + auto-print toggle (default: true)</li>
+        <li>Demographics letter — letter + delivery method selection</li>
+        <li>Lease style — fallback if unit type has no configured lease</li>
+        <li>Unit type lease overrides facility-level lease style</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- IMPACT -->
+<section class="impact-section" id="impact">
+  <div class="sec-label"><span class="num">7</span>Outcomes</div>
+  <h2>Key outcomes <em>&amp; contributions</em></h2>
+  <p class="lead">Move In is the most critical user-facing workflow in the platform — every tenant relationship starts here. Building it required precision across billing logic, legal document handling, state management, and multi-mode UX.</p>
+
+  <div class="impact-list">
+    <div class="impact-item">
+      <div class="impact-glyph">01</div>
+      <div>
+        <h3>Unified multi-mode onboarding — Move In, Estimate, and Reservation from one surface</h3>
+        <p>Designed a single stateful 4-step flow that handles three fundamentally different modes simultaneously, with data-aware mode switching, cumulative alerts, and intelligent retention of compatible fields — preventing data loss while guiding users through state transitions.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-glyph">02</div>
+      <div>
+        <h3>Complex billing logic for anniversary and non-anniversary facilities</h3>
+        <p>Implemented a proration engine supporting four distinct strategies plus sync-billing for anniversary facilities, with real-time bill-to-date recalculation and live total updates as users adjust dates, periods, or sync toggles during the move-in flow.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-glyph">03</div>
+      <div>
+        <h3>Three-path e-signature delivery with status-aware unit state management</h3>
+        <p>Built lease delivery flows for print (synchronous, in-person), email e-sign (async with Esign Pending status and 7-day validity), and device sign (real-time, blocking until signed) — with post-move-in re-delivery and manual status override for authorised users.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-glyph">04</div>
+      <div>
+        <h3>Legally-compliant, template-driven lease and welcome letter generation</h3>
+        <p>Built auto-populated legal lease documents and welcome letters with dynamic fields (tenant name, unit number, unit size, rate, dates, gate code) — generated and delivered at move-in time per facility-configured templates, with all output samples validated against real Catskill Self Storage documents.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-glyph">05</div>
+      <div>
+        <h3>7 access entry points with consistent context propagation</h3>
+        <p>Move In is reachable from the Unit List, BEV, Edit Unit, View Tenant, Tenant List, Lead List, Edit Lead, and Quick Link — each access point pre-populating the relevant context (unit, tenant, lead) so the user lands at the right step with the right data already loaded.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-glyph">06</div>
+      <div>
+        <h3>Lead-to-tenant conversion built into the onboarding flow</h3>
+        <p>Designed and built the lead conversion path directly within step 2 of Move In — pre-populating tenant fields from lead data, retaining compatible information across mode switches, and enabling the full tenant form inline without navigating away from the flow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- SKILLS -->
+<section class="skills-section">
+  <div class="sec-label"><span class="num">8</span>Skills Demonstrated</div>
+  <h2>Technical <em>&amp; product scope</em></h2>
+  <p class="lead">Move In sits at the intersection of financial accuracy, legal compliance, UX clarity, and system configurability — demanding a broad and deeply applied skill set.</p>
+
+  <div class="skills-flow">
+    <span class="skill">Multi-mode UX Design</span>
+    <span class="skill">State Machine Logic</span>
+    <span class="skill">Proration Engine</span>
+    <span class="skill">Anniversary Billing</span>
+    <span class="skill">Bill-to-Date Calculation</span>
+    <span class="skill">Sync Billing Logic</span>
+    <span class="skill">E-Sign Integration</span>
+    <span class="skill">Lease Document Generation</span>
+    <span class="skill">Welcome Letter Templating</span>
+    <span class="skill">Dynamic Field Population</span>
+    <span class="skill">Esign Pending Status</span>
+    <span class="skill">Lead Conversion Flow</span>
+    <span class="skill">Tenant / Ledger Selection</span>
+    <span class="skill">Inactive Tenant Reactivation</span>
+    <span class="skill">Charge & Waiver Logic</span>
+    <span class="skill">Insurance & Promo Plans</span>
+    <span class="skill">Post Move In POS</span>
+    <span class="skill">Payment Integration</span>
+    <span class="skill">Document Delivery Config</span>
+    <span class="skill">Facility Configuration</span>
+    <span class="skill">Context Propagation (7 Entry Points)</span>
+    <span class="skill">Alert & Warning UX</span>
+    <span class="skill">Multi-step Form Validation</span>
+    <span class="skill">Product Requirements</span>
+    <span class="skill">Versioned Feature Delivery</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>CodeParva Technologies · Move In Module · Portfolio Case Study</p>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Back to top</a>
+</footer>
+
+</body>
+</html>

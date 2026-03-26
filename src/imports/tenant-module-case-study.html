@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tenant Module – CodeParva | Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #0f0f0f;
+    --paper: #f5f2ec;
+    --accent: #c94f2c;
+    --accent2: #2c6ec9;
+    --muted: #6b6660;
+    --rule: #d8d3cb;
+    --tag-bg: #e8e3da;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ─────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-size: 13px; letter-spacing: .06em;
+    text-decoration: none; color: var(--muted);
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ─────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 40px; height: 1px; background: var(--accent);
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 700; line-height: 1.0;
+    letter-spacing: -0.02em;
+    max-width: 900px;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub {
+    margin-top: 32px; max-width: 560px;
+    font-size: 17px; color: var(--muted); line-height: 1.7;
+  }
+  .hero-meta {
+    margin-top: 56px;
+    display: flex; gap: 48px; flex-wrap: wrap;
+    border-top: 1px solid var(--rule); padding-top: 32px;
+  }
+  .meta-item label {
+    display: block; font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 6px;
+  }
+  .meta-item span { font-size: 15px; font-weight: 500; }
+
+  /* big background number */
+  .hero-bg-num {
+    position: absolute; right: -20px; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(200px, 28vw, 400px);
+    font-weight: 700; line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--rule);
+    user-select: none; pointer-events: none;
+    opacity: 0.6;
+  }
+
+  /* ── SECTION BASE ──────────────────────────────────── */
+  section { padding: 100px 48px; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 48px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--rule);
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700; line-height: 1.15;
+    margin-bottom: 24px;
+  }
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 400;
+    margin-bottom: 12px;
+  }
+  p { color: var(--muted); max-width: 680px; }
+
+  hr.divider {
+    border: none; border-top: 1px solid var(--rule);
+    margin: 0 48px;
+  }
+
+  /* ── OVERVIEW ─────────────────────────────────────── */
+  .overview { background: var(--ink); color: var(--paper); }
+  .overview .section-label { color: rgba(245,242,236,.4); }
+  .overview .section-label::before { background: rgba(245,242,236,.2); }
+  .overview h2 { color: var(--paper); }
+  .overview p { color: rgba(245,242,236,.65); max-width: 860px; font-size: 18px; line-height: 1.8; }
+
+  .stats-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px; background: rgba(245,242,236,.1);
+    margin-top: 64px; border: 1px solid rgba(245,242,236,.1);
+  }
+  .stat {
+    padding: 40px 32px; background: var(--ink);
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; font-weight: 700;
+    color: var(--accent); line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+    color: rgba(245,242,236,.45);
+  }
+
+  /* ── FEATURES GRID ────────────────────────────────── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2px; background: var(--rule);
+    margin-top: 64px;
+  }
+  .feature-card {
+    background: var(--paper);
+    padding: 48px 40px;
+    position: relative; overflow: hidden;
+    transition: background .25s;
+    cursor: default;
+  }
+  .feature-card:hover { background: #edeae2; }
+  .feature-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: .15em;
+    color: var(--accent); margin-bottom: 24px;
+    display: block;
+  }
+  .feature-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; margin-bottom: 14px;
+    font-weight: 700; color: var(--ink);
+  }
+  .feature-card p {
+    font-size: 14px; line-height: 1.65; max-width: 100%;
+  }
+  .feature-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 20px;
+  }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    background: var(--tag-bg); color: var(--muted);
+    padding: 4px 10px; border-radius: 2px;
+  }
+
+  /* ── VERSIONING TIMELINE ────────────────────────────── */
+  .timeline { position: relative; }
+  .tl-feature {
+    margin-bottom: 80px;
+  }
+  .tl-feature-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 16px; margin-bottom: 40px;
+    display: flex; align-items: baseline; gap: 16px;
+  }
+  .tl-feature-title .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+    background: var(--ink); color: var(--paper);
+    padding: 4px 10px; border-radius: 2px;
+    position: relative; top: -2px;
+  }
+  .versions { display: flex; flex-direction: column; gap: 32px; }
+  .version {
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 32px; padding-left: 24px;
+    border-left: 2px solid var(--rule);
+    transition: border-color .2s;
+  }
+  .version:hover { border-color: var(--accent); }
+  .version-id {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; color: var(--accent);
+    padding-top: 3px;
+  }
+  .version-body h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px; font-weight: 600;
+    color: var(--ink); margin-bottom: 8px;
+  }
+  .version-body p { font-size: 14px; max-width: 640px; }
+  .version-body ul {
+    margin-top: 10px; padding-left: 20px;
+    font-size: 14px; color: var(--muted);
+  }
+  .version-body ul li { margin-bottom: 4px; }
+
+  /* ── IMPACT ───────────────────────────────────────── */
+  .impact { background: #f0ece2; }
+  .impact-list {
+    margin-top: 48px; display: flex; flex-direction: column; gap: 0;
+  }
+  .impact-item {
+    display: grid; grid-template-columns: 48px 1fr;
+    gap: 24px; padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .impact-icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--ink); color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .impact-item h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px; font-weight: 600;
+    margin-bottom: 4px; color: var(--ink);
+  }
+  .impact-item p { font-size: 14px; max-width: 100%; }
+
+  /* ── TECH ─────────────────────────────────────────── */
+  .tech-pills {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    margin-top: 40px;
+  }
+  .tech-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; letter-spacing: .08em;
+    border: 1px solid var(--rule);
+    padding: 8px 18px; border-radius: 100px;
+    color: var(--ink); background: transparent;
+    transition: all .2s;
+  }
+  .tech-pill:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* ── FOOTER ───────────────────────────────────────── */
+  footer {
+    padding: 48px;
+    border-top: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: .1em; color: var(--muted);
+    max-width: 100%;
+  }
+  footer .back {
+    font-size: 13px; letter-spacing: .06em;
+    text-decoration: none; color: var(--accent);
+    display: flex; align-items: center; gap: 6px;
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s;
+  }
+  footer .back:hover { border-color: var(--accent); }
+
+  /* animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero > * { animation: fadeUp .7s ease both; }
+  .hero-eyebrow { animation-delay: .1s; }
+  h1 { animation-delay: .22s; }
+  .hero-sub { animation-delay: .34s; }
+  .hero-meta { animation-delay: .46s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Portfolio · Case Study</span>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#features">Features</a>
+    <a href="#versions">Versions</a>
+    <a href="#impact">Impact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg-num">T</div>
+  <div class="hero-eyebrow">CodeParva Technologies · Self-Storage SaaS</div>
+  <h1>Tenant<br/><em>Module</em></h1>
+  <p class="hero-sub">
+    End-to-end design and development of a configurable, multi-version tenant management
+    system for a self-storage facility software platform — spanning onboarding, payments,
+    document management, and real-time notifications.
+  </p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <label>Company</label>
+      <span>CodeParva Technologies</span>
+    </div>
+    <div class="meta-item">
+      <label>Domain</label>
+      <span>Self-Storage SaaS (TFW)</span>
+    </div>
+    <div class="meta-item">
+      <label>Role</label>
+      <span>Product / Engineering</span>
+    </div>
+    <div class="meta-item">
+      <label>Module</label>
+      <span>Tenant Management</span>
+    </div>
+    <div class="meta-item">
+      <label>Scope</label>
+      <span>8 Feature Areas</span>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- OVERVIEW -->
+<section class="overview" id="overview">
+  <div class="section-label">01 — Background</div>
+  <h2>What is this project?</h2>
+  <p>
+    TFW (The Facility Works) is a comprehensive self-storage facility management platform built at CodeParva.
+    The Tenant Module sits at the core of the product — it is the primary interaction layer between facility
+    staff and the customers (tenants) who rent storage units. This module spans the complete tenant lifecycle:
+    from onboarding and identity collection, through payment and ledger management, to document generation,
+    notifications, and eventual deactivation.
+  </p>
+  <p style="margin-top:20px;">
+    My contributions covered the design and engineering of multiple features and iterative versions within
+    the Tenant Module — working across configuration systems, UX enhancements, payment integrations,
+    and audit/compliance flows.
+  </p>
+
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Feature Areas Built</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Versioned Releases</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Configurable Fields</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Notification Triggers</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label">02 — Feature Areas</div>
+  <h2>Eight pillars of the Tenant Module</h2>
+  <p>Each sub-feature was independently scoped, versioned, and delivered — with deliberate attention to configurability so facilities with different workflows could adapt the software to their needs.</p>
+
+  <div class="features-grid">
+
+    <div class="feature-card">
+      <span class="feature-num">01</span>
+      <h3>Tenant List Page</h3>
+      <p>A searchable, filterable, sortable master list of all tenants across a facility. Progressively enhanced across 4 versions — from basic columns to delinquency indicators and name representation standardisation.</p>
+      <div class="feature-tags">
+        <span class="tag">Filtering</span>
+        <span class="tag">Sorting</span>
+        <span class="tag">Delinquency</span>
+        <span class="tag">Export</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-num">02</span>
+      <h3>View Tenant</h3>
+      <p>The comprehensive tenant profile — showing ledger summaries, CRM controls, gate access, alerts, contact logs, reservations, and document history. Evolved across 6 major versions.</p>
+      <div class="feature-tags">
+        <span class="tag">Ledger</span>
+        <span class="tag">Alerts</span>
+        <span class="tag">Contact Log</span>
+        <span class="tag">Gate Controls</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-num">03</span>
+      <h3>Edit Tenant</h3>
+      <p>Full-featured tenant information editor with configurable required/optional field visibility, autopay management, and smart defaults. Built with UX enhancements to guide users through optional-field discovery.</p>
+      <div class="feature-tags">
+        <span class="tag">Autopay</span>
+        <span class="tag">UX Enhancement</span>
+        <span class="tag">Payment Method</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-num">04</span>
+      <h3>Ledger Review</h3>
+      <p>A chronological transaction log per tenant ledger — showing bills, payments, and balances with the ability to reverse, delete, and refund transactions. Integrated with the Syrapay merchant portal for real credit card reversals.</p>
+      <div class="feature-tags">
+        <span class="tag">Transactions</span>
+        <span class="tag">Reversal</span>
+        <span class="tag">Merchant Portal</span>
+        <span class="tag">Refund Logic</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-num">05</span>
+      <h3>Tenant Notifications</h3>
+      <p>Automated email and SMS notification system covering 8 tenant-facing scenarios (move-in, payments, reservation, estimates) and real-time facility-facing pop-up alerts for online actions.</p>
+      <div class="feature-tags">
+        <span class="tag">Email</span>
+        <span class="tag">SMS</span>
+        <span class="tag">Templated</span>
+        <span class="tag">Real-time</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-num">06</span>
+      <h3>Tenant Sections Config</h3>
+      <p>Facility-level configuration controlling the visibility of each section in the tenant form — Show Always, Hide Always, or Add On Demand. Allows different facilities to tailor the data collection experience.</p>
+      <div class="feature-tags">
+        <span class="tag">Configuration</span>
+        <span class="tag">Multi-tenant</span>
+        <span class="tag">Visibility Rules</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-num">07</span>
+      <h3>Tenant Photos</h3>
+      <p>Photo management for tenant identification and unit handover documentation. Supports webcam capture and file upload with primary photo designation, visible on the View Tenant screen.</p>
+      <div class="feature-tags">
+        <span class="tag">File Upload</span>
+        <span class="tag">Webcam</span>
+        <span class="tag">Primary Photo</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-num">08</span>
+      <h3>Configurable Fields & Preferred Fields</h3>
+      <p>A deep field-level configuration layer defining which tenant fields (name, address, ID proofs, military, employer, alternate contact, etc.) are required, preferred, or optional — across 50+ individual fields.</p>
+      <div class="feature-tags">
+        <span class="tag">Configuration</span>
+        <span class="tag">Field Rules</span>
+        <span class="tag">Validation Logic</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- VERSIONING DETAIL -->
+<section id="versions">
+  <div class="section-label">03 — Iterative Delivery</div>
+  <h2>Feature versions & decisions</h2>
+  <p>Each feature area was delivered in versioned increments — below is a representative view of the evolution of key features.</p>
+
+  <div class="timeline" style="margin-top:72px;">
+
+    <!-- TENANT LIST -->
+    <div class="tl-feature">
+      <div class="tl-feature-title">
+        Tenant List Page
+        <span class="badge">4 versions</span>
+      </div>
+      <div class="versions">
+        <div class="version">
+          <div class="version-id">v1 · Initial Build</div>
+          <div class="version-body">
+            <h3>Core list with search, filter & export</h3>
+            <p>Delivered tenant columns (name, ledger, address, contact, balance), status and ledger-balance filters, name search, and PDF export. Established the foundational data model for the list page.</p>
+          </div>
+        </div>
+        <div class="version">
+          <div class="version-id">v2 · More Sorts</div>
+          <div class="version-body">
+            <h3>Extended sort capabilities</h3>
+            <p>Added unit-number sort, ascending/descending balance sort, descending name sort, email sort, and primary phone sort — with graceful fallback ordering for tenants with missing data.</p>
+          </div>
+        </div>
+        <div class="version">
+          <div class="version-id">v3 · Name Representation</div>
+          <div class="version-body">
+            <h3>Last name first — platform-wide</h3>
+            <p>Standardised name display to Last, First across 15+ surfaces: tenant list, unit list, lead list, reservations, waiting list, batch payments, late events, vehicles, pending tasks, and more.</p>
+          </div>
+        </div>
+        <div class="version">
+          <div class="version-id">v4 · Delinquency Indicators</div>
+          <div class="version-body">
+            <h3>Visual delinquency flagging</h3>
+            <p>Highlighted balances in red for tenants who qualify for late/lockout events — even if the event hasn't been processed yet. Required migration logic to accurately carry forward delinquency status.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW TENANT -->
+    <div class="tl-feature">
+      <div class="tl-feature-title">
+        View Tenant
+        <span class="badge">6 versions</span>
+      </div>
+      <div class="versions">
+        <div class="version">
+          <div class="version-id">v1 · Core Profile</div>
+          <div class="version-body">
+            <h3>Tenant profile, ledger summary & CRM controls</h3>
+            <p>Built the full View Tenant screen including basic info, ledger summary (balance, auto-pay status, units, due dates), gate controls, alerts, unpaid bills, contact log, reservations, and website access controls.</p>
+          </div>
+        </div>
+        <div class="version">
+          <div class="version-id">v2 · Document Management</div>
+          <div class="version-body">
+            <h3>Separated saved documents from document generation</h3>
+            <p>Split the documentation UX into: (1) Saved documents with filter, delivery status and re-delivery options, (2) Generate Letter redirect flow, and (3) Create Invoice with type/style/ledger selection.</p>
+          </div>
+        </div>
+        <div class="version">
+          <div class="version-id">v3 · Alert Integration</div>
+          <div class="version-body">
+            <h3>Feature-scoped tenant alerts with severity</h3>
+            <p>Introduced configurable alerts (Warning, Error, Query, Information) with feature-level scoping — alerts could be set to show on Move In, View Tenant, and/or Payments. Supports activate/deactivate from the tenant profile.</p>
+          </div>
+        </div>
+        <div class="version">
+          <div class="version-id">v4 · File Upload</div>
+          <div class="version-body">
+            <h3>PDF document attachment per tenant</h3>
+            <p>Enabled upload, view (in-app PDF viewer), download, and delete of arbitrary documents against a tenant — with metadata capture (file name, size, uploader, timestamp) and migration for legacy documents.</p>
+          </div>
+        </div>
+        <div class="version">
+          <div class="version-id">v5 · Unified Contact Log</div>
+          <div class="version-body">
+            <h3>Consolidated all communication in one timeline</h3>
+            <p>Extended the contact log to capture prints, reprints, and generated documents across 14+ workflows (move-in, move-out, payments, late events, retail, transfer, vehicle, reports) alongside existing email/SMS/manual entries.</p>
+          </div>
+        </div>
+        <div class="version">
+          <div class="version-id">v6 · Deactivation Safety</div>
+          <div class="version-body">
+            <h3>Dependency checks before tenant deactivation</h3>
+            <p>Implemented pre-deactivation validation covering 10 dependencies: ledger balance, pending invoices, active reservations, tenant deposits, gate codes, alerts, saved cards, vehicles, retail returns, and document delivery restrictions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIT TENANT -->
+    <div class="tl-feature">
+      <div class="tl-feature-title">
+        Edit Tenant
+        <span class="badge">4 versions</span>
+      </div>
+      <div class="versions">
+        <div class="version">
+          <div class="version-id">v1 · Foundation</div>
+          <div class="version-body">
+            <h3>Section-aware tenant form</h3>
+            <p>Implemented configurable section visibility (show always / on-demand / never), required/preferred/optional fields, permission-based access, ledger editing with payment method and autopay, section collapse/expand.</p>
+          </div>
+        </div>
+        <div class="version">
+          <div class="version-id">v2 · Optional Fields UX</div>
+          <div class="version-body">
+            <h3>Guided discovery for optional fields</h3>
+            <p>Added contextual hints when all fields in a section are optional — prompting the user to enable "Show Optional Fields" before dismissing a section as empty. Applied to Show Always and On-Demand section types.</p>
+          </div>
+        </div>
+        <div class="version">
+          <div class="version-id">v3 · Autopay Reset Logic</div>
+          <div class="version-body">
+            <h3>Clear autopay when payment method changes</h3>
+            <p>When a tenant's preferred payment method is changed (e.g. from credit card to cash), the autopay enrollment is automatically cleared — preventing stale autopay configs from applying to new payment methods.</p>
+          </div>
+        </div>
+        <div class="version">
+          <div class="version-id">v4 · Conditional Autopay</div>
+          <div class="version-body">
+            <h3>Autopay gated on card/ACH availability</h3>
+            <p>Autopay enrollment is only enabled when the selected payment method supports it (credit card or ACH) — and requires valid card/bank details to be present before the option can be activated.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEDGER REVIEW -->
+    <div class="tl-feature">
+      <div class="tl-feature-title">
+        Ledger Review
+        <span class="badge">2 versions</span>
+      </div>
+      <div class="versions">
+        <div class="version">
+          <div class="version-id">v1 · Core Ledger</div>
+          <div class="version-body">
+            <h3>Chronological transaction log</h3>
+            <p>Delivered a full transaction timeline (transaction number, unit, dates, amounts, balance, description) with reversal/deletion — mandating comments for audit purposes. Oldest-to-newest order for easy balance verification.</p>
+          </div>
+        </div>
+        <div class="version">
+          <div class="version-id">v2 · Merchant Portal Integration</div>
+          <div class="version-body">
+            <h3>Real-time credit card reversals via Syrapay</h3>
+            <p>Integrated with the Syrapay merchant portal to void credit card transactions in real time. Built smart refund eligibility logic (180-day blind refund window, partial vs. full refund rules) and robust success/failure notification flows.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- IMPACT -->
+<section class="impact" id="impact">
+  <div class="section-label">04 — What was achieved</div>
+  <h2>Key outcomes & contributions</h2>
+
+  <div class="impact-list">
+    <div class="impact-item">
+      <div class="impact-icon">⚙️</div>
+      <div>
+        <h3>Deep configurability for multi-facility deployments</h3>
+        <p>Built a layered configuration system (section visibility, field-level required/optional/preferred, tenant deposit, duplicate-check toggle) so each self-storage facility could tailor the tenant experience without custom code.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-icon">💳</div>
+      <div>
+        <h3>Real-time payment integration with merchant portal</h3>
+        <p>Replaced a manual dual-system refund process by integrating directly with Syrapay — enabling credit card reversals from within the platform, reducing staff effort and reconciliation errors.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-icon">📋</div>
+      <div>
+        <h3>Unified audit trail across the tenant lifecycle</h3>
+        <p>Consolidated emails, SMS, prints, document generation, and manual contact logs into a single chronological contact log — giving facility managers a complete history of every interaction with a tenant.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-icon">🔔</div>
+      <div>
+        <h3>Automated tenant & facility notification system</h3>
+        <p>Designed and implemented 8 tenant-facing notification templates and a real-time facility pop-up system for online events (move-ins, payments, reservation, profile changes) — delivered via the integrated SMS product.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-icon">🛡️</div>
+      <div>
+        <h3>Safe tenant deactivation with dependency validation</h3>
+        <p>Built a pre-deactivation checklist that checks for outstanding balance, pending invoices, reservations, gate codes, saved cards, vehicles, and more — preventing data integrity issues caused by premature deactivation.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-icon">🚩</div>
+      <div>
+        <h3>Proactive delinquency visibility</h3>
+        <p>Introduced real-time delinquency flagging on the tenant list page — highlighting tenants who qualify for late or lockout events even before those events are processed, helping facility staff prioritise collections.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- TECH & SKILLS -->
+<section>
+  <div class="section-label">05 — Skills demonstrated</div>
+  <h2>Technical & product scope</h2>
+  <p>This module required a combination of product thinking, backend business logic, frontend UX, and integration work — all within an iterative, requirements-driven delivery process.</p>
+
+  <div class="tech-pills">
+    <span class="tech-pill">Product Requirements</span>
+    <span class="tech-pill">Versioned Delivery</span>
+    <span class="tech-pill">Configuration Systems</span>
+    <span class="tech-pill">Payment Integration (Syrapay)</span>
+    <span class="tech-pill">Ledger / Financial Logic</span>
+    <span class="tech-pill">Email & SMS Notifications</span>
+    <span class="tech-pill">Role-Based Permissions</span>
+    <span class="tech-pill">Document Management</span>
+    <span class="tech-pill">Data Migration Strategy</span>
+    <span class="tech-pill">Audit Logging</span>
+    <span class="tech-pill">UX Enhancement</span>
+    <span class="tech-pill">Multi-facility SaaS</span>
+    <span class="tech-pill">Frontend State Management</span>
+    <span class="tech-pill">Form Validation Logic</span>
+    <span class="tech-pill">File Upload / PDF Viewer</span>
+    <span class="tech-pill">Webcam Integration</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>CodeParva Technologies · Tenant Module · Portfolio Case Study</p>
+  <a href="#" class="back">↑ Back to top</a>
+</footer>
+
+</body>
+</html>
