@@ -173,11 +173,11 @@ export default function Experience() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 flex flex-col gap-3 text-[13px] text-[#A09880]">
-            <Link to="/" className="cursor-pointer hover:text-[#C8953A] transition-colors">Home</Link>
-            <Link to="/projects" className="cursor-pointer hover:text-[#C8953A] transition-colors">Projects</Link>
-            <Link to="/experience" className="cursor-pointer text-[#C8953A] transition-colors">Experience</Link>
-            <Link to="/outside-the-brief" className="cursor-pointer hover:text-[#C8953A] transition-colors">Outside the Brief</Link>
-            <Link to="/contact" className="cursor-pointer hover:text-[#C8953A] transition-colors">Let's Talk</Link>
+            <Link to="/" onClick={() => setIsMenuOpen(false)} className="cursor-pointer text-[#C8953A] transition-colors">Home</Link>
+            <Link to="/projects" onClick={() => setIsMenuOpen(false)} className="cursor-pointer hover:text-[#C8953A] transition-colors">Projects</Link>
+            <Link to="/experience" onClick={() => setIsMenuOpen(false)} className="cursor-pointer hover:text-[#C8953A] transition-colors">Experience</Link>
+            <Link to="/outside-the-brief" onClick={() => setIsMenuOpen(false)} className="cursor-pointer hover:text-[#C8953A] transition-colors">Outside the Brief</Link>
+            <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="cursor-pointer hover:text-[#C8953A] transition-colors">Let's Talk</Link>
           </div>
         )}
       </nav>
@@ -395,10 +395,14 @@ export default function Experience() {
             <p className="text-[15px] text-[#BFBAB0] mb-8 max-w-[600px] mx-auto">
               My CV covers every role, every metric, and the thinking behind each decision — in one document.
             </p>
-            <button className="bg-[#C8953A] text-[#0F0E0B] text-[14px] px-8 py-3 rounded-full hover:bg-[#C8953A]/90 transition-colors font-medium mb-3">
-              ↓ Download CV
-            </button>
-            <p className="text-[11px] text-[#6B6455]">PDF · Last updated March 2026</p>
+            href="https://drive.google.com/file/d/1l0rlVVlFJRcXl7izlQdtaE2ze9hY5QmN/view?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#C8953A] text-[#0F0E0B] text-[14px] px-8 py-3 rounded-full hover:bg-[#C8953A]/90 transition-colors font-medium mb-3 inline-block"
+          >
+            ↓ Download CV
+          </a>
+          <p className="text-[11px] text-[#6B6455]">PDF · Last updated March 2026</p>
           </div>
         </div>
       </section>
