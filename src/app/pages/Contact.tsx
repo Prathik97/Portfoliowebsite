@@ -123,7 +123,7 @@ export default function Contact() {
             Let's Talk
           </h1>
           <p className="text-[17px] text-[#BFBAB0] leading-[1.7]">
-            Whether it's the right role, a product problem worth solving, or just a good conversation — I'm easy to reach.
+            Whether it's the right role, a product problem worth solving, or just a good conversation - I'm easy to reach.
           </p>
         </div>
       </section>
@@ -281,7 +281,7 @@ export default function Contact() {
       <section className="px-6 md:px-12 pb-20 md:pb-24">
         <div className="max-w-[900px] mx-auto bg-[#141310] border border-[#C8953A]/20 rounded-2xl p-12 md:p-16 text-center">
           <p className="text-2xl md:text-3xl text-[#F0EDE6] leading-relaxed italic mb-6">
-            "Every metric across this portfolio is tied to a specific product decision — not incidental improvement, but designed outcomes built from an operator's understanding of the business."
+            "Every metric across this portfolio is tied to a specific product decision - not incidental improvement, but designed outcomes built from an operator's understanding of the business."
           </p>
           <p className="text-[13px] text-[#A09880]">
             — Prathik · Head of Product · Sid's Farm

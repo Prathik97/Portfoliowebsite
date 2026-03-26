@@ -10,7 +10,7 @@ export default function CaseStudy() {
     'customer-app': {
       title: 'D2C Customer App',
       subtitle: 'From 0→1 MVP to Scalable Growth Platform',
-      description: 'The single largest product transformation at Sid\'s Farm — not a UI revamp, a full re-architecture of the customer experience and operational layer.',
+      description: 'The single largest product transformation at Sid\'s Farm - not a UI revamp, a full re-architecture of the customer experience and operational layer.',
       role: 'AVP – Head of Product',
       scope: 'Company-Level Program',
       platform: 'D2C Mobile App',
@@ -65,16 +65,16 @@ export default function CaseStudy() {
       },
       phases: [
         {
-          title: 'Phase 1 — Foundation',
+          title: 'Phase 1 - Foundation',
           desc: 'Core CRM, lead pipeline, multi-channel case creation, city-based queue routing, WhatsApp + IVR integration, 4 team workspaces live.'
         },
         {
-          title: 'Phase 2 — Automation & Intelligence',
+          title: 'Phase 2 - Automation & Intelligence',
           desc: 'WhatsApp chatbot (category/sub-category), 30-day rolling criticality engine (Low → Normal → High → Urgent), auto case merging, escalation queues, dashboards.'
         },
         {
-          title: 'Phase 3 — Vendor Migration',
-          desc: 'Full IVR rebuild on Tata Tele — multi-city routing (HYD/BLR/PNE/VJA), agent timeout failover, missed-call escalation, auto-lead creation.'
+          title: 'Phase 3 - Vendor Migration',
+          desc: 'Full IVR rebuild on Tata Tele - multi-city routing (HYD/BLR/PNE/VJA), agent timeout failover, missed-call escalation, auto-lead creation.'
         }
       ],
       outcomes: [
@@ -130,14 +130,14 @@ export default function CaseStudy() {
       },
       architecture: [
         { layer: 'External', desc: 'Nano Dairy (Milk Logs, Finance, SNF, Loans)' },
-        { layer: 'Core', desc: 'FMS — farmer profiles, cattle health, RBAC, admin layer' },
+        { layer: 'Core', desc: 'FMS - farmer profiles, cattle health, RBAC, admin layer' },
         { layer: 'Execution', desc: 'Mobile App (offline-first) + CRM for ticket lifecycle' }
       ],
       delivered: ['10+ Roles Unified', 'Offline-First Mobile App', 'Cattle Health & Antibiotic Tracking', 'Configurable RBAC', 'Nano Dairy Integration']
     },
     'payment-module': {
       title: 'Payment Module',
-      subtitle: 'V11 Connect Platform — Financial Transaction Engine',
+      subtitle: 'V11 Connect Platform - Financial Transaction Engine',
       description: 'Design and development of V11 Connect\'s end-to-end Payment system spanning single payments, bulk batch processing, autopay credit card runs, prepayment logic with force rent assessment, configurable surcharge/discount modifiers, and a full payment method configuration layer.',
       role: 'Product Manager',
       scope: '7 Versions Shipped',
@@ -165,7 +165,7 @@ export default function CaseStudy() {
     },
     'move-out-module': {
       title: 'Move Out Module',
-      subtitle: 'V11 Connect Platform — Tenant Exit Workflow',
+      subtitle: 'V11 Connect Platform - Tenant Exit Workflow',
       description: 'Comprehensive move-out workflow handling notice period tracking, refund calculations, unit inspections, deposit settlements, and move-out statement generation integrated with billing, tenant alerts, and payment systems.',
       role: 'Product Manager',
       scope: 'End-to-end Automation',
@@ -192,7 +192,7 @@ export default function CaseStudy() {
     },
     'move-in-module': {
       title: 'Move In Module',
-      subtitle: 'V11 Connect Platform — Tenant Onboarding System',
+      subtitle: 'V11 Connect Platform',
       description: 'Designed move-in module handling reservation conversion, unit assignment, deposit collection, lease generation, prorated billing, and tenant portal activation with configurable workflows adapted to different facility types and rental models.',
       role: 'Product Manager',
       scope: 'Streamlined Onboarding',
@@ -219,7 +219,7 @@ export default function CaseStudy() {
     },
     'reports-analytics': {
       title: 'Reports & Analytics',
-      subtitle: 'V11 Connect Platform — Business Intelligence System',
+      subtitle: 'V11 Connect Platform',
       description: 'Built end-to-end reporting and analytics system with 200+ reports across 20 categories including flagship management reports, financial summaries, delinquency tracking, unit activity, and operational metrics with multi-level access control.',
       role: 'Product Manager',
       scope: '200+ Reports · 20 Categories',
@@ -275,7 +275,7 @@ export default function CaseStudy() {
     },
     'retail-sale': {
       title: 'Retail Sale Module',
-      subtitle: 'V11 Connect Platform — Embedded Commerce System',
+      subtitle: 'V11 Connect Platform',
       description: 'Complete end-to-end retail commerce system embedded within V11 Connect self-storage platform — spanning inventory management, barcode-driven point of sale, multi-path returns, vendor lifecycle management, and configurable rules engine.',
       role: 'Product Manager',
       scope: '4 Core Layers · 8 Permissions',
@@ -551,8 +551,8 @@ export default function CaseStudy() {
         {study.incentiveRules && (
           <section>
             <div className="bg-[#C8953A]/10 border-l-4 border-[#C8953A] rounded-r-lg p-6">
-              <h4 className="text-[15px] text-[#F0EDE6] font-medium mb-4">Design Highlight — Incentive Rule Engine</h4>
-              <p className="text-[13px] text-[#BFBAB0] mb-4">The most complex capability — configurable by business users without engineering.</p>
+              <h4 className="text-[15px] text-[#F0EDE6] font-medium mb-4">Design Highlight - Incentive Rule Engine</h4>
+              <p className="text-[13px] text-[#BFBAB0] mb-4">The most complex capability - configurable by business users without engineering.</p>
               <ul className="space-y-2">
                 {study.incentiveRules.map((rule: string, i: number) => (
                   <li key={i} className="text-[13px] text-[#A09880] leading-relaxed pl-4">

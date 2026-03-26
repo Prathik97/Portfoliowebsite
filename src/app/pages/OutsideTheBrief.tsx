@@ -8,12 +8,12 @@ export default function OutsideTheBrief() {
     {
       year: '2017',
       place: 'Tokyo & Kyoto, Japan',
-      description: 'Ancient temples next to tech districts — the only place I\'ve felt like the future and the past exist at the same time.'
+      description: 'Ancient temples next to tech districts - the only place I\'ve felt like the future and the past exist at the same time.'
     },
     {
       year: '2022',
       place: 'Dubai, UAE',
-      description: 'Skydiving over Palm Jumeirah. Ticked the box. Would do it again.'
+      description: 'Skydiving over Palm Jumeirah. Ticked the box. Wouldn\'t do it again :P'
     },
     {
       year: '2022',
@@ -27,7 +27,7 @@ export default function OutsideTheBrief() {
     },
     {
       year: '2024',
-      place: 'USA — Cross-Country Road Trip',
+      place: 'USA Cross-Country Road Trip',
       description: 'National parks to tech hubs. Drove more than I planned, saw more than I expected.'
     },
     {
@@ -127,7 +127,7 @@ export default function OutsideTheBrief() {
               Money & Markets
             </h2>
             <p className="text-[16px] text-[#BFBAB0] leading-[1.7] mb-8">
-              I approach investing the same way I approach product — data first, conviction-based decisions, long-term thinking. Beating the benchmark since July 2022.
+              I approach investing the same way I approach product - data first, conviction-based decisions, long-term thinking. Beating the benchmark since July 2022.
             </p>
 
             {/* Stats */}
@@ -199,7 +199,7 @@ export default function OutsideTheBrief() {
             </div>
 
             <p className="text-[13px] text-[#8A8575] mt-6 italic">
-              Trading activity tracked across Equity Segment and Futures & Options — active, disciplined risk management.
+              Trading activity tracked across Equity Segment and Futures & Options - active, disciplined risk management.
             </p>
           </div>
         </div>
@@ -213,7 +213,7 @@ export default function OutsideTheBrief() {
               Places & Perspectives
             </h2>
             <p className="text-[16px] text-[#BFBAB0] leading-[1.7] mb-8">
-              6 countries, 15+ Indian states, and a growing list of things I didn't expect to do — but did anyway.
+              6 countries, 15+ Indian states, and a growing list of things I didn't expect to do - but did anyway.
             </p>
 
             {/* Stats */}
@@ -266,7 +266,7 @@ export default function OutsideTheBrief() {
               Every coin is a compressed history lesson. I collect the ones that have a story worth keeping.
             </p>
             <p className="text-[15px] text-[#A09880] leading-[1.7] mb-10">
-              It started as curiosity — unusual coins you don't see in circulation anymore. Now it's a practice in noticing what gets forgotten. Old Indian coins, commemorative issues, foreign currency from places I've been — each one has a context that most people walk past.
+              It started as curiosity - unusual coins you don't see in circulation anymore. Now it's a practice in noticing what gets forgotten. Old Indian coins, foreign currency from places I've been - each one has a context that most people walk past.
             </p>
 
             {/* Collection Placeholder */}
@@ -276,10 +276,10 @@ export default function OutsideTheBrief() {
                   <div className="w-full h-40 bg-[#0F0E0B] rounded-lg mb-4 flex items-center justify-center">
                     <span className="text-[#6B6455] text-[12px]">Coin photo</span>
                   </div>
-                  <h3 className="text-[15px] text-[#F0EDE6] font-medium mb-1">Coin name here</h3>
-                  <p className="text-[11px] text-[#C8953A] mb-3 uppercase tracking-wide">Era · Country</p>
+                  <h3 className="text-[15px] text-[#F0EDE6] font-medium mb-1">1/4 Anna</h3>
+                  <p className="text-[11px] text-[#C8953A] mb-3 uppercase tracking-wide">1841 · East India Company</p>
                   <p className="text-[13px] text-[#A09880] leading-relaxed">
-                    What makes it interesting — one plain line.
+                    Oldest silver coin from the collection.
                   </p>
                 </div>
               ))}

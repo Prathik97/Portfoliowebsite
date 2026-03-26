@@ -108,7 +108,7 @@ export default function Home() {
           {/* Left - Quote */}
           <div className="flex justify-center md:justify-end order-2 md:order-1">
             <div className="max-w-[240px] text-[13px] text-[#BFBAB0] italic text-left leading-relaxed border-l-2 border-[#C8953A] pl-3.5">
-              "Deep brand alignment and user-first thinking — vision into products that feel as sharp as they perform."
+              "Deep brand alignment and user first thinking - vision into products that feel as sharp as they perform."
             </div>
           </div>
 
@@ -123,7 +123,7 @@ export default function Home() {
           <div className="flex justify-center md:justify-start order-3">
             <div className="text-center md:text-left">
               <div className="text-[36px] text-[#F0EDE6] leading-none mb-1.5">7 Years</div>
-              <div className="text-[12px] text-[#C8953A] uppercase tracking-wider">SaaS · D2C · AgriTech</div>
+              <div className="text-[12px] text-[#C8953A] uppercase tracking-wider">SaaS · D2C · SCM . AgriTech</div>
             </div>
           </div>
         </div>
@@ -133,7 +133,7 @@ export default function Home() {
         </div>
 
         <div className="max-w-[500px] text-[15px] text-[#A09880] leading-[1.75] mb-8">
-          The rare PM who started in design — so I don't just ship features, I close the loop between vision and what actually reaches the user.
+          The rare PM who started in design - so I don't just ship features, I close the loop between vision and what actually reaches the user.
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 mb-14">
@@ -170,10 +170,10 @@ export default function Home() {
           <div className="text-[11px] tracking-[0.14em] uppercase text-[#C8953A] mb-4">About</div>
           <h2 className="text-3xl md:text-4xl text-[#F0EDE6] mb-7 tracking-tight">What Drives Me</h2>
           <p className="text-[15px] text-[#A09880] leading-[1.8] mb-4">
-            My path into product management started in UI/UX design — which means I think in systems and experiences at the same time. I don't just write requirements, I can sit with a designer, sketch it out, and ship it sharp.
+            My path into product management started in UI/UX design - which means I think in systems and experiences at the same time. I don't just write requirements, I can sit with a designer, sketch it out, and ship it sharp.
           </p>
           <p className="text-[15px] text-[#A09880] leading-[1.8] mb-7">
-            Over 7 years across SaaS and D2C, I've taken products from idea to market, from messy spreadsheets to scalable platforms. What I care about most is the gap between strategy and what actually reaches the user — and closing it.
+            Over 7 years across SaaS and D2C, I've taken products from idea to market, from messy spreadsheets to scalable platforms. What I care about most is the gap between strategy and what actually reaches the user - and closing it.
           </p>
           <div className="text-[17px] text-[#F0EDE6] italic border-l-[3px] border-[#C8953A] pl-4 mt-7">
             I'm not here to manage features. I'm here to move metrics.

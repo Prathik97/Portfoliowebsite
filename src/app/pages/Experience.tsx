@@ -30,7 +30,7 @@ export default function Experience() {
   const timeline = [
     {
       current: true,
-      designation: 'Associate Vice President — Product',
+      designation: 'Associate Vice President - Product',
       company: 'Sid\'s Farm Pvt. Ltd.',
       period: 'Aug 2024 – Present',
       location: 'Hyderabad',
@@ -41,9 +41,9 @@ export default function Experience() {
         { metric: '−63%', text: 'Days to subscribe — simplified subscription onboarding end-to-end' },
         { metric: '+70%', text: 'Same-day order conversion — revamped onboarding and retargeting' },
         { metric: '+120%', text: 'Onboarding completion — address capture mandatory, friction removed' },
-        { metric: '+10%', text: 'Total order items · +12.5% subscription purchases' },
+        { metric: '+10%', text: 'Total order items - +12.5% subscription purchases' },
         { metric: '1,000+', text: 'Autopay customers in 6 weeks' },
-        { metric: '2×', text: 'Agent productivity — Salesforce CRM across 4 teams' },
+        { metric: '2×', text: 'Agent productivity - Salesforce CRM across 4 teams' },
         { metric: '−65% / ₹20L', text: 'Marketing automation cost — MoEngage → CleverTap, MAU 9L → 30L' },
         { metric: '−63%', text: 'Telephony cost — 360CTI → Tata Tele (₹9L → ₹3.36L)' }
       ],
@@ -78,10 +78,10 @@ export default function Experience() {
       period: 'Jun 2019 – Sep 2021',
       location: 'Bengaluru',
       team: 'Promoted internally',
-      overview: 'Where the product instinct was built. Designing scalable B2B and B2B2C platforms alongside product and engineering gave me a lens most PMs don\'t have — I\'ve been on both sides of the handoff.',
+      overview: 'Where the product instinct was built. Designing scalable B2B and B2B2C platforms alongside product and engineering gave me a lens most PMs don\'t have - I\'ve been on both sides of the handoff.',
       achievements: [
         { metric: '', text: 'Built a comprehensive design system across the B2B SaaS platform and B2B2C websites' },
-        { metric: '', text: 'Led a team of 3 designers — hiring standards, design processes, quality benchmarks' },
+        { metric: '', text: 'Led a team of 3 designers - hiring standards, design processes, quality benchmarks' },
         { metric: '', text: 'Designed MVP features and prototypes that directly shaped product direction in early build phases' }
       ],
       projects: [],
@@ -95,20 +95,20 @@ export default function Experience() {
       degree: 'Bachelor of Engineering — Computer Science',
       institution: 'Nitte Meenakshi Institute of Technology · Bengaluru',
       period: 'Aug 2015 – May 2019',
-      description: 'A CS foundation that shaped a technically literate approach to product — I read code, understand system constraints, and don\'t need an engineer to translate.'
+      description: 'A CS foundation that shaped a technically literate approach to product - I read code, understand system constraints, and don\'t need an engineer to translate.'
     },
     {
       degree: '11th & 12th',
       institution: 'Rao IIT Academy · Kota, Rajasthan',
       period: '2013 – 2015',
-      description: 'Where discipline and structured problem-solving were built — the kind that holds up when a product launch is on the line.'
+      description: 'Where discipline and structured problem-solving were built.'
     }
   ];
 
   const certifications = [
     {
       org: 'Scrum Alliance',
-      title: 'CSPO — Certified Scrum Product Owner',
+      title: 'CSPO - Certified Scrum Product Owner',
       description: 'Framework fluency that translates directly to how I run sprints, write acceptance criteria, and manage backlogs.'
     },
     {
@@ -119,17 +119,17 @@ export default function Experience() {
     {
       org: 'Interaction Design Foundation',
       title: 'Mobile UX & Accessibility Design',
-      description: 'Formal grounding in mobile-first design — applied directly in the D2C app rebuild.'
+      description: 'Formal grounding in mobile-first design - applied directly in the D2C app rebuild.'
     },
     {
       org: 'Master Yourself Academy',
       title: 'NLP Foundation',
-      description: 'Communication and influence at the stakeholder level — the soft skill that makes hard decisions land.'
+      description: 'Communication and influence at the stakeholder level - the soft skill that makes hard decisions land.'
     },
     {
       org: 'St Joseph\'s Institute of Management',
       title: 'DEI Implementation Workshop',
-      description: 'Intentional — because how you build teams matters as much as what you build.'
+      description: 'Intentional - because how you build teams matters as much as what you build.'
     }
   ];
 
