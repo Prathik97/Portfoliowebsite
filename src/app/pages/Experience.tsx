@@ -189,7 +189,7 @@ export default function Experience() {
             Experience
           </h1>
           <p className="text-[17px] text-[#BFBAB0] leading-[1.7]">
-            7 years. Three roles. One consistent thread — I close the gap between strategy and what actually ships.
+            7 years. Three roles. One consistent thread - I close the gap between strategy and what actually ships.
           </p>
         </div>
       </section>

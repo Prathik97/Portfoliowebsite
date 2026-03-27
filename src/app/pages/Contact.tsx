@@ -29,36 +29,7 @@ export default function Contact() {
     }
   ];
 
-  const directLinks = [
-    {
-      label: 'LinkedIn',
-      value: 'linkedin.com/in/prathikkumarmp',
-      action: 'Open LinkedIn',
-      url: 'https://linkedin.com/in/prathikkumarmp',
-      icon: '💼'
-    },
-    {
-      label: 'Email',
-      value: 'prathikkumarmp@gmail.com',
-      action: 'Send Email',
-      url: 'mailto:prathikkumarmp@gmail.com',
-      icon: '✉️'
-    },
-    {
-      label: 'Phone',
-      value: '+91 96601 85834',
-      action: 'Call / WhatsApp',
-      url: 'tel:+919660185834',
-      icon: '📱'
-    },
-    {
-      label: 'Location',
-      value: 'Bengaluru, India',
-      action: 'Open to remote',
-      url: '#',
-      icon: '📍'
-    }
-  ];
+  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -205,31 +176,7 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Direct Links */}
-      <section className="px-6 md:px-12 pb-16 md:pb-20">
-        <div className="max-w-[900px] mx-auto">
-          <div className="grid md:grid-cols-2 gap-5">
-            {directLinks.map((link, index) => (
-              <a
-                key={index}
-                href={link.url}
-                target={link.label === 'LinkedIn' ? '_blank' : undefined}
-                rel={link.label === 'LinkedIn' ? 'noopener noreferrer' : undefined}
-                className="bg-[#141310] border border-[#C8953A]/15 rounded-xl p-6 hover:border-[#C8953A]/30 hover:-translate-y-1 transition-all group flex items-start gap-4"
-              >
-                <div className="text-3xl">{link.icon}</div>
-                <div className="flex-1">
-                  <div className="text-[13px] text-[#A09880] mb-1">{link.label}</div>
-                  <div className="text-[15px] text-[#F0EDE6] font-medium mb-2">{link.value}</div>
-                  <div className="text-[12px] text-[#C8953A] group-hover:text-[#C8953A]/80 transition-colors">
-                    → {link.action}
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+  
 
       {/* CV Download Banner */}
       <section className="px-6 md:px-12 pb-16 md:pb-20">
