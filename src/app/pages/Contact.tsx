@@ -146,93 +146,62 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Contact Form */}
+      {/* How to reach me */}
       <section className="px-6 md:px-12 pb-16 md:pb-20">
-        <div className="max-w-[700px] mx-auto">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name */}
-            <div>
-              <label htmlFor="name" className="block text-[13px] text-[#F0EDE6] font-medium mb-2">
-                Name *
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full bg-[#141310] border border-[#C8953A]/15 rounded-lg px-4 py-3 text-[14px] text-[#F0EDE6] focus:border-[#C8953A] focus:outline-none transition-colors"
-              />
-            </div>
+        <div className="max-w-[900px] mx-auto">
+          <h2 className="text-[13px] text-[#C8953A] uppercase tracking-wide font-medium mb-3">
+            The fastest way to reach me
+          </h2>
+          <p className="text-[15px] text-[#A09880] leading-relaxed mb-10">
+            No forms. No waiting. Pick the channel that works for you.
+          </p>
 
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="block text-[13px] text-[#F0EDE6] font-medium mb-2">
-                Email *
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full bg-[#141310] border border-[#C8953A]/15 rounded-lg px-4 py-3 text-[14px] text-[#F0EDE6] focus:border-[#C8953A] focus:outline-none transition-colors"
-              />
+          {/* Primary CTA — LinkedIn */}
+          <a
+            href="https://linkedin.com/in/prathikkumarmp"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full bg-[#C8953A] text-[#0F0E0B] rounded-xl p-7 mb-5 hover:bg-[#C8953A]/90 transition-all group"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-[11px] uppercase tracking-widest mb-2 opacity-70">Primary</div>
+                <div className="text-[22px] font-medium">Message me on LinkedIn</div>
+                <div className="text-[13px] mt-1 opacity-75">linkedin.com/in/prathikkumarmp</div>
+              </div>
+              <div className="text-[32px] group-hover:translate-x-1 transition-transform">→</div>
             </div>
+          </a>
 
-            {/* Reason */}
-            <div>
-              <label htmlFor="reason" className="block text-[13px] text-[#F0EDE6] font-medium mb-2">
-                What's this about? *
-              </label>
-              <select
-                id="reason"
-                name="reason"
-                required
-                value={formData.reason}
-                onChange={handleChange}
-                className="w-full bg-[#141310] border border-[#C8953A]/15 rounded-lg px-4 py-3 text-[14px] text-[#F0EDE6] focus:border-[#C8953A] focus:outline-none transition-colors"
-              >
-                <option value="">Select one...</option>
-                <option value="role">A role opportunity</option>
-                <option value="consulting">Consulting or advisory</option>
-                <option value="speaking">Speaking or mentoring</option>
-                <option value="connect">Just want to connect</option>
-              </select>
-            </div>
+          {/* Secondary CTAs */}
+          <div className="grid md:grid-cols-2 gap-5">
+            <a
+              href="mailto:prathikkumarmp@gmail.com"
+              className="bg-[#141310] border border-[#C8953A]/15 rounded-xl p-6 hover:border-[#C8953A]/40 transition-all group flex items-start gap-4"
+            >
+              <div className="flex-1">
+                <div className="text-[11px] text-[#C8953A] uppercase tracking-wide mb-2">Email</div>
+                <div className="text-[15px] text-[#F0EDE6] font-medium mb-1">prathikkumarmp@gmail.com</div>
+                <div className="text-[12px] text-[#A09880] group-hover:text-[#C8953A] transition-colors">→ Send email</div>
+              </div>
+            </a>
 
-            {/* Message */}
-            <div>
-              <label htmlFor="message" className="block text-[13px] text-[#F0EDE6] font-medium mb-2">
-                Message *
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                rows={6}
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Give me a quick context..."
-                className="w-full bg-[#141310] border border-[#C8953A]/15 rounded-lg px-4 py-3 text-[14px] text-[#F0EDE6] placeholder:text-[#6B6455] focus:border-[#C8953A] focus:outline-none transition-colors resize-none"
-              />
-            </div>
+            <a
+              href="tel:+919660185834"
+              className="bg-[#141310] border border-[#C8953A]/15 rounded-xl p-6 hover:border-[#C8953A]/40 transition-all group flex items-start gap-4"
+            >
+              <div className="flex-1">
+                <div className="text-[11px] text-[#C8953A] uppercase tracking-wide mb-2">Call / WhatsApp</div>
+                <div className="text-[15px] text-[#F0EDE6] font-medium mb-1">+91 96601 85834</div>
+                <div className="text-[12px] text-[#A09880] group-hover:text-[#C8953A] transition-colors">→ Call or message</div>
+              </div>
+            </a>
+          </div>
 
-            {/* Submit */}
-            <div>
-              <button
-                type="submit"
-                className="w-full bg-[#C8953A] text-[#0F0E0B] text-[14px] px-8 py-3 rounded-lg hover:bg-[#C8953A]/90 transition-colors font-medium"
-              >
-                Send it →
-              </button>
-              <p className="text-[12px] text-[#8A8575] mt-3 text-center">
-                I read every message and respond within 48 hours.
-              </p>
-            </div>
-          </form>
+          {/* Location note */}
+          <p className="text-[12px] text-[#6B6455] text-center mt-6">
+            Based in Bengaluru · Open to remote and hybrid roles
+          </p>
         </div>
       </section>
 

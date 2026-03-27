@@ -37,17 +37,7 @@ export default function OutsideTheBrief() {
     }
   ];
 
-  const bucketList = [
-    'Flew above Niagara Falls',
-    'Roulette in Vegas',
-    'Shotgun shooting in Portland',
-    '4th of July in New York',
-    'Scotch tasting in Scotland',
-    'Fushimi Inari, Japan',
-    'Skydiving in Dubai',
-    'Scuba in Andaman',
-    'Surfing in Mulki'
-  ];
+
 
   const investmentApproaches = [
     {
@@ -120,10 +110,10 @@ export default function OutsideTheBrief() {
       </section>
 
       {/* Money & Markets */}
-      <section className="px-6 md:px-12 pb-16 md:pb-20">
+      <section className="px-6 md:px-12 py-20 md:py-24">
         <div className="max-w-[1000px] mx-auto">
-          <div className="mb-8">
-            <h2 className="text-[11px] text-[#C8953A] uppercase tracking-wide font-medium mb-3">
+          <div className="mb-12">
+            <h2 className="text-[11px] text-[#C8953A] uppercase tracking-wide font-medium mb-4">
               Money & Markets
             </h2>
             <p className="text-[16px] text-[#BFBAB0] leading-[1.7] mb-8">
@@ -206,7 +196,7 @@ export default function OutsideTheBrief() {
       </section>
 
       {/* Places & Perspectives */}
-      <section className="px-6 md:px-12 pb-16 md:pb-20 bg-[#141310]/30 py-16">
+      <section className="px-6 md:px-12 py-20 md:py-24 bg-[#141310]/30">
         <div className="max-w-[1000px] mx-auto">
           <div className="mb-8">
             <h2 className="text-[11px] text-[#C8953A] uppercase tracking-wide font-medium mb-3">
@@ -238,28 +228,15 @@ export default function OutsideTheBrief() {
                 </div>
               ))}
             </div>
-
-            {/* Bucket List */}
-            <div>
-              <h3 className="text-[13px] text-[#F0EDE6] font-medium mb-5 uppercase tracking-wide">Things that happened</h3>
-              <div className="grid md:grid-cols-3 gap-3">
-                {bucketList.map((item, index) => (
-                  <div key={index} className="flex items-center gap-2 text-[13px] text-[#A09880]">
-                    <span className="text-[#C8953A]">✓</span>
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
       {/* Coins & Currencies */}
-      <section className="px-6 md:px-12 pb-16 md:pb-20">
+      <section className="px-6 md:px-12 py-20 md:py-24">
         <div className="max-w-[1000px] mx-auto">
-          <div className="mb-8">
-            <h2 className="text-[11px] text-[#C8953A] uppercase tracking-wide font-medium mb-3">
+          <div className="mb-12">
+            <h2 className="text-[11px] text-[#C8953A] uppercase tracking-wide font-medium mb-4">
               Coins & Currencies
             </h2>
             <p className="text-[16px] text-[#BFBAB0] leading-[1.7] mb-6">

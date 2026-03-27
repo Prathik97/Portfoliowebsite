@@ -13,8 +13,7 @@ export default function Home() {
     { num: '2×', label: 'Agent Productivity', desc: 'Salesforce CRM across 4 teams' },
     { num: '500+', label: 'Staff Digitised', desc: 'HRMS · 4 cities · 0 spreadsheets' },
     { num: '₹18.5L', label: 'Autopay Revenue', desc: 'Generated in first 6 weeks' },
-    { num: '30L MAU', label: 'From 9L · −65% Cost', desc: 'Scaled users, cut MarTech spend' },
-    { num: '67%', label: 'Chatbot Deflection', desc: 'WhatsApp automation via Salesforce' },
+    { num: '$3M', label: 'Company Revenue', desc: 'SaaS ARR US Exit' },
   ];
 
   const testimonials = [
@@ -100,7 +99,7 @@ export default function Home() {
           Strategy. Design. <span className="text-[#C8953A]">Execution.</span>
         </h1>
         <h2 className="text-2xl md:text-3xl lg:text-[34px] text-[#6B6455] mb-8 md:mb-9">
-          All in one PM.
+          The PM who closes the loop.
         </h2>
 
         {/* Photo Row - Simplified with quote left, photo center, years right */}
@@ -133,7 +132,7 @@ export default function Home() {
         </div>
 
         <div className="max-w-[500px] text-[15px] text-[#A09880] leading-[1.75] mb-8">
-          The rare PM who started in design - so I don't just ship features, I close the loop between vision and what actually reaches the user.
+          I started in design before moving into product - which means I think in systems and experiences at the same time. I don't just write requirements, I can sit with a designer, sketch it out, and ship it sharp.
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 mb-14">
@@ -152,9 +151,9 @@ export default function Home() {
       <section className="border-t border-b border-[#C8953A]/10 py-12 overflow-hidden">
         <div className="flex animate-marquee hover:pause">
           {[...impactData, ...impactData].map((item, index) => (
-            <div 
+            <div
               key={index}
-              className="flex-shrink-0 w-[220px] px-7 py-6 border-r border-[#C8953A]/10 text-center"
+              className="flex-shrink-0 w-[280px] px-10 py-6 border-r border-[#C8953A]/10 text-center"
             >
               <div className="text-[32px] text-[#C8953A] leading-tight mb-1.5 font-medium">{item.num}</div>
               <div className="text-[10px] text-[#C8953A]/70 uppercase tracking-wide mb-1.5 font-medium">{item.label}</div>
