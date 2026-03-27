@@ -186,9 +186,13 @@ export default function Contact() {
               <p className="text-[15px] text-[#F0EDE6] mb-1">Want the full picture before reaching out?</p>
               <p className="text-[11px] text-[#6B6455]">PDF · Updated March 2026</p>
             </div>
-            <button className="bg-[#C8953A] text-[#0F0E0B] text-[13px] px-6 py-2.5 rounded-full hover:bg-[#C8953A]/90 transition-colors font-medium whitespace-nowrap">
+              <a href="https://drive.google.com/file/d/1l0rlVVlFJRcXl7izlQdtaE2ze9hY5QmN/view?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#C8953A] text-[#0F0E0B] text-[13px] px-6 py-2.5 rounded-full hover:bg-[#C8953A]/90 transition-colors font-medium whitespace-nowrap inline-block"
+            >
               ↓ Download CV
-            </button>
+            </a> 
           </div>
         </div>
       </section>
