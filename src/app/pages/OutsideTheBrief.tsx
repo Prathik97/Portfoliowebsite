@@ -246,20 +246,40 @@ export default function OutsideTheBrief() {
               It started as curiosity - unusual coins you don't see in circulation anymore. Now it's a practice in noticing what gets forgotten. Old Indian coins, foreign currency from places I've been - each one has a context that most people walk past.
             </p>
 
-            {/* Collection Placeholder */}
-            <div className="grid md:grid-cols-3 gap-6">
-              {[1, 2, 3].map((item) => (
-                <div key={item} className="bg-[#141310] border border-[#C8953A]/15 rounded-xl p-6 hover:border-[#C8953A]/30 transition-all">
-                  <div className="w-full h-40 bg-[#0F0E0B] rounded-lg mb-4 flex items-center justify-center">
-                    <span className="text-[#6B6455] text-[12px]">Coin photo</span>
-                  </div>
-                  <h3 className="text-[15px] text-[#F0EDE6] font-medium mb-1">1/4 Anna</h3>
-                  <p className="text-[11px] text-[#C8953A] mb-3 uppercase tracking-wide">1841 · East India Company</p>
-                  <p className="text-[13px] text-[#A09880] leading-relaxed">
-                    Oldest silver coin from the collection.
-                  </p>
+            {/* Collection */}
+            <div className="grid md:grid-cols-2 gap-6">
+
+              {/* Card 1 — update image, title, year, description here */}
+              <div className="bg-[#141310] border border-[#C8953A]/15 rounded-xl p-6 hover:border-[#C8953A]/30 transition-all">
+                <div className="w-full h-52 bg-[#0F0E0B] rounded-lg mb-4 overflow-hidden">
+                  <img
+                    src="/src/assets/coin1.png"
+                    alt="Coin 1"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-              ))}
+                <h3 className="text-[15px] text-[#F0EDE6] font-medium mb-1">2 Annas</h3>
+                <p className="text-[11px] text-[#C8953A] mb-3 uppercase tracking-wide">1841 · East India Company</p>
+                <p className="text-[13px] text-[#A09880] leading-relaxed">
+                  Oldest silver coin from the collection.
+                </p>
+              </div>
+
+              {/* Card 2 — update image, title, year, description here */}
+              <div className="bg-[#141310] border border-[#C8953A]/15 rounded-xl p-6 hover:border-[#C8953A]/30 transition-all">
+                <div className="w-full h-52 bg-[#0F0E0B] rounded-lg mb-4 overflow-hidden">
+                  <img
+                    src="/src/assets/coin2.png"
+                    alt="Coin 2"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h3 className="text-[15px] text-[#F0EDE6] font-medium mb-1">Special Coins</h3>
+                <p className="text-[11px] text-[#C8953A] mb-3 uppercase tracking-wide">1841 · 1936 · 1944</p>
+                <p className="text-[13px] text-[#A09880] leading-relaxed">
+                  Top 3 loved coins.
+                </p>
+              </div>
             </div>
           </div>
         </div>

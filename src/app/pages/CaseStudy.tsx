@@ -83,7 +83,6 @@ export default function CaseStudy() {
         { metric: 'First Response Time', value: '−39%' },
         { metric: 'Chatbot Deflection Rate', value: '67%' },
         { metric: 'Onboarding Completion', value: '120%+' },
-        { metric: 'Active Cases Managed Daily', value: '284' }
       ]
     },
     'supply-chain': {
