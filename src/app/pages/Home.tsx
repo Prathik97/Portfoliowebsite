@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
-import profileImage from '/src/assets/profile.png';
+const profileImage = '/profile.png';
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
