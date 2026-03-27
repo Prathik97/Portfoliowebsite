@@ -269,11 +269,11 @@ export default function OutsideTheBrief() {
 
               {/* Card 2 — update image, title, year, description here */}
               <div className="bg-[#141310] border border-[#C8953A]/15 rounded-xl p-6 hover:border-[#C8953A]/30 transition-all">
-                <div className="w-full h-52 bg-[#0F0E0B] rounded-lg mb-4 overflow-hidden">
+                <div className="w-full h-52 bg-[#0F0E0B] rounded-lg mb-4 overflow-hidden flex items-center justify-center">
                   <img
-                    src={coin2}
+                    src="/coin1.png"
                     alt="Coin 2"
-                    className="w-full h-full object-cover object-left"
+                    className="max-h-full max-w-full object-contain"
                   />
                 </div>
                 <h3 className="text-[15px] text-[#F0EDE6] font-medium mb-1">Special Coins</h3>
