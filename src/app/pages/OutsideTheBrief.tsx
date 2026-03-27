@@ -276,9 +276,9 @@ export default function OutsideTheBrief() {
                     className="max-h-full max-w-full object-contain"
                   />
                 </div>
-                <h3 className="text-[15px] text-[#F0EDE6] font-medium mb-1">Special Coins</h3>
-                <p className="text-[11px] text-[#C8953A] mb-3 uppercase tracking-wide">1841 · 1936 · 1944</p>
-                <p className="text-[13px] text-[#A09880] leading-relaxed">
+                <h3 className="text-[15px] text-[#F0EDE6] font-medium mb-1 text-center">Special Coins</h3>
+                <p className="text-[11px] text-[#C8953A] mb-3 uppercase tracking-wide text-center">1841 · 1936 · 1944</p>
+                <p className="text-[13px] text-[#A09880] leading-relaxed text-center">
                   Top 3 loved coins.
                 </p>
               </div>
