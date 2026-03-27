@@ -271,7 +271,7 @@ export default function OutsideTheBrief() {
               <div className="bg-[#141310] border border-[#C8953A]/15 rounded-xl p-6 hover:border-[#C8953A]/30 transition-all">
                 <div className="w-full h-52 bg-[#0F0E0B] rounded-lg mb-4 overflow-hidden flex items-center justify-center">
                   <img
-                    src="/coin1.png"
+                    src="/coin2.png"
                     alt="Coin 2"
                     className="max-h-full max-w-full object-contain"
                   />
