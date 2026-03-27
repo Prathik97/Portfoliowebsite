@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
+const coin1 = '/coin1.png';
+const coin2 = '/coin2.png';
 
 export default function OutsideTheBrief() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -253,7 +255,7 @@ export default function OutsideTheBrief() {
               <div className="bg-[#141310] border border-[#C8953A]/15 rounded-xl p-6 hover:border-[#C8953A]/30 transition-all">
                 <div className="w-full h-52 bg-[#0F0E0B] rounded-lg mb-4 overflow-hidden">
                   <img
-                    src="/src/assets/coin1.png"
+                    src="/coin1.png"
                     alt="Coin 1"
                     className="w-full h-full object-cover"
                   />
@@ -269,7 +271,7 @@ export default function OutsideTheBrief() {
               <div className="bg-[#141310] border border-[#C8953A]/15 rounded-xl p-6 hover:border-[#C8953A]/30 transition-all">
                 <div className="w-full h-52 bg-[#0F0E0B] rounded-lg mb-4 overflow-hidden">
                   <img
-                    src="/src/assets/coin2.png"
+                    src="/coin2.png"
                     alt="Coin 2"
                     className="w-full h-full object-cover"
                   />
