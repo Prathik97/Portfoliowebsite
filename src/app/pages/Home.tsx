@@ -42,6 +42,7 @@ export default function Home() {
 
   const skills = [
     { category: 'Product', items: ['Strategy', 'Roadmapping', 'PRD', 'OKRs', 'Backlog Mgmt', 'Agile & Scrum'] },
+    { category: 'AI & Product', items: ['AI PRDs', 'LLMs', 'RAG', 'Prompt Engineering', 'Agentic AI', 'AI Evaluation'] },
     { category: 'Growth', items: ['Funnel Analysis', 'A/B Testing', 'Retention', 'CleverTap', 'MoEngage'] },
     { category: 'Leadership', items: ['Stakeholder Mgmt', 'Cross-functional', 'Vendor Eval', 'Hiring', 'Process Optimisation'] },
     { category: 'Tools', items: ['Salesforce CRM', 'Figma', 'MS Clarity', 'ClickUp', 'Mojro', 'Bizom'] }
@@ -197,6 +198,46 @@ export default function Home() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* AI & Product */}
+      <section className="bg-[#141310] border-t border-[#C8953A]/10 px-6 md:px-12 py-16 md:py-20">
+        <div className="max-w-[720px] mx-auto">
+
+          <div className="text-[11px] tracking-[0.14em] uppercase text-[#C8953A] mb-4">AI & Product</div>
+          <h2 className="text-3xl md:text-4xl text-[#F0EDE6] mb-6 tracking-tight leading-tight">
+            Building with AI. Not just reading about it.
+          </h2>
+          <p className="text-[15px] text-[#A09880] leading-[1.8] mb-10">
+            I shipped a working AI product, written AI PRDs from scratch, and spent real time understanding how LLMs, RAG, and agentic systems actually work — not just what they're called.
+          </p>
+
+          {/* 3 column pointer grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+            {[
+              { num: '01', title: 'Explain AI to anyone', sub: 'LLMs · RAG · Embeddings · Agentic flows' },
+              { num: '02', title: 'Write AI PRDs', sub: 'Failure modes · Guardrails · Metrics' },
+              { num: '03', title: 'Know when AI is wrong', sub: '4-question decision framework' },
+              { num: '04', title: 'Shipped an AI product', sub: 'PM Assistant · Claude API · Agentic flow' },
+              { num: '05', title: 'Define AI metrics', sub: 'Leading · Lagging · Trust calibration' },
+              { num: '06', title: 'Evaluate & test AI', sub: 'Red teaming · Shadow deploy · A/B' },
+            ].map((item) => (
+              <div key={item.num} className="flex items-start gap-3">
+                <span className="text-[11px] text-[#C8953A]/50 font-medium mt-0.5 flex-shrink-0">{item.num}</span>
+                <div>
+                  <p className="text-[13px] text-[#F0EDE6] font-medium leading-snug">{item.title}</p>
+                  <p className="text-[11px] text-[#6B6455] mt-0.5">{item.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Quote */}
+          <div className="text-[15px] text-[#F0EDE6] italic border-l-[3px] border-[#C8953A] pl-4">
+            The PM who says "we don't need AI for this" is more valuable than the one who says yes to everything. That's a principle I operate by — and I can back it up with a framework.
+          </div>
+
         </div>
       </section>
 
