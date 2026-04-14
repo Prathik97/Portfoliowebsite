@@ -39,7 +39,7 @@ export default function Projects() {
     }
   ];
 
-  const filters = ['All', 'D2C', 'SCM & Inventory', 'MarTech', 'CRM', 'AgriTech', 'HRMS', 'Retail', 'Real Estate', 'Finance'];
+  const filters = ['All', 'D2C', 'AI', 'SCM & Inventory', 'MarTech', 'CRM', 'AgriTech', 'HRMS', 'Retail', 'Real Estate', 'Finance'];
 
   const projects = [
     {
@@ -185,6 +185,43 @@ export default function Projects() {
       outcomeDetail: '₹1.05L monthly savings · 1,000+ stores migrated',
       caseStudyLink: '/case-study/sd-migration'
     }
+    ,
+{
+  status: 'Built & Shipped',
+  statusType: 'AI Product',
+  domain: 'AI',
+  title: 'PM Assistant — AI PRD Co-pilot',
+  problem: 'Writing a solid PRD from a vague problem statement takes hours. Most PMs either over-engineer it or skip the hard thinking entirely.',
+  action: 'Built an AI PRD co-pilot that takes a rough problem statement and generates a complete 10-section PRD — with vagueness detection, AI vs rules-based routing, a verification brief before generation, and per-project memory. Built with Claude API. No frameworks, no backend.',
+  tags: ['Claude API', 'Agentic Flow', 'AI PRD', 'State Machine', 'Vanilla JS'],
+  outcome: 'Shipped',
+  outcomeDetail: 'Solves a real daily problem I had as a PM',
+  caseStudyLink: '/case-study/pm-assistant'
+},
+{
+  status: 'AI PRD',
+  statusType: 'Case Study',
+  domain: 'AI',
+  title: 'Swiggy Support Copilot — RAG-Based Agent',
+  problem: 'Support agents at scale spend more time looking up context than actually resolving issues — leading to slow resolution times and inconsistent customer experience.',
+  action: 'Wrote a full AI PRD for a RAG-based agent copilot that retrieves customer context, validates complaints, checks RFM tier, and suggests resolutions — with human review before sending. Includes 10 failure modes with guardrails, complete metrics framework, go/no-go criteria, and a 2-week evaluation plan with red teaming and shadow deployment.',
+  tags: ['RAG', 'Agentic AI', 'AI PRD', 'Eval Framework', 'RFM', 'Human-in-the-loop'],
+  outcome: 'Full AI PRD',
+  outcomeDetail: 'Production-ready spec written from scratch',
+  caseStudyLink: '/case-study/swiggy-copilot'
+},
+{
+  status: 'AI PRD',
+  statusType: 'Case Study',
+  domain: 'AI',
+  title: 'Zomato Restaurant Intelligence — LLM Insights Engine',
+  problem: 'Restaurant partners on Zomato have no clear signal on why their ratings drop or what to fix — just a number that goes up or down.',
+  action: 'Wrote an AI PRD for a feature that analyses customer reviews, order patterns, and complaint categories using LLMs — and delivers a daily insight report with prioritised action suggestions. Designed for non-technical restaurant owners. Includes RFM-based tier targeting and anomaly detection for fake reviews.',
+  tags: ['Sentiment Analysis', 'LLM', 'Classification', 'RAG', 'B2B Product', 'AI PRD'],
+  outcome: 'Full AI PRD',
+  outcomeDetail: 'Solo PRD — no template, built from first principles',
+  caseStudyLink: '/case-study/zomato-intelligence'
+}
   ];
 
   const heroStats = [

@@ -210,7 +210,7 @@ export default function Home() {
             Building with AI. Not just reading about it.
           </h2>
           <p className="text-[15px] text-[#A09880] leading-[1.8] mb-10">
-            I shipped a working AI product, written AI PRDs from scratch, and spent real time understanding how LLMs, RAG, and agentic systems actually work — not just what they're called.
+            I shipped a working AI product, written AI PRDs from scratch, and spent real time understanding how LLMs, RAG, and agentic systems actually work - not just what they're called.
           </p>
 
           {/* 3 column pointer grid */}
@@ -235,7 +235,7 @@ export default function Home() {
 
           {/* Quote */}
           <div className="text-[15px] text-[#F0EDE6] italic border-l-[3px] border-[#C8953A] pl-4">
-            The PM who says "we don't need AI for this" is more valuable than the one who says yes to everything. That's a principle I operate by — and I can back it up with a framework.
+            The PM who says "we don't need AI for this" is more valuable than the one who says yes to everything. That's a principle I operate by and I can back it up with a framework.
           </div>
 
         </div>

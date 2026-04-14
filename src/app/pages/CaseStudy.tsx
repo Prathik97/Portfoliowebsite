@@ -333,6 +333,79 @@ export default function CaseStudy() {
         { metric: 'Field Users', value: '50+' },
         { metric: 'Process Modules', value: '5 Modules' }
       ]
+    },
+    'pm-assistant': {
+      title: 'PM Assistant',
+      subtitle: 'An AI PRD Co-pilot I Built Because I Needed It',
+      description: 'A working AI product that takes a rough problem statement and generates a complete 10-section PRD — with vagueness detection, AI vs rules-based routing, and per-project memory. Built with Claude API, vanilla JS, no backend.',
+      role: 'Builder · PM',
+      scope: 'Solo Project · Shipped',
+      platform: 'Claude API · Vanilla JS · localStorage',
+      problem: {
+        text: 'Writing a solid PRD from a vague problem statement takes hours. Most PMs either over-engineer it or skip the hard thinking. I wanted something that would push back on vagueness and help structure the thinking — not just generate text.',
+        issues: ['Vague problem statements', 'No structure enforcement', 'Starts from scratch every time', 'No memory across sessions']
+      },
+      process: [
+        { title: 'Vagueness detection', desc: 'Before generating anything, the tool checks if the problem statement is specific enough. If not, it asks follow-up questions.' },
+        { title: 'AI vs rules-based routing', desc: 'A 4-question framework decides whether the problem actually needs AI — or whether rules would solve it better.' },
+        { title: 'Verification brief', desc: 'Before generating the full PRD, the tool surfaces a brief summary of what it understood. You confirm before it proceeds.' },
+        { title: 'PRD generation', desc: 'Generates a complete 10-section PRD — problem, users, success metrics, failure modes, guardrails, go/no-go criteria, and more.' },
+        { title: 'Per-project memory', desc: 'Each project is stored separately in localStorage — so context carries across sessions without a backend.' }
+      ],
+      outcomes: [
+        { metric: 'PRD Sections Generated', value: '10' },
+        { metric: 'Failure Modes Covered', value: 'Built-in' },
+        { metric: 'Backend Required', value: 'None' },
+        { metric: 'Status', value: 'Shipped' }
+      ]
+    },
+    'swiggy-copilot': {
+      title: 'Swiggy Support Copilot',
+      subtitle: 'A RAG-Based Agent That Helps Support Teams Resolve Faster',
+      description: 'A full AI PRD for a RAG-based agent copilot that retrieves customer context, validates complaints, checks RFM tier, and suggests resolutions — with human review before sending.',
+      role: 'Product Manager',
+      scope: 'AI PRD · Case Study',
+      platform: 'RAG · Agentic AI · Human-in-the-loop',
+      problem: {
+        text: 'Support agents spend more time looking up context than resolving issues. Customer history, order status, complaint category, RFM tier — it\'s all in different places. By the time an agent has the full picture, the customer has already escalated.',
+        issues: ['Fragmented customer context', 'Slow resolution time', 'Inconsistent handling', 'No RFM-based prioritisation', 'Manual complaint categorisation']
+      },
+      phases: [
+        { title: 'Context retrieval', desc: 'RAG pipeline retrieves customer order history, past complaints, and RFM tier before the agent sees the ticket.' },
+        { title: 'Complaint validation & classification', desc: 'LLM classifies complaint type and validates it against order data — catches fraudulent claims before they reach a human.' },
+        { title: 'Resolution suggestion', desc: 'Agent gets a suggested resolution based on complaint type, RFM tier, and past resolutions. Human reviews before sending.' },
+        { title: 'Evaluation plan', desc: '2-week shadow deployment, red teaming on edge cases, A/B test against baseline resolution time. Go/no-go at Week 2.' }
+      ],
+      outcomes: [
+        { metric: 'Failure Modes Documented', value: '10' },
+        { metric: 'Evaluation Duration', value: '2 Weeks' },
+        { metric: 'Human Review', value: 'Always On' },
+        { metric: 'PRD Type', value: 'Production-Ready' }
+      ]
+    },
+    'zomato-intelligence': {
+      title: 'Zomato Restaurant Intelligence',
+      subtitle: 'Daily AI Insights for Restaurant Partners Who Don\'t Speak Data',
+      description: 'An AI PRD for a feature that analyses customer reviews, order patterns, and complaint categories using LLMs — delivering a daily insight report with prioritised action suggestions for restaurant partners.',
+      role: 'Product Manager',
+      scope: 'AI PRD · Case Study',
+      platform: 'LLM · Sentiment Analysis · RAG · Classification',
+      problem: {
+        text: 'Restaurant partners on Zomato — especially dhabas and cloud kitchens — have no clear signal on why their rating dropped or what to fix. They get a number. That\'s it. The gap between "your rating is 3.8" and "here\'s what to do about it" is entirely on the owner.',
+        issues: ['No actionable feedback loop', 'Rating drops with no explanation', 'Review analysis is manual', 'Non-technical owners can\'t parse data', 'Fake review noise']
+      },
+      phases: [
+        { title: 'Review ingestion & classification', desc: 'LLM classifies reviews by complaint category — food quality, delivery time, packaging, portion size, value. Filters fake reviews via anomaly detection.' },
+        { title: 'Pattern analysis', desc: 'Identifies recurring themes over the past 7 and 30 days. Surfaces what changed, not just what\'s wrong.' },
+        { title: 'Daily insight report', desc: 'Plain-language report with 3 prioritised action suggestions. Designed for a dhaba owner, not a data analyst.' },
+        { title: 'RFM-based targeting', desc: 'Feature rolled out to at-risk partners first — those with declining ratings and high order volume. Tier-based prioritisation.' }
+      ],
+      outcomes: [
+        { metric: 'Target Audience', value: 'Non-technical owners' },
+        { metric: 'Review Categories', value: '5 Types' },
+        { metric: 'Insight Delivery', value: 'Daily report' },
+        { metric: 'PRD Type', value: 'Solo · First principles' }
+      ]
     }
   };
 
@@ -418,10 +491,7 @@ export default function CaseStudy() {
         {/* The Problem */}
         {study.problem && (
           <section>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-[32px] text-[#C8953A] font-medium">01</span>
-              <div className="flex-1 h-px bg-[#C8953A]/20"></div>
-            </div>
+            <div className="w-full h-px bg-[#C8953A]/20 mb-6"></div>
             <h3 className="text-2xl text-[#F0EDE6] mb-5 font-medium">The Problem</h3>
             {study.problem.text && (
               <p className="text-[15px] text-[#BFBAB0] leading-[1.8] mb-6">
@@ -446,10 +516,7 @@ export default function CaseStudy() {
         {/* What I Owned (for customer-app) */}
         {study.owned && (
           <section>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-[32px] text-[#C8953A] font-medium">02</span>
-              <div className="flex-1 h-px bg-[#C8953A]/20"></div>
-            </div>
+            <div className="w-full h-px bg-[#C8953A]/20 mb-6"></div>
             <h3 className="text-2xl text-[#F0EDE6] mb-5 font-medium">What I Owned</h3>
             <ul className="space-y-3">
               {study.owned.map((item: string, i: number) => (
@@ -465,10 +532,7 @@ export default function CaseStudy() {
         {/* Process (for customer-app) */}
         {study.process && (
           <section>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-[32px] text-[#C8953A] font-medium">03</span>
-              <div className="flex-1 h-px bg-[#C8953A]/20"></div>
-            </div>
+            <div className="w-full h-px bg-[#C8953A]/20 mb-6"></div>
             <h3 className="text-2xl text-[#F0EDE6] mb-6 font-medium">Process</h3>
             <div className="space-y-6">
               {study.process.map((step: any, i: number) => (
@@ -504,10 +568,7 @@ export default function CaseStudy() {
         {/* Three Phases (for salesforce-crm, website-revamp) */}
         {study.phases && (
           <section>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-[32px] text-[#C8953A] font-medium">02</span>
-              <div className="flex-1 h-px bg-[#C8953A]/20"></div>
-            </div>
+            <div className="w-full h-px bg-[#C8953A]/20 mb-6"></div>
             <h3 className="text-2xl text-[#F0EDE6] mb-6 font-medium">{id === 'website-revamp' ? 'Two Parallel Phases' : 'Three Phases'}</h3>
             <div className="space-y-5">
               {study.phases.map((phase: any, i: number) => (
@@ -528,10 +589,7 @@ export default function CaseStudy() {
         {/* Capabilities (for customer-app, hrms) */}
         {study.capabilities && (
           <section>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-[32px] text-[#C8953A] font-medium">{study.process ? '04' : '02'}</span>
-              <div className="flex-1 h-px bg-[#C8953A]/20"></div>
-            </div>
+            <div className="w-full h-px bg-[#C8953A]/20 mb-6"></div>
             <h3 className="text-2xl text-[#F0EDE6] mb-6 font-medium">
               {id === 'hrms' ? '7 Capabilities Delivered' : 'What Was Delivered'}
             </h3>
@@ -566,10 +624,7 @@ export default function CaseStudy() {
         {/* Hierarchy (for farmer-management) */}
         {study.hierarchy && (
           <section>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-[32px] text-[#C8953A] font-medium">02</span>
-              <div className="flex-1 h-px bg-[#C8953A]/20"></div>
-            </div>
+            <div className="w-full h-px bg-[#C8953A]/20 mb-6"></div>
             <h3 className="text-2xl text-[#F0EDE6] mb-6 font-medium">Procurement Hierarchy</h3>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-[#141310] border border-[#C8953A]/15 rounded-xl p-6">
@@ -601,10 +656,7 @@ export default function CaseStudy() {
         {/* Architecture (for farmer-management) */}
         {study.architecture && (
           <section>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-[32px] text-[#C8953A] font-medium">03</span>
-              <div className="flex-1 h-px bg-[#C8953A]/20"></div>
-            </div>
+            <div className="w-full h-px bg-[#C8953A]/20 mb-6"></div>
             <h3 className="text-2xl text-[#F0EDE6] mb-6 font-medium">System Architecture</h3>
             <div className="space-y-4">
               {study.architecture.map((layer: any, i: number) => (
@@ -661,10 +713,7 @@ export default function CaseStudy() {
         {/* Benefits (for supply-chain) */}
         {study.benefits && (
           <section>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-[32px] text-[#C8953A] font-medium">04</span>
-              <div className="flex-1 h-px bg-[#C8953A]/20"></div>
-            </div>
+            <div className="w-full h-px bg-[#C8953A]/20 mb-6"></div>
             <h3 className="text-2xl text-[#F0EDE6] mb-6 font-medium">What Geofencing Enables Beyond Cost</h3>
             <div className="space-y-4">
               {study.benefits.map((benefit: any, i: number) => (
@@ -680,10 +729,7 @@ export default function CaseStudy() {
         {/* Delivered (for farmer-management, hrms) */}
         {study.delivered && (
           <section>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-[32px] text-[#C8953A] font-medium">{study.architecture ? '04' : '03'}</span>
-              <div className="flex-1 h-px bg-[#C8953A]/20"></div>
-            </div>
+            <div className="w-full h-px bg-[#C8953A]/20 mb-6"></div>
             <h3 className="text-2xl text-[#F0EDE6] mb-5 font-medium">What Was Delivered</h3>
             <div className="flex flex-wrap gap-2">
               {study.delivered.map((item: string, i: number) => (
@@ -701,10 +747,7 @@ export default function CaseStudy() {
         {/* Outcomes Table (for customer-app) */}
         {study.outcomes && study.outcomes[0]?.metric && study.outcomes[0]?.before && (
           <section>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-[32px] text-[#C8953A] font-medium">05</span>
-              <div className="flex-1 h-px bg-[#C8953A]/20"></div>
-            </div>
+            <div className="w-full h-px bg-[#C8953A]/20 mb-6"></div>
             <h3 className="text-2xl text-[#F0EDE6] mb-6 font-medium">Outcomes</h3>
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
@@ -734,10 +777,7 @@ export default function CaseStudy() {
         {/* Outcomes Grid (for salesforce-crm, website-revamp, supply-chain initiatives) */}
         {study.outcomes && study.outcomes[0]?.value && !study.outcomes[0]?.before && (
           <section>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-[32px] text-[#C8953A] font-medium">{id === 'salesforce-crm' ? '03' : id === 'website-revamp' ? '03' : '05'}</span>
-              <div className="flex-1 h-px bg-[#C8953A]/20"></div>
-            </div>
+            <div className="w-full h-px bg-[#C8953A]/20 mb-6"></div>
             <h3 className="text-2xl text-[#F0EDE6] mb-6 font-medium">Outcomes</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
               {study.outcomes.map((outcome: any, i: number) => (
@@ -757,10 +797,7 @@ export default function CaseStudy() {
         {/* Roadmap (for customer-app) */}
         {study.roadmap && (
           <section>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-[32px] text-[#C8953A] font-medium">06</span>
-              <div className="flex-1 h-px bg-[#C8953A]/20"></div>
-            </div>
+            <div className="w-full h-px bg-[#C8953A]/20 mb-6"></div>
             <h3 className="text-2xl text-[#F0EDE6] mb-5 font-medium">Phase 2 Roadmap</h3>
             <div className="flex flex-wrap gap-2">
               {study.roadmap.map((item: string, i: number) => (
