@@ -332,7 +332,7 @@ export default function Home() {
       <style>{`
         @keyframes marquee {
           from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
+          to { transform: translateX(-25%); }
         }
         .animate-marquee {
           animation: marquee 28s linear infinite;
