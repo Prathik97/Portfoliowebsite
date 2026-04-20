@@ -149,8 +149,23 @@ export default function Home() {
       </section>
 
       {/* Impact Marquee */}
-      <section className="border-t border-b border-[#C8953A]/10 py-12 overflow-hidden">
-        <div className="flex animate-marquee hover:pause">
+      <section className="border-t border-b border-[#C8953A]/10 py-12">
+        {/* Mobile — swipeable scroll */}
+        <div className="flex md:hidden overflow-x-auto scrollbar-hide px-6 gap-0">
+          {impactData.map((item, index) => (
+            <div
+              key={index}
+              className="flex-shrink-0 w-[200px] px-6 py-4 border-r border-[#C8953A]/10 text-center"
+            >
+              <div className="text-[28px] text-[#C8953A] leading-tight mb-1.5 font-medium">{item.num}</div>
+              <div className="text-[10px] text-[#C8953A]/70 uppercase tracking-wide mb-1.5 font-medium">{item.label}</div>
+              <div className="text-[11px] text-[#8A8575] leading-snug">{item.desc}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop — animated marquee */}
+        <div className="hidden md:flex overflow-hidden animate-marquee">
           {[...impactData, ...impactData].map((item, index) => (
             <div
               key={index}
@@ -316,20 +331,26 @@ export default function Home() {
 
       <style>{`
         @keyframes marquee {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
         }
-
         .animate-marquee {
           animation: marquee 28s linear infinite;
         }
-
         .animate-marquee:hover {
           animation-play-state: paused;
+        }
+        @media (max-width: 768px) {
+          .animate-marquee {
+            animation-duration: 16s;
+          }
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
         }
       `}</style>
     </div>
