@@ -166,7 +166,7 @@ export default function Home() {
 
         {/* Desktop — animated marquee */}
         <div className="hidden md:flex overflow-hidden animate-marquee">
-          {[...impactData, ...impactData].map((item, index) => (
+          {[...impactData, ...impactData, ...impactData, ...impactData].map((item, index) => (
             <div
               key={index}
               className="flex-shrink-0 w-[280px] px-10 py-6 border-r border-[#C8953A]/10 text-center"
