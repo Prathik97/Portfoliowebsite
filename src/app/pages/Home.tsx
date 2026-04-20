@@ -165,17 +165,19 @@ export default function Home() {
         </div>
 
         {/* Desktop — animated marquee */}
-        <div className="hidden md:flex overflow-hidden animate-marquee">
-          {[...impactData, ...impactData, ...impactData, ...impactData].map((item, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0 w-[280px] px-10 py-6 border-r border-[#C8953A]/10 text-center"
-            >
-              <div className="text-[32px] text-[#C8953A] leading-tight mb-1.5 font-medium">{item.num}</div>
-              <div className="text-[10px] text-[#C8953A]/70 uppercase tracking-wide mb-1.5 font-medium">{item.label}</div>
-              <div className="text-[11px] text-[#8A8575] leading-snug">{item.desc}</div>
-            </div>
-          ))}
+        <div className="hidden md:block overflow-hidden">
+          <div className="flex animate-marquee" style={{ width: 'max-content' }}>
+            {[...impactData, ...impactData].map((item, index) => (
+              <div
+                key={index}
+                className="flex-shrink-0 w-[280px] px-10 py-6 border-r border-[#C8953A]/10 text-center"
+              >
+                <div className="text-[32px] text-[#C8953A] leading-tight mb-1.5 font-medium">{item.num}</div>
+                <div className="text-[10px] text-[#C8953A]/70 uppercase tracking-wide mb-1.5 font-medium">{item.label}</div>
+                <div className="text-[11px] text-[#8A8575] leading-snug">{item.desc}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -332,7 +334,7 @@ export default function Home() {
       <style>{`
         @keyframes marquee {
           from { transform: translateX(0); }
-          to { transform: translateX(-25%); }
+          to { transform: translateX(-50%); }
         }
         .animate-marquee {
           animation: marquee 28s linear infinite;
