@@ -133,7 +133,7 @@ export default function Home() {
         </div>
 
         <div className="max-w-[500px] text-[15px] text-[#A09880] leading-[1.75] mb-8">
-          I started in design before moving into product - which means I think in systems and experiences at the same time. I don't just write requirements, I can sit with a designer, sketch it out, and ship it sharp.
+          I started in design before moving into product - which means I think in systems and experiences at the same time. I don’t just write requirements, I can sit with a designer, sketch ideas out, and help bring them to life well.
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 mb-14">
