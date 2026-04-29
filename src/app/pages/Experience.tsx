@@ -189,7 +189,7 @@ export default function Experience() {
             Experience
           </h1>
           <p className="text-[17px] text-[#BFBAB0] leading-[1.7]">
-            7 years. Three roles. One consistent thread - I close the gap between strategy and what actually ships.
+            Over 7 years across SaaS and D2C, I’ve focused on translating strategy into products people actually use.
           </p>
         </div>
       </section>

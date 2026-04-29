@@ -187,7 +187,7 @@ export default function Home() {
           <div className="text-[11px] tracking-[0.14em] uppercase text-[#C8953A] mb-4">About</div>
           <h2 className="text-3xl md:text-4xl text-[#F0EDE6] mb-7 tracking-tight">What Drives Me</h2>
           <p className="text-[15px] text-[#A09880] leading-[1.8] mb-4">
-            My path into product management started in UI/UX design - which means I think in systems and experiences at the same time. I don't just write requirements, I can sit with a designer, sketch it out, and ship it sharp.
+            I started in design before moving into product - which means I think in systems and experiences at the same time. I don’t just write requirements, I can sit with a designer, sketch ideas out, and help bring them to life well.
           </p>
           <p className="text-[15px] text-[#A09880] leading-[1.8] mb-7">
             Over 7 years across SaaS and D2C, I've taken products from idea to market, from messy spreadsheets to scalable platforms. What I care about most is the gap between strategy and what actually reaches the user - and closing it.
