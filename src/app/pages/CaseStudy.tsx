@@ -774,6 +774,25 @@ export default function CaseStudy() {
           </section>
         )}
 
+        {/* Try it live button — PM Assistant only */}
+        {id === 'pm-assistant' && (
+          <section>
+            <div className="w-full h-px bg-[#C8953A]/20 mb-6"></div>
+            <h3 className="text-2xl text-[#F0EDE6] mb-4 font-medium">Try it yourself</h3>
+            <p className="text-[14px] text-[#A09880] leading-relaxed mb-6">
+              PM Assistant is live. You'll need your own Anthropic API key — available free at console.anthropic.com. Each PRD costs fractions of a cent to generate.
+            </p>
+            
+            <a  href="https://prathik97.github.io/pm-assistant/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#C8953A] text-[#0F0E0B] px-6 py-3 rounded-full text-[13px] font-medium hover:bg-[#C8953A]/90 transition-colors"
+              >
+              Try PM Assistant →
+            </a>
+          </section>
+        )}
+
         {/* Outcomes Grid (for salesforce-crm, website-revamp, supply-chain initiatives) */}
         {study.outcomes && study.outcomes[0]?.value && !study.outcomes[0]?.before && (
           <section>
