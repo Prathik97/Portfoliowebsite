@@ -226,7 +226,7 @@ export default function Projects() {
 
   const heroStats = [
     { number: '9', label: 'Domains Shipped', detail: 'D2C to AgriTech' },
-    { number: '₹575 Cr', label: 'Valuation Impact', detail: 'Product-led growth' },
+    { number: '~44% YoY', label: 'Valuation Impact', detail: 'Product-led growth' },
     { number: '7 Years', label: 'Experience', detail: 'Design to PM' },
     { number: '₹90L', label: 'Cost Savings', detail: 'SCM optimization' }
   ];
