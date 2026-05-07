@@ -6,7 +6,7 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const impactData = [
-    { num: '₹575 Cr', label: 'Company Valuation', desc: 'Product-led growth at Sid\'s Farm' },
+    { num: '~44% YoY', label: 'Company Valuation', desc: 'Product-led growth' },
     { num: '−63%', label: 'Subscription Conv. Time', desc: '15 days → 5.5, nearly 3× faster' },
     { num: '+85%', label: 'Session Engagement', desc: 'Rebuilt around North Star metric' },
     { num: '₹90L', label: 'Annual Cost Savings', desc: 'SCM optimization through geofencing' },

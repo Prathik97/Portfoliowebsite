@@ -35,7 +35,7 @@ export default function Experience() {
       period: 'Aug 2024 – Present',
       location: 'Hyderabad',
       team: 'Team of 10  ·  ~44% YoY Growth',
-      overview: 'Owned product strategy, roadmap, and OKR-driven execution across customer, marketing, and operational platforms. Contributing to company valuation growth from ₹275 Cr to ₹575 Cr through product-led growth across every customer touchpoint.',
+      overview: 'Owned product strategy, roadmap, and OKR-driven execution across customer, marketing, and operational platforms. Contributing to company valuation growth of ~44% YoY growth through product-led growth across every customer touchpoint.',
       achievements: [
         { metric: '+85%', text: 'Session time — rebuilt app around a North Star engagement metric' },
         { metric: '−63%', text: 'Days to subscribe — simplified subscription onboarding end-to-end' },
@@ -49,7 +49,7 @@ export default function Experience() {
       ],
       projects: ['D2C Customer App', 'Salesforce CRM', 'Supply Chain & LMD', 'MarTech Migration', 'Farmer Mgmt System', 'HRMS', 'Website Revamp'],
       tags: ['Product Strategy', 'OKRs', 'D2C Subscriptions', 'Salesforce', 'CleverTap', 'Mobile', 'AgriTech', 'HRMS'],
-      keyMetric: { value: '₹575 Cr', label: 'Company Valuation' }
+      keyMetric: { value: '~44% YoY Growth', label: 'Company Valuation' }
     },
     {
       current: false,
